@@ -6,8 +6,6 @@ import React from 'react';
 
 import store from './store';
 
-
-
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 //import './semantic/dist/semantic.min.css';

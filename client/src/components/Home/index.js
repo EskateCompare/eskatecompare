@@ -2,7 +2,7 @@ import React from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
 
-import { Grid, Header} from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 
 const mapStateToProps = state => ({
   ...state.main
