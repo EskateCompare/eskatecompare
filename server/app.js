@@ -29,11 +29,12 @@ app.use(session({ secret: 'skatecompare', cookie: { maxAge: 60000 }, resave: fal
 if (!isProduction) {
   app.use(errorhandler());
 }
-
+mongodb://<dbuser>:<dbpassword>@ds129762.mlab.com:29762/heroku_p0dqrw89
 if(isProduction){
   mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect('mongodb://localhost/skatecompare');
+  //mongoose.connect('mongodb://localhost/skatecompare');
+  mongoose.connect('mongodb://mvalen:Ma.301934@ds129762.mlab.com:29762/heroku_p0dqrw89')
   mongoose.set('debug', true);
 }
 
