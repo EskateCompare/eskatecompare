@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import {  Route, Switch, Redirect } from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-
+import ProductPage from './Containers/ProductPage';
 import Home from './Home';
 import GlobalHeader from './Globals/GlobalHeader';
 
@@ -38,7 +38,7 @@ class App extends React.Component {
       <Container>
       <GlobalHeader />
         <Switch>
-          <Route exact path='/' component={Home} />
+          <Route exact path='/' component={ProductPage} />
         </Switch>
         </Container>
       </div>
