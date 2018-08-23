@@ -14,36 +14,38 @@ class CompareProducts extends Component {
 
     return (
       <div className="App">
-
-      <Container>
-        <Grid>
-          <Grid.Row>
-            <Header floated='left' as='h1'>656 best running shoes (364 in US 9½)</Header>
-          </Grid.Row>
-          <Grid.Row>
-            <Header floated='left' as='h5'>
-              <Icon name='checkmark' />
-              <Header.Content>Updated August 2018</Header.Content>
+        <Grid container columns={2} stackable>
+          <Grid.Column width={7}>
+            <Header floated='left' as='h1'>656 best electic boards of 1232</Header>
+          </Grid.Column>
+          <Grid.Column floated='right' width={9}>
+            <Header floated='right' as='h6'>
+              <Label>
+                <Icon name='user' />
+                223
+                <Label.Detail>User Reviews</Label.Detail>
+              </Label>
+              <Label>
+                <Icon name='external' />
+                1567
+                <Label.Detail>External Reviews</Label.Detail>
+              </Label>
+              <Label>
+                <Icon name='checkmark' />
+                Last Updated
+                <Label.Detail>August 2018</Label.Detail>
+              </Label>
             </Header>
-          </Grid.Row>
-          <Grid.Row>
-            <Header floated='left'as='h5'>
-              <Icon name='checkmark' />
-              <Header.Content>Based on 54,683 reviews</Header.Content>
-            </Header>
-          </Grid.Row>
+          </Grid.Column>
         </Grid>
-      </Container>
-
-      <Grid container columns={2} stackable>
-        <Grid.Column width={4}>
-          <Filter />
-        </Grid.Column>
-        <Grid.Column width={12}>
-          <ProductList />
-        </Grid.Column>
-      </Grid>
-
+        <Grid container columns={2} stackable>
+          <Grid.Column width={4}>
+            <Filter />
+          </Grid.Column>
+          <Grid.Column width={12}>
+            <ProductList />
+          </Grid.Column>
+        </Grid>
       </div>
     );
   }

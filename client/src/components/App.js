@@ -7,6 +7,7 @@ import {  Route, Switch, Redirect } from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import CompareProducts from './Containers/CompareProducts';
+import Product from './Containers/Product';
 import Home from './Home';
 import GlobalHeader from './Globals/GlobalHeader';
 
@@ -39,6 +40,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={CompareProducts} />
           <Route exact path='/home' component={Home} />
+          <Route exact path='/product' component={Product} />
         </Switch>
       </div>
     )

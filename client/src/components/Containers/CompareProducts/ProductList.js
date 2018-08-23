@@ -7,22 +7,12 @@ class ProductList extends Component {
       <div>
         <Grid>
           <Grid.Column floated='left' width={2}>
-            <Grid>
-              <Grid.Column floated='left' width={1}>
-                 <Button icon>
-                  <Icon name='grid layout' />
-                </Button>
-              </Grid.Column>
-              <Grid.Column floated='left' width={1}>
-                 <Button icon>
-                  <Icon name='list layout' />
-                </Button>
-              </Grid.Column>
-            </Grid>
+            <Button icon>
+              <Icon name='sort amount up' />
+            </Button>
           </Grid.Column>
-
           <Grid.Column floated='right' width={3}>
-            <Dropdown text='Sort By' icon='filter' floating labeled button className='icon'>
+            <Dropdown text='Sort By' icon='sort' floating labeled button className='icon'>
               <Dropdown.Menu>
                 <Dropdown.Item icon='attention' text='Important' />
                 <Dropdown.Item icon='comment' text='Announcement' />

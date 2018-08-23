@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link} from 'react-router-dom';
-import { Menu, Icon, Grid, Image, Button, Header, Segment } from 'semantic-ui-react';
+import { Container, Menu, Icon, Grid, Image, Button, Header, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({...state.main});
@@ -18,10 +18,14 @@ class GlobalHeader extends Component {
     const { activeItem } = this.state;
 
     return (
-      <div>
-        <Link to="/">
-          <Segment inverted>
-            <Menu inverted secondary>
+      <div style={{marginBottom: '80px'}}>
+          <Menu fixed='top' inverted>
+            <Container>
+              <Link to="home">
+                <Menu.Item>
+                  <img src='https://react.semantic-ui.com/logo.png' />
+                </Menu.Item>
+              </Link>
               <Menu.Item position='right' name='Electric Boards' active={activeItem === 'home'} onClick={this.handleItemClick} />
               <Menu.Item
                 name='Electric Longboards'
@@ -33,9 +37,8 @@ class GlobalHeader extends Component {
                 active={activeItem === 'friends'}
                 onClick={this.handleItemClick}
               />
-            </Menu>
-          </Segment>
-        </Link>
+            </Container>
+          </Menu>
       </div>
     )
   }
