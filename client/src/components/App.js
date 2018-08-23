@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import {  Route, Switch, Redirect } from 'react-router-dom';
 import {withRouter} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-import ProductPage from './Containers/ProductPage';
+import CompareProducts from './Containers/CompareProducts';
 import Home from './Home';
 import GlobalHeader from './Globals/GlobalHeader';
 
@@ -35,13 +35,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
-      <Container>
-      <GlobalHeader />
+        <GlobalHeader />
         <Switch>
-          <Route exact path='/' component={ProductPage} />
+          <Route exact path='/' component={CompareProducts} />
           <Route exact path='/home' component={Home} />
         </Switch>
-        </Container>
       </div>
     )
   }

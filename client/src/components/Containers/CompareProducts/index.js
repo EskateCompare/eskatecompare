@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import ProductList from './ProductList';
+import Filter from './Filter';
 
 import { Container, Menu, Segment, Button, Header, Icon, Grid, List, Image, Dropdown, Divider, Label } from 'semantic-ui-react';
 
-class ProductPage extends Component {
+class CompareProducts extends Component {
   state = { activeItem: 'home' }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -13,21 +14,7 @@ class ProductPage extends Component {
 
     return (
       <div className="App">
-        <Segment inverted>
-        <Menu inverted secondary>
-          <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
-          <Menu.Item
-            name='messages'
-            active={activeItem === 'messages'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name='friends'
-            active={activeItem === 'friends'}
-            onClick={this.handleItemClick}
-          />
-        </Menu>
-      </Segment>
+
       <Container>
         <Grid>
           <Grid.Row>
@@ -50,19 +37,10 @@ class ProductPage extends Component {
 
       <Grid container columns={2} stackable>
         <Grid.Column width={4}>
-          <Label>
-            Inboard
-          </Label>
-          <Label>
-            BoostedBoard
-          </Label>
-
+          <Filter />
         </Grid.Column>
         <Grid.Column width={12}>
-
-        <ProductList />
-        
-
+          <ProductList />
         </Grid.Column>
       </Grid>
 
@@ -71,4 +49,4 @@ class ProductPage extends Component {
   }
 }
 
-export default ProductPage;
+export default CompareProducts;
