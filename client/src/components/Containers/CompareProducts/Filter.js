@@ -1,8 +1,23 @@
 import React, { Component } from 'react';
 import { Form, Input, Container, Checkbox, Menu, Segment, Button, Header, Icon, Grid, List, Image, Dropdown, Divider, Item, Label } from 'semantic-ui-react';
+import Slider from 'react-rangeslider';
 
 class Filter extends Component {
+  constructor(props){
+    super(props);
+      this.state = {
+      value: 10
+    }
+  }
+
+  handleChange = value => {
+    this.setState({
+      value: value
+    })
+  };
+
   render() {
+    const { value } = this.state;
     return (
       <div>
         <Form>
@@ -19,6 +34,16 @@ class Filter extends Component {
             <Form.Field label='Pennyboard' control={Checkbox} type='checkbox' />
           </Form.Group>
           <Divider/>
+          <Form.Group grouped>
+            <label>Price</label>
+              <Slider
+                min={0}
+                max={100}
+                value={value}
+                onChange={this.handleChange}
+              />
+          </Form.Group>
+          <Divider/> 
           <Form.Group grouped>
             <label>Max Speed</label>
             <Form.Field label='Longboard' control={Checkbox} type='checkbox' />

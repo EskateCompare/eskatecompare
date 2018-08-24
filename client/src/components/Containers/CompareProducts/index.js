@@ -21,7 +21,7 @@ class CompareProducts extends Component {
           <Grid.Column floated='right' width={9}>
             <Header floated='right' as='h6'>
               <Label>
-                <Icon name='user' />
+                <Icon name='user circle' />
                 223
                 <Label.Detail>User Reviews</Label.Detail>
               </Label>
