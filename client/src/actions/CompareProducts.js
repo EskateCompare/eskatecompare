@@ -7,8 +7,6 @@ export function onFilterUpdate(payload) {
   }
 }
 
-
-
 function postFilter(subreddit) {
   return dispatch => {
     dispatch(requestPosts(subreddit))

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ProductList from './ProductList';
 import Filter from './Filter';
+import fetch from 'cross-fetch';
 
 import { Container, Menu, Segment, Button, Header, Icon, Grid, List, Image, Dropdown, Divider, Label } from 'semantic-ui-react';
 

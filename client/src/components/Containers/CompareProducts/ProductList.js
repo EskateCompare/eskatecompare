@@ -2,7 +2,37 @@ import React, { Component } from 'react';
 import { Container, Menu, Segment, Button, Header, Icon, Grid, List, Image, Dropdown, Divider, Item } from 'semantic-ui-react';
 
 class ProductList extends Component {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      products: {}
+    }
+
+    this.renderedListItems = this.renderListItems.bind(this);
+  }
+
+  componentDidMount() {
+    fetch(`http://localhost:3000/api/products/`)
+      .then(response => response.json())
+      .then(json => this.setState({products: json}))
+  }
+
+  renderListItems(){
+    const { products } = this.state;
+
+    const listItems = this.state.products.map((product) =>
+      <li>{product.name}</li>
+    );
+
+    return listItems;
+  }
+
   render() {
+    this.renderedListItems = this.renderListItems();
+
+    console.log(this.state, 'hello');
+
     return (
       <div>
         <Grid>
@@ -25,28 +55,7 @@ class ProductList extends Component {
         <Divider />
 
         <List divided relaxed>
-          <List.Item>
-            <Grid container columns={16} stackable>
-              <Grid.Column width={2}>
-                #1
-              </Grid.Column>
-              <Grid.Column width={2}>
-                <Icon name='favorite' />
-              </Grid.Column>
-              <Grid.Column width={6}>
-                Boosted Board
-              </Grid.Column>
-              <Grid.Column width={2}>
-              <Icon name='favorite' />
-              </Grid.Column>
-              <Grid.Column width={2}>
-              <Icon name='favorite' />
-              </Grid.Column>
-              <Grid.Column width={2}>
-              8 reviews
-              </Grid.Column>
-            </Grid>
-          </List.Item>
+          {this.renderedListItems}
           <List.Item>
             <List.Icon name='github' size='large' verticalAlign='middle' />
             <List.Content>
