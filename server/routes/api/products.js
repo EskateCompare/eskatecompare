@@ -12,8 +12,9 @@ router.get('/:slug', async function(req, res, next) {
 })
 
 router.get('/', async function(req, res, next) {
+  //Replace this find with filter function
   Product.find({}).populate('brand').populate('deals').exec().then(function(products) {
-    return res.json({ products: products })
+    return res.json({ products })
   })
 })
 
