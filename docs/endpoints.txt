@@ -11,6 +11,28 @@ Endpoints:
 
  
 	GET /api/products/single?slug=xxxx
-		returns: { product: product (see stateRepresentation) } 
+		returns: { product: product (see stateRepresentation) }
+
+	POST /api/review
+		send: 
+		{
+			stars: Number,
+			name: String,
+			body: String
+		} 
+		returns:
+		{
+			success: "true" || "false"
+			review: 
+				{
+					stars: Number,
+					name: String,
+					body: String
+				}
+			||
+			errors: 
+		}
+
+	
 
 	
