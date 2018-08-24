@@ -18,6 +18,7 @@ State:
 					URL,
 					ShipsTo 
 				},
+				Product: { ... }
 				Original Price,
 				Actual / Sale Price,
 				Affiliate URL,

@@ -41,7 +41,10 @@ if(isProduction){
 require('dotenv').config()
 
 //mongoose models here
-require('./models/Eboard');
+require('./models/Brand');
+require('./models/Product');
+require ('./models/Store');
+require ('./models/Deal');
 
 app.use(require('./routes'));
 
