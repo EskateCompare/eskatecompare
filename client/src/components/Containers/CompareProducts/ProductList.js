@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
-import { Container, Menu, Segment, Button, Header, Icon, Grid, List, Image, Dropdown, Divider, Item } from 'semantic-ui-react';
+import ListItem from './ListItem';
+import { Button, Icon, Grid, List, Dropdown, Divider } from 'semantic-ui-react';
 
 class ProductList extends Component {
   constructor(props){
     super(props)
 
     this.state = {
-      products: {}
+      products: []
     }
-
-    this.renderedListItems = this.renderListItems.bind(this);
   }
 
   componentDidMount() {
     fetch(`http://localhost:3000/api/products/`)
       .then(response => response.json())
-      .then(json => this.setState({products: json}))
+      .then(json => this.setState({products: json.products}))
   }
 
   renderListItems(){
     const { products } = this.state;
-
-    const listItems = this.state.products.map((product) =>
-      <li>{product.name}</li>
+    console.log(products);
+    const listItems = products.map((product, index) =>
+      <ListItem key={index} data={product}/>
     );
 
     return listItems;
@@ -30,8 +29,6 @@ class ProductList extends Component {
 
   render() {
     this.renderedListItems = this.renderListItems();
-
-    console.log(this.state, 'hello');
 
     return (
       <div>
@@ -51,25 +48,9 @@ class ProductList extends Component {
             </Dropdown>
           </Grid.Column>
         </Grid>
-
         <Divider />
-
         <List divided relaxed>
           {this.renderedListItems}
-          <List.Item>
-            <List.Icon name='github' size='large' verticalAlign='middle' />
-            <List.Content>
-              <List.Header as='a'>Semantic-Org/Semantic-UI-Docs</List.Header>
-              <List.Description as='a'>Updated 22 mins ago</List.Description>
-            </List.Content>
-          </List.Item>
-          <List.Item>
-            <List.Icon name='github' size='large' verticalAlign='middle' />
-            <List.Content>
-              <List.Header as='a'>Semantic-Org/Semantic-UI-Meteor</List.Header>
-              <List.Description as='a'>Updated 34 mins ago</List.Description>
-            </List.Content>
-          </List.Item>
         </List>
       </div>
     );
