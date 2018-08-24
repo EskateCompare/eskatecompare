@@ -22,13 +22,13 @@ class Product extends React.Component {
 
   render() {
     return (
-      <Grid padded>
-        <Grid.Row>
+      <div className="App">
+        <Grid container columns={2} stackable>
           <Grid.Column>
-            <Header size='huge'>Product Page Whooo</Header>
+          Hello
           </Grid.Column>
-        </Grid.Row>
-      </Grid>
+        </Grid>
+      </div>
     )
   }
 
