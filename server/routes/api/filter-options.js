@@ -38,13 +38,13 @@ router.get('/', async function(req, res, next) {
   ]
 
   let stats = {};
-  let filterOptions = {};
+  let filterOptions = [];
 
   //Replace this find with filter function
   Product.find({}).populate('brand').populate('deals').lean().exec().then(function(products) {
     referenceFilter.forEach(function(element) {
 
-
+      let optionsArray = [];
       let itemToAdd = {};
       let counts = {};
       if (element.type === "discrete") {
@@ -57,7 +57,17 @@ router.get('/', async function(req, res, next) {
       counts = _.countBy(productsToCount, function(e) {
         return eval("e." + element.attribute)
       });
-      itemToAdd[element.title] = counts;
+
+      optionsArray = Object.keys(counts).map(function(key) {
+         let returnOption = {};
+         returnOption['label'] = key;
+         returnOption['count'] = counts[key];
+         return returnOption;
+       })
+
+       itemToAdd['title'] = element.title;
+       itemToAdd['options'] = optionsArray;
+
 
       }
       else {
@@ -77,9 +87,18 @@ router.get('/', async function(req, res, next) {
             }
           })
         })
-        itemToAdd[element.title] = counts;
+
+       optionsArray = Object.keys(counts).map(function(key) {
+          let returnOption = {};
+          returnOption['label'] = key;
+          returnOption['count'] = counts[key];
+          return returnOption;
+        })
+
+        itemToAdd['title'] = element.title;
+        itemToAdd['options'] = optionsArray;
       }
-      filterOptions[element.title] = itemToAdd[element.title];
+      filterOptions.push(itemToAdd);
     })
 
     let internalReviewsCount = _.sumBy(products, function(e) {

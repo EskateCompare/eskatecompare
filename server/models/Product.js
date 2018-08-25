@@ -37,9 +37,15 @@ var ProductSchema = new mongoose.Schema({
     },
     compositeScore: Number
   },
-  reviews: {
-
-  },
+  reviews: [
+    {
+      name: String,
+      date: Date,
+      rating: Number,
+      content: String,
+      source: String
+    }
+  ],
   popularity: Number,
   value: Number
 })
