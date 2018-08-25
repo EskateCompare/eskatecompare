@@ -9,31 +9,32 @@ router.get('/', async function(req, res, next) {
 
   //Reference Filter
   const referenceFilter = [
-    { "title" : "brands", "type" : "discrete", "attribute" : "brand.name", "displayTitle" : "Brand"},
-    { "title" : "year", "type" : "discrete", "attribute" : "year", "displayTitle" : "Year", },
-    { "title" : "price", "type" : "ranges", "attribute" : "bestPrice",
+    { "title" : "brands", "type" : "discrete", "attribute" : "brand.name", "displayTitle" : "Brand", "formType" : "Checkbox"},
+    { "title" : "year", "type" : "discrete", "attribute" : "year", "displayTitle" : "Year", "formType" : "Checkbox" },
+    { "title" : "price", "type" : "ranges", "attribute" : "bestPrice", "formType" : "Checkbox",
       "ranges" : [[0, 250], [250, 500], [500, 1000], [1000-1500], [1500,9999]] },
-    { "title" : "range", "type" : "ranges", "attribute" : "range", "displayTitle" : "Range",
+    { "title" : "range", "type" : "ranges", "attribute" : "range", "displayTitle" : "Range", "formType" : "Checkbox",
       "ranges" : [[0, 10], [10, 17], [17, 24], [24, 9999]] },
-    { "title" : "battery-capacity", "type" : "ranges", "attribute" : "batteryCapacity",  "displayTitle" : "Battery Capacity",
+    { "title" : "battery-capacity", "type" : "ranges", "attribute" : "batteryCapacity",  "displayTitle" : "Battery Capacity", "formType" : "Checkbox",
       "ranges": [[0, 3000], [3000, 6000], [6000, 10000], [10000, 999999]] },
-    { "title" : "battery-removable", "type" : "discrete", "attribute" : "batteryRemovable",  "displayTitle" : "Battery Removable" },
-    { "title" : "speed", "type" : "ranges", "attribute" : "speed",  "displayTitle" : "Speed",
+    { "title" : "battery-removable", "type" : "discrete", "attribute" : "batteryRemovable",  "displayTitle" : "Battery Removable", "formType" : "Radio" },
+    { "title" : "travel-safe", "type" : "discrete", "attribute" : "travelSafe",  "displayTitle" : "Travel Safe", "formType" : "Radio" },
+    { "title" : "speed", "type" : "ranges", "attribute" : "speed",  "displayTitle" : "Speed", "formType" : "Checkbox",
       "ranges" : [[0, 10], [10, 16], [16, 22], [22,999]] },
-    { "title" : "weight", "type" : "ranges", "attribute" : "weight",  "displayTitle" : "Weight",
+    { "title" : "weight", "type" : "ranges", "attribute" : "weight",  "displayTitle" : "Weight", "formType" : "Checkbox",
       "ranges" : [[0, 10], [10, 15], [15, 20], [20,999]] },
-    { "title" : "max-weight", "type" : "ranges", "attribute" : "maxWeight",  "displayTitle" : "Max Weight",
+    { "title" : "max-weight", "type" : "ranges", "attribute" : "maxWeight",  "displayTitle" : "Max Weight", "formType" : "Checkbox",
       "ranges" : [[0, 200], [200, 300], [300, 400], [400, 999]] },
-    { "title" : "drive", "type" : "discrete", "attribute" : "drive", "displayTitle" : "Drive" },
-    { "title" : "width", "type" : "ranges", "attribute" : "width" ,  "displayTitle" : "Width",
+    { "title" : "drive", "type" : "discrete", "attribute" : "drive", "displayTitle" : "Drive", "formType" : "Checkbox" },
+    { "title" : "width", "type" : "ranges", "attribute" : "width" ,  "displayTitle" : "Width", "formType" : "Checkbox",
       "ranges" : [[0, 3], [3, 4], [4, 6], [6, 99]] },
-    { "title" : "length", "type" : "ranges", "attribute" : "length" ,  "displayTitle" : "Length",
+    { "title" : "length", "type" : "ranges", "attribute" : "length" ,  "displayTitle" : "Length", "formType" : "Checkbox",
       "ranges" : [[0, 6], [6, 12], [12, 18], [18, 24], [24, 99]] },
-    { "title" : "waterproof", "type" : "discrete", "attribute" : "waterproof", "displayTitle" : "Waterproof" },
-    { "title" : "terrain", "type" : "discrete", "attribute" : "terrain", "displayTitle" : "Terrain" },
-    { "title" : "style", "type" : "discrete", "attribute" : "style", "displayTitle" : "Style" },
-    { "title" : "deck-materials", "type" : "discrete", "attribute" : "deckMaterials", "displayTitle" : "Deck Material" },
-    { "title" : "rating", "type" : "range", "attribute" : "ratings.compositeScore", "displayTitle" : "Rating",
+    { "title" : "waterproof", "type" : "discrete", "attribute" : "waterproof", "displayTitle" : "Waterproof", "formType" : "Radio" },
+    { "title" : "terrain", "type" : "discrete", "attribute" : "terrain", "displayTitle" : "Terrain", "formType" : "Checkbox" },
+    { "title" : "style", "type" : "discrete", "attribute" : "style", "displayTitle" : "Style", "formType" : "Checkbox" },
+    { "title" : "deck-materials", "type" : "discrete", "attribute" : "deckMaterials", "displayTitle" : "Deck Material", "formType" : "Checkbox" },
+    { "title" : "rating", "type" : "range", "attribute" : "ratings.compositeScore", "displayTitle" : "Rating", "formType" : "Checkbox",
       "ranges" : [[0, 60], [60, 70], [70, 80], [80, 90], [90, 100]] }
   ]
 
@@ -58,7 +59,7 @@ router.get('/', async function(req, res, next) {
         return eval("e." + element.attribute)
       });
 
-      itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle);
+      itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle, element.formType);
       }
 
       else {
@@ -79,7 +80,7 @@ router.get('/', async function(req, res, next) {
           })
         })
 
-       itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle);
+       itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle, element.formType);
       }
       filterOptions.push(itemToAdd);
     })
@@ -126,7 +127,7 @@ router.get('/', async function(req, res, next) {
   })
 })
 
-function prepItemToAdd(counts, title, displayTitle) {
+function prepItemToAdd(counts, title, displayTitle, formType) {
   let optionsArray = Object.keys(counts).map(function(key) {
      let returnOption = {};
      returnOption['label'] = key;
@@ -136,9 +137,11 @@ function prepItemToAdd(counts, title, displayTitle) {
 
    let itemToAdd = {};
 
+
    itemToAdd['title'] = title;
    itemToAdd['displayTitle'] = displayTitle;
    itemToAdd['options'] = optionsArray;
+   itemToAdd['formType'] = formType;
 
    return itemToAdd;
 }
