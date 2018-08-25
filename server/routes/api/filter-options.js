@@ -58,18 +58,9 @@ router.get('/', async function(req, res, next) {
         return eval("e." + element.attribute)
       });
 
-      optionsArray = Object.keys(counts).map(function(key) {
-         let returnOption = {};
-         returnOption['label'] = key;
-         returnOption['count'] = counts[key];
-         return returnOption;
-       })
-
-       itemToAdd['title'] = element.title;
-       itemToAdd['options'] = optionsArray;
-
-
+      itemToAdd = prepItemToAdd(counts, element.title);
       }
+      
       else {
 
         let ranges = element.ranges;
@@ -88,15 +79,7 @@ router.get('/', async function(req, res, next) {
           })
         })
 
-       optionsArray = Object.keys(counts).map(function(key) {
-          let returnOption = {};
-          returnOption['label'] = key;
-          returnOption['count'] = counts[key];
-          return returnOption;
-        })
-
-        itemToAdd['title'] = element.title;
-        itemToAdd['options'] = optionsArray;
+       itemToAdd = prepItemToAdd(counts, element.title);
       }
       filterOptions.push(itemToAdd);
     })
@@ -142,6 +125,22 @@ router.get('/', async function(req, res, next) {
     return res.json({ stats })
   })
 })
+
+function prepItemToAdd(counts, title) {
+  let optionsArray = Object.keys(counts).map(function(key) {
+     let returnOption = {};
+     returnOption['label'] = key;
+     returnOption['count'] = counts[key];
+     return returnOption;
+   })
+
+   let itemToAdd = {};
+
+   itemToAdd['title'] = title;
+   itemToAdd['options'] = optionsArray;
+
+   return itemToAdd;
+}
 
 function weightedMean(arrValues, arrWeights) {
 
