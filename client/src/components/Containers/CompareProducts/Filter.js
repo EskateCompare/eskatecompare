@@ -6,7 +6,8 @@ class Filter extends Component {
   constructor(props){
     super(props);
       this.state = {
-      value: 10
+        filterOptions: [],
+        value: 10
     }
   }
 
@@ -16,8 +17,15 @@ class Filter extends Component {
     })
   };
 
+  componentDidMount() {
+    fetch(`http://localhost:3000/api/filter-options/`)
+      .then(response => response.json())
+      .then(json => this.setState({filterOptions: json.filter}))
+  }
+
   render() {
     const { value } = this.state;
+
     return (
       <div>
         <Form>

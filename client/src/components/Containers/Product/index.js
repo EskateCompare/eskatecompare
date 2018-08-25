@@ -122,6 +122,7 @@ class Product extends React.Component {
           <Grid.Column width={1}><Divider vertical/> </Grid.Column>
           <Grid.Column width={11}>
             <Header as='h3'>Reviews</Header>
+            <Divider hidden/>
             <List divided relaxed>
               <List.Item>
                 <Grid container columns={16} stackable>

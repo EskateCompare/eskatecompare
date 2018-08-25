@@ -19,7 +19,7 @@ class ProductList extends Component {
 
   renderListItems(){
     const { products } = this.state;
-    console.log(products);
+
     const listItems = products.map((product, index) =>
       <ListItem key={index} data={product}/>
     );
