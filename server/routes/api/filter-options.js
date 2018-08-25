@@ -4,6 +4,7 @@ var _ = require('lodash');
 const unwind = require('javascript-unwind');
 
 var Product = mongoose.model('Product')
+var UpdateStats = mongoose.model('UpdateStats')
 
 router.get('/', async function(req, res, next) {
 
@@ -112,6 +113,9 @@ router.get('/', async function(req, res, next) {
     externalReviewsAvg = weightedMean(externalReviewsScores, externalReviewsAmounts);
 
     let totalProducts = await Product.count({}).exec();
+    let lastUpdatedObject = await UpdateStats.findOne({}).exec();
+
+
 
     stats['totalMatching'] = products.length;
     stats['totalProducts'] = totalProducts;
@@ -122,7 +126,9 @@ router.get('/', async function(req, res, next) {
     stats['internalReviewsAverage'] = internalReviewsAvg;
     stats['externalReviewsAverage'] = externalReviewsAvg;
 
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
 
+    stats['lastUpdated'] = lastUpdatedObject.lastUpdated.toLocaleDateString("en-US", options);
 
     stats['filterOptions'] = filterOptions;
 

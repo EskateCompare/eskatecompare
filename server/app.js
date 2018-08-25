@@ -45,6 +45,7 @@ require('./models/Brand');
 require('./models/Product');
 require ('./models/Store');
 require ('./models/Deal');
+require ('./models/UpdateStats');
 
 app.use(require('./routes'));
 
