@@ -38,7 +38,7 @@ router.get('/', async function(req, res, next) {
   ]
 
   let stats = {};
-  let filterOptions = [];
+  let filterOptions = {};
 
   //Replace this find with filter function
   Product.find({}).populate('brand').populate('deals').lean().exec().then(function(products) {
@@ -79,7 +79,7 @@ router.get('/', async function(req, res, next) {
         })
         itemToAdd[element.title] = counts;
       }
-      filterOptions.push( itemToAdd )
+      filterOptions[element.title] = itemToAdd[element.title];
     })
 
     let internalReviewsCount = _.sumBy(products, function(e) {
