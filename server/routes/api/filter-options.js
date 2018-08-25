@@ -108,13 +108,15 @@ router.get('/', async function(req, res, next) {
     internalReviewsAvg = weightedMean(internalReviewsScores, internalReviewsAmounts);
     externalReviewsAvg = weightedMean(externalReviewsScores, externalReviewsAmounts);
 
-
+    stats['total-matching'] = products.length;
 
     stats['internal-reviews-count'] = internalReviewsCount;
     stats['external-reviews-count'] = externalReviewsCount;
 
     stats['internal-reviews-average'] = internalReviewsAvg;
     stats['external-reviews-average'] = externalReviewsAvg;
+
+
 
     stats['filterOptions'] = filterOptions;
 

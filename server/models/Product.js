@@ -37,6 +37,9 @@ var ProductSchema = new mongoose.Schema({
     },
     compositeScore: Number
   },
+  reviews: {
+
+  },
   popularity: Number,
   value: Number
 })
