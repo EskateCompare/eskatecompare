@@ -23,14 +23,14 @@ class CompareProducts extends Component {
 
   render() {
     const { activeItem } = this.state;
-    const { internalReviewsCount, externalReviewsCount, lastUpdated} = this.state;
-    // console.log(this.state.stats.inter);
+    const { internalReviewsCount, externalReviewsCount, lastUpdated, totalMatching, totalProducts} = this.state.stats;
+    console.log(this.state.stats);
 
     return (
       <div className="App">
         <Grid container columns={2} stackable>
           <Grid.Column width={7}>
-            <Header floated='left' as='h1'>656 best electic boards of 1232</Header>
+            <Header floated='left' as='h1'>{totalMatching} best electic boards of {totalProducts}</Header>
           </Grid.Column>
           <Grid.Column floated='right' width={9}>
             <Header floated='right' as='h6'>
