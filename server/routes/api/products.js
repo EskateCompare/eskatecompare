@@ -35,6 +35,13 @@ router.get('/:slug', async function(req, res, next) {
     brand : brandRank
   }
 
+  product.deals = product.deals.sort(function(a, b) {
+    return a.salesPrice - b.salesPrice;
+  })
+  product.reviews = product.reviews.sort(function(a, b) {
+    return new Date(b.date) - new Date(a.date);
+  })
+
   return res.json({ product });
 
 

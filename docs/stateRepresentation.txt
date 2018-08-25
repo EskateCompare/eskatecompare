@@ -63,7 +63,7 @@ State:
 		Speed : [Min, Max],
 		Weight : [Min, Max],
 		Range: [Min, Max],
-		Battery Power: [Min, Max],
+		Battery Capacity: [Min, Max],
 		Waterproof: boolean,
 		Battery Removable: Boolean,
 		Travel Safe: Boolean,
