@@ -5,9 +5,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { promiseMiddleware } from './middleware'
 
 import main from './reducers/main';
+import CompareProducts from './reducers/CompareProducts';
 
 const reducer = combineReducers({
-  main
+  main,
+  CompareProducts
 })
 
 const middleware = applyMiddleware(promiseMiddleware);

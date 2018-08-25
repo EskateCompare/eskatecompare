@@ -39,6 +39,7 @@ class ProductList extends Component {
   render() {
     this.renderedListItems = this.renderListItems();
     this.renderedDropdownItems = this.renderDropdownItems();
+    console.log(this.state.products);
 
     return (
       <div>

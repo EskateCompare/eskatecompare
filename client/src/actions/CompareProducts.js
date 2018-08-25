@@ -1,44 +1,32 @@
 import fetch from 'cross-fetch'
+// import { constants: SET_FILTER, SET_PRODUCTS } from '../constants';
 
-export function onFilterUpdate(payload) {
+export function setFilter(payload){
   return {
-    type: FILTER_UPDATE,
+    type: 'SET_FILTER',
     payload
   }
 }
 
-function postFilter(subreddit) {
-  return dispatch => {
-    dispatch(requestPosts(subreddit))
-    return fetch(`https://www.reddit.com/r/${subreddit}.json`)
-      .then(response => response.json())
-      .then(json => dispatch(receivePosts(subreddit, json)))
+export function setProducts(payload){
+  return {
+    type: 'SET_PRODUCTS',
+    payload
   }
 }
 
-function postProducts(subreddit) {
+export function fetchFilter() {
   return dispatch => {
-    dispatch(requestPosts(subreddit))
-    return fetch(`https://www.reddit.com/r/${subreddit}.json`)
+    return fetch(`http://localhost:3000/api/filter-options`)
       .then(response => response.json())
-      .then(json => dispatch(receivePosts(subreddit, json)))
+      .then(json => dispatch(setFilter(json)))
   }
 }
 
-function fetchFilter(subreddit) {
+export function fetchProducts() {
   return dispatch => {
-    dispatch(requestPosts(subreddit))
-    return fetch(`https://www.reddit.com/r/${subreddit}.json`)
+    return fetch(`http://localhost:3000/api/products`)
       .then(response => response.json())
-      .then(json => dispatch(receivePosts(subreddit, json)))
-  }
-}
-
-function fetchProducts(subreddit) {
-  return dispatch => {
-    dispatch(requestPosts(subreddit))
-    return fetch(`https://www.reddit.com/r/${subreddit}.json`)
-      .then(response => response.json())
-      .then(json => dispatch(receivePosts(subreddit, json)))
+      .then(json => dispatch(setProducts(json)))
   }
 }
