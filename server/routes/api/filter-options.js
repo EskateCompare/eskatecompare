@@ -37,7 +37,8 @@ router.get('/', async function(req, res, next) {
       "ranges" : [[0, 60], [60, 70], [70, 80], [80, 90], [90, 100]] }
   ]
 
-  let returnFilter = [];
+  let stats = {};
+  let filterOptions = [];
 
   //Replace this find with filter function
   Product.find({}).populate('brand').populate('deals').lean().exec().then(function(products) {
@@ -78,10 +79,63 @@ router.get('/', async function(req, res, next) {
         })
         itemToAdd[element.title] = counts;
       }
-      returnFilter.push( itemToAdd )
+      filterOptions.push( itemToAdd )
     })
-    return res.json({ filter: returnFilter })
+
+    let internalReviewsCount = _.sumBy(products, function(e) {
+      return e.ratings.internal.amount
+    })
+    let externalReviewsCount = _.sumBy(products, function(e) {
+      return e.ratings.external.amount
+    })
+    let internalReviewsAvg;
+    let externalReviewsAvg;
+
+    let internalReviewsScores = [];
+    let internalReviewsAmounts = [];
+    let externalReviewsScores = [];
+    let externalReviewsAmounts = [];
+
+    products.forEach(function(product) {
+      internalReviewsScores.push(product.ratings.internal.average);
+      internalReviewsAmounts.push(product.ratings.internal.amount);
+      externalReviewsScores.push(product.ratings.external.average);
+      externalReviewsAmounts.push(product.ratings.external.amount);
+    })
+
+
+
+    internalReviewsAvg = weightedMean(internalReviewsScores, internalReviewsAmounts);
+    externalReviewsAvg = weightedMean(externalReviewsScores, externalReviewsAmounts);
+
+
+
+    stats['internal-reviews-count'] = internalReviewsCount;
+    stats['external-reviews-count'] = externalReviewsCount;
+
+    stats['internal-reviews-average'] = internalReviewsAvg;
+    stats['external-reviews-average'] = externalReviewsAvg;
+
+    stats['filterOptions'] = filterOptions;
+
+    return res.json({ stats })
   })
 })
+
+function weightedMean(arrValues, arrWeights) {
+
+  var result = arrValues.map(function (value, i) {
+
+    var weight = arrWeights[i];
+    var sum = value * weight;
+
+    return [sum, weight];
+  }).reduce(function (p, c) {
+
+    return [p[0] + c[0], p[1] + c[1]];
+  }, [0, 0]);
+
+  return result[0] / result[1];
+}
 
 module.exports = router;
