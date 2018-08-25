@@ -6,9 +6,20 @@ var Product = mongoose.model('Product')
 router.get('/:slug', async function(req, res, next) {
 
   let product = await Product.findOne({ slug : req.params.slug }).exec();
-  
 
-    return res.json({ product });
+  if (!product) return res.status(422).json({ 'error' : 'product not found' });
+
+  //get rankings
+
+  let products = await Product.find({}).select('ratings.compositeScore').exec();
+
+
+
+  return res.json({ products });
+
+
+
+
 })
 
 router.get('/', async function(req, res, next) {

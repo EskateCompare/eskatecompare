@@ -9,31 +9,31 @@ router.get('/', async function(req, res, next) {
 
   //Reference Filter
   const referenceFilter = [
-    { "title" : "brands", "type" : "discrete", "attribute" : "brand.name"},
-    { "title" : "year", "type" : "discrete", "attribute" : "year" },
+    { "title" : "brands", "type" : "discrete", "attribute" : "brand.name", "displayTitle" : "Brand"},
+    { "title" : "year", "type" : "discrete", "attribute" : "year", "displayTitle" : "Year", },
     { "title" : "price", "type" : "ranges", "attribute" : "bestPrice",
       "ranges" : [[0, 250], [250, 500], [500, 1000], [1000-1500], [1500,9999]] },
-    { "title" : "range", "type" : "ranges", "attribute" : "range",
+    { "title" : "range", "type" : "ranges", "attribute" : "range", "displayTitle" : "Range",
       "ranges" : [[0, 10], [10, 17], [17, 24], [24, 9999]] },
-    { "title" : "battery-capacity", "type" : "ranges", "attribute" : "batteryCapacity",
+    { "title" : "battery-capacity", "type" : "ranges", "attribute" : "batteryCapacity",  "displayTitle" : "Battery Capacity",
       "ranges": [[0, 3000], [3000, 6000], [6000, 10000], [10000, 999999]] },
-    { "title" : "battery-removable", "type" : "discrete", "attribute" : "batteryRemovable" },
-    { "title" : "speed", "type" : "ranges", "attribute" : "speed",
+    { "title" : "battery-removable", "type" : "discrete", "attribute" : "batteryRemovable",  "displayTitle" : "Battery Removable" },
+    { "title" : "speed", "type" : "ranges", "attribute" : "speed",  "displayTitle" : "Speed",
       "ranges" : [[0, 10], [10, 16], [16, 22], [22,999]] },
-    { "title" : "weight", "type" : "ranges", "attribute" : "weight",
+    { "title" : "weight", "type" : "ranges", "attribute" : "weight",  "displayTitle" : "Weight",
       "ranges" : [[0, 10], [10, 15], [15, 20], [20,999]] },
-    { "title" : "max-weight", "type" : "ranges", "attribute" : "maxWeight",
+    { "title" : "max-weight", "type" : "ranges", "attribute" : "maxWeight",  "displayTitle" : "Max Weight",
       "ranges" : [[0, 200], [200, 300], [300, 400], [400, 999]] },
-    { "title" : "drive", "type" : "discrete", "attribute" : "drive" },
-    { "title" : "width", "type" : "ranges", "attribute" : "width" ,
+    { "title" : "drive", "type" : "discrete", "attribute" : "drive", "displayTitle" : "Drive" },
+    { "title" : "width", "type" : "ranges", "attribute" : "width" ,  "displayTitle" : "Width",
       "ranges" : [[0, 3], [3, 4], [4, 6], [6, 99]] },
-    { "title" : "length", "type" : "ranges", "attribute" : "length" ,
+    { "title" : "length", "type" : "ranges", "attribute" : "length" ,  "displayTitle" : "Length",
       "ranges" : [[0, 6], [6, 12], [12, 18], [18, 24], [24, 99]] },
-    { "title" : "waterproof", "type" : "discrete", "attribute" : "waterproof" },
-    { "title" : "terrain", "type" : "discrete", "attribute" : "terrain" },
-    { "title" : "style", "type" : "discrete", "attribute" : "style" },
-    { "title" : "deck-materials", "type" : "discrete", "attribute" : "deckMaterials" },
-    { "title" : "rating", "type" : "range", "attribute" : "ratings.compositeScore",
+    { "title" : "waterproof", "type" : "discrete", "attribute" : "waterproof", "displayTitle" : "Waterproof" },
+    { "title" : "terrain", "type" : "discrete", "attribute" : "terrain", "displayTitle" : "Terrain" },
+    { "title" : "style", "type" : "discrete", "attribute" : "style", "displayTitle" : "Style" },
+    { "title" : "deck-materials", "type" : "discrete", "attribute" : "deckMaterials", "displayTitle" : "Deck Material" },
+    { "title" : "rating", "type" : "range", "attribute" : "ratings.compositeScore", "displayTitle" : "Rating",
       "ranges" : [[0, 60], [60, 70], [70, 80], [80, 90], [90, 100]] }
   ]
 
@@ -58,9 +58,9 @@ router.get('/', async function(req, res, next) {
         return eval("e." + element.attribute)
       });
 
-      itemToAdd = prepItemToAdd(counts, element.title);
+      itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle);
       }
-      
+
       else {
 
         let ranges = element.ranges;
@@ -79,7 +79,7 @@ router.get('/', async function(req, res, next) {
           })
         })
 
-       itemToAdd = prepItemToAdd(counts, element.title);
+       itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle);
       }
       filterOptions.push(itemToAdd);
     })
@@ -126,7 +126,7 @@ router.get('/', async function(req, res, next) {
   })
 })
 
-function prepItemToAdd(counts, title) {
+function prepItemToAdd(counts, title, displayTitle) {
   let optionsArray = Object.keys(counts).map(function(key) {
      let returnOption = {};
      returnOption['label'] = key;
@@ -137,6 +137,7 @@ function prepItemToAdd(counts, title) {
    let itemToAdd = {};
 
    itemToAdd['title'] = title;
+   itemToAdd['displayTitle'] = displayTitle;
    itemToAdd['options'] = optionsArray;
 
    return itemToAdd;
