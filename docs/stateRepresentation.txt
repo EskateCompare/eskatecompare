@@ -67,6 +67,7 @@ State:
 		Waterproof: boolean,
 		Battery Removable: Boolean,
 		Travel Safe: Boolean,
+		Rating: [Min, Max],
 		SortBy: String - ("Price", "Rating", "MostPopular", "BestValue", "Range", "Speed")
 		Order: "Up" || "Down",
 		NumberProductsPerPage,

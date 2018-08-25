@@ -17,11 +17,15 @@ var ProductSchema = new mongoose.Schema({
   weight: Number,
   maxWeight: Number,
   drive: String,
+  batteryCapacity: Number,  //mAh
+  batteryRemovable: Boolean,
   width: Number,
   length: Number,
   waterproof: Boolean,
   terrain: String,
   style: String,
+  deckMaterials: [String],
+  travelSafe: Boolean,
   ratings: {
     external: {
       average: Number,
