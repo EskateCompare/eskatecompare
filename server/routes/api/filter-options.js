@@ -42,7 +42,7 @@ router.get('/', async function(req, res, next) {
   let filterOptions = [];
 
   //Replace this find with filter function
-  Product.find({}).populate('brand').populate('deals').lean().exec().then(function(products) {
+  Product.find({}).populate('brand').populate('deals').lean().exec().then(async function(products) {
     referenceFilter.forEach(function(element) {
 
       let optionsArray = [];
@@ -111,13 +111,16 @@ router.get('/', async function(req, res, next) {
     internalReviewsAvg = weightedMean(internalReviewsScores, internalReviewsAmounts);
     externalReviewsAvg = weightedMean(externalReviewsScores, externalReviewsAmounts);
 
-    stats['total-matching'] = products.length;
+    let totalProducts = await Product.count({}).exec();
 
-    stats['internal-reviews-count'] = internalReviewsCount;
-    stats['external-reviews-count'] = externalReviewsCount;
+    stats['totalMatching'] = products.length;
+    stats['totalProducts'] = totalProducts;
 
-    stats['internal-reviews-average'] = internalReviewsAvg;
-    stats['external-reviews-average'] = externalReviewsAvg;
+    stats['internalReviewsCount'] = internalReviewsCount;
+    stats['externalReviewsCount'] = externalReviewsCount;
+
+    stats['internalReviewsAverage'] = internalReviewsAvg;
+    stats['externalReviewsAverage'] = externalReviewsAvg;
 
 
 
