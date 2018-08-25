@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ListItem from './ListItem';
 import { Button, Icon, Grid, List, Dropdown, Divider } from 'semantic-ui-react';
+import sortingOptions from '../constants'
 
 class ProductList extends Component {
   constructor(props){
@@ -27,8 +28,17 @@ class ProductList extends Component {
     return listItems;
   }
 
+  renderDropdownItems() {
+    const dropdownItems = sortingOptions.map((option, index) =>
+      <Dropdown.Item key={index} text={option} />
+    );
+
+    return dropdownItems;
+  }
+
   render() {
     this.renderedListItems = this.renderListItems();
+    this.renderedDropdownItems = this.renderDropdownItems();
 
     return (
       <div>
@@ -41,9 +51,7 @@ class ProductList extends Component {
           <Grid.Column floated='right' width={3}>
             <Dropdown text='Sort By' icon='sort' floating labeled button className='icon'>
               <Dropdown.Menu>
-                <Dropdown.Item icon='attention' text='Important' />
-                <Dropdown.Item icon='comment' text='Announcement' />
-                <Dropdown.Item icon='conversation' text='Discussion' />
+                {this.renderedDropdownItems}
               </Dropdown.Menu>
             </Dropdown>
           </Grid.Column>

@@ -6,12 +6,25 @@ import fetch from 'cross-fetch';
 import { Container, Menu, Segment, Button, Header, Icon, Grid, List, Image, Dropdown, Divider, Label } from 'semantic-ui-react';
 
 class CompareProducts extends Component {
-  state = { activeItem: 'home' }
+  constructor(props){
+    super(props)
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    this.state = { 
+      activeItem: 'home',
+      stats: {},
+    }
+  }
+  
+  componentDidMount() {
+    fetch(`http://localhost:3000/api/filter-options`)
+      .then(response => response.json())
+      .then(json => this.setState({stats: json.stats}))
+  }
 
   render() {
-    const { activeItem } = this.state
+    const { activeItem } = this.state;
+    const { internalReviewsCount, externalReviewsCount, lastUpdated} = this.state;
+    // console.log(this.state.stats.inter);
 
     return (
       <div className="App">
@@ -23,18 +36,18 @@ class CompareProducts extends Component {
             <Header floated='right' as='h6'>
               <Label>
                 <Icon name='user circle' />
-                223
+                {internalReviewsCount}
                 <Label.Detail>User Reviews</Label.Detail>
               </Label>
               <Label>
                 <Icon name='external' />
-                1567
+                {externalReviewsCount}
                 <Label.Detail>External Reviews</Label.Detail>
               </Label>
               <Label>
                 <Icon name='checkmark' />
                 Last Updated
-                <Label.Detail>August 2018</Label.Detail>
+                <Label.Detail>{lastUpdated}</Label.Detail>
               </Label>
             </Header>
           </Grid.Column>
