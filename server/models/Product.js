@@ -10,6 +10,7 @@ var ProductSchema = new mongoose.Schema({
   name: { type: String, unique: true },
   slug: {type: String, lowercase: true, unique: true},  //auto-generated
   image: String,
+  additionalImages: [String],
   year: Number,
   msrp: Number,  //us dollars
   range: Number,  //miles
