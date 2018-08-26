@@ -4,23 +4,9 @@ import { Button, Icon, Grid, List, Dropdown, Divider } from 'semantic-ui-react';
 import sortingOptions from '../constants'
 
 class ProductList extends Component {
-  constructor(props){
-    super(props)
-
-    this.state = {
-      products: []
-    }
-  }
-
-  componentDidMount() {
-    fetch(`http://localhost:3000/api/products/`)
-      .then(response => response.json())
-      .then(json => this.setState({products: json.products}))
-  }
-
   renderListItems(){
-    const { products } = this.state;
-
+    const { products } = this.props.products;
+ 
     const listItems = products.map((product, index) =>
       <ListItem key={index} data={product}/>
     );
@@ -39,7 +25,6 @@ class ProductList extends Component {
   render() {
     this.renderedListItems = this.renderListItems();
     this.renderedDropdownItems = this.renderDropdownItems();
-    console.log(this.state.products);
 
     return (
       <div>

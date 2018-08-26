@@ -16,12 +16,18 @@ class CompareProducts extends Component {
   }
   
   componentDidMount() {
-    this.props.fetchProducts();
+    const { fetchFilter, fetchProducts } = this.props;
+
+    fetchProducts();
+    fetchFilter();
   }
 
   render() {
     const { activeItem, stats } = this.state;
-    const { internalReviewsCount, externalReviewsCount, lastUpdated, totalMatching, totalProducts} = stats;
+    const { internalReviewsCount, externalReviewsCount, lastUpdated, totalMatching, totalProducts} = this.props.filter.stats;
+    const { products } = this.props;
+    // console.log(products, ' aasdf');
+    const { filterOptions: filter } = this.props.filter.stats;
 
     return (
       <div className="App">
@@ -51,10 +57,10 @@ class CompareProducts extends Component {
         </Grid>
         <Grid container columns={2} stackable>
           <Grid.Column width={4}>
-            <Filter />
+            <Filter filter={filter}/>
           </Grid.Column>
           <Grid.Column width={12}>
-            <ProductList />
+            <ProductList products={products}/>
           </Grid.Column>
         </Grid>
       </div>
