@@ -18,6 +18,7 @@
     "marked": "^0.3.6",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-image-magnify": "^2.7.0",
     "react-input-range": "latest",
     "react-load-script": "latest",
     "react-rangeslider": "^2.2.0",

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Label, Input, Checkbox } from 'semantic-ui-react';
 
-class Filter extends Component {
+export default class Filter extends Component {
   renderFilterOptions() {
     const { filter: filter } = this.props;
 
@@ -31,5 +31,3 @@ class Filter extends Component {
     );
   }
 }
-
-export default Filter;

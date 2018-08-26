@@ -8,12 +8,14 @@ import { createLogger } from 'redux-logger'
 
 import main from './reducers/main';
 import CompareProducts from './reducers/CompareProducts';
+import Product from './reducers/Product';
 
 const loggerMiddleware = createLogger()
 
 const reducer = combineReducers({
   main,
-  CompareProducts
+  CompareProducts,
+  Product,
 })
 
 const middleware = applyMiddleware(thunkMiddleware, loggerMiddleware);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link} from 'react-router-dom';
-import { Container, Menu, Icon, Grid, Image, Button, Header, Segment } from 'semantic-ui-react';
+import { Container, Menu } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({...state.main});
