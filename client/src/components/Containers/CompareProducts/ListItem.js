@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Icon, Grid, List, Image, Label } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 const ListItem = (data) => {
   const { data: item } = data;
 
   return (
     <List.Item>
+      <Link to='/product'>
       <Grid container columns={16} stackable>
         <Grid.Column width={1}>
           #1
@@ -31,6 +33,7 @@ const ListItem = (data) => {
           </Label>
         </Grid.Column>
       </Grid>
+      </Link>
     </List.Item>
   )
 }

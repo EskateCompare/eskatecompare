@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ImageList from './ImageList';
-import StoreList from './StoreList';
+import DealList from './DealList';
 import SpecList from './SpecList';
 import ReviewList from './ReviewList';
 import fetch from 'cross-fetch';
@@ -15,9 +15,8 @@ export default class Product extends React.Component {
   }
 
   render() {
-    console.log(this.props, 'hello');
-    const { name } = this.props.product;
-    console.log(this.props.product);
+    const { product } = this.props;
+    const { name, deals, reviews } = product;
 
     return (
       <div className="App">
@@ -45,20 +44,20 @@ export default class Product extends React.Component {
 
         <Grid container columns={2} stackable>
           <Grid.Column width={8}> 
-            <ImageList data={this.props.product}/>
+            <ImageList images={product}/>
             </Grid.Column>
           <Grid.Column width={8}>
-            <StoreList />
+            <DealList deals={deals}/>
           </Grid.Column>
         </Grid>
 
         <Grid container columns={2} stackable>
           <Grid.Column width={4}>
-            <SpecList />
+            <SpecList specs={product}/>
           </Grid.Column>
           <Grid.Column width={1}><Divider vertical/> </Grid.Column>
           <Grid.Column width={11}>
-            <ReviewList />
+            <ReviewList reviews={reviews}/>
           </Grid.Column>
         </Grid>
       </div>

@@ -5,9 +5,11 @@ const defaultState = {
   product: {
   	product: {
   		name: 'hello',
+      deals: [],
+      reviews: [],
   		ratings: {
   			compositeScore: 0
-  		}
+  		},
   	}
   }
 };

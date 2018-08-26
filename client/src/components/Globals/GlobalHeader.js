@@ -21,7 +21,7 @@ class GlobalHeader extends Component {
       <div style={{marginBottom: '80px'}}>
           <Menu fixed='top' inverted>
             <Container>
-              <Link to="home">
+              <Link to="/">
                 <Menu.Item>
                   <img src='https://react.semantic-ui.com/logo.png' />
                 </Menu.Item>
