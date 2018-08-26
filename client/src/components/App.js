@@ -6,6 +6,7 @@ import CompareProducts from './Containers/CompareProducts';
 import Product from './Containers/Product';
 import Home from './Home';
 import GlobalHeader from './Globals/GlobalHeader';
+import GlobalFooter from './Globals/GlobalFooter';
 
 const history = createHistory();
 
@@ -18,6 +19,7 @@ export default class App extends React.Component {
           <Route exact path='/' component={CompareProducts} />
           <Route exact path='/product' component={Product} />
         </Switch>
+        <GlobalFooter />
       </div>
     )
   }

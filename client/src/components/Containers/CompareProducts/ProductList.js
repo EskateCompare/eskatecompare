@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ListItem from './ListItem';
-import { Button, Icon, Grid, List, Dropdown, Divider } from 'semantic-ui-react';
+import { Button, Icon, Grid, Dropdown, Divider, Table } from 'semantic-ui-react';
 import sortingOptions from '../constants'
 
 export default class ProductList extends Component {
@@ -8,7 +8,7 @@ export default class ProductList extends Component {
     const { products } = this.props.products;
  
     const listItems = products.map((product, index) =>
-      <ListItem key={index} data={product}/>
+      <ListItem key={index} product={product} rank={index + 1}/>
     );
 
     return listItems;
@@ -42,10 +42,23 @@ export default class ProductList extends Component {
             </Dropdown>
           </Grid.Column>
         </Grid>
-        <Divider />
-        <List divided relaxed>
-          {this.renderedListItems}
-        </List>
+        <Table basic='very' striped selectable>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell></Table.HeaderCell>
+              <Table.HeaderCell>Image</Table.HeaderCell>
+              <Table.HeaderCell>Board</Table.HeaderCell>
+              <Table.HeaderCell>Max Speed</Table.HeaderCell>
+              <Table.HeaderCell>Range</Table.HeaderCell>
+              <Table.HeaderCell>Price</Table.HeaderCell>
+              <Table.HeaderCell>Score</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+            {this.renderedListItems}
+          </Table.Body>
+        </Table>
       </div>
     );
   }

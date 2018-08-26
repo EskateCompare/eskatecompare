@@ -37,8 +37,8 @@ export default class CompareProducts extends Component {
               </Label>
               <Label>
                 <Icon name='checkmark' />
-                Last Updated
-                <Label.Detail>{lastUpdated}</Label.Detail>
+                {lastUpdated}
+                <Label.Detail>Last Updated</Label.Detail>
               </Label>
             </Header>
           </Grid.Column>
