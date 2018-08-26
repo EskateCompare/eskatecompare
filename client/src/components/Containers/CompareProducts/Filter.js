@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Container, Checkbox, Menu, Segment, Button, Header, Icon, Grid, List, Image, Dropdown, Divider, Item, Label } from 'semantic-ui-react';
+import { Form, Label, Input, Checkbox } from 'semantic-ui-react';
 
 class Filter extends Component {
   renderFilterOptions() {

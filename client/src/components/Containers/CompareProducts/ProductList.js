@@ -3,7 +3,7 @@ import ListItem from './ListItem';
 import { Button, Icon, Grid, List, Dropdown, Divider } from 'semantic-ui-react';
 import sortingOptions from '../constants'
 
-class ProductList extends Component {
+export default class ProductList extends Component {
   renderListItems(){
     const { products } = this.props.products;
  
@@ -50,5 +50,3 @@ class ProductList extends Component {
     );
   }
 }
-
-export default ProductList;

@@ -2,19 +2,9 @@ import React, { Component } from 'react';
 import ProductList from './ProductList';
 import Filter from './Filter';
 import fetch from 'cross-fetch';
+import { Header, Icon, Grid, Label } from 'semantic-ui-react';
 
-import { Container, Menu, Segment, Button, Header, Icon, Grid, List, Image, Dropdown, Divider, Label } from 'semantic-ui-react';
-
-class CompareProducts extends Component {
-  constructor(props){
-    super(props)
-
-    this.state = { 
-      activeItem: 'home',
-      stats: {},
-    }
-  }
-  
+export default class CompareProducts extends Component {
   componentDidMount() {
     const { fetchFilter, fetchProducts } = this.props;
 
@@ -23,10 +13,8 @@ class CompareProducts extends Component {
   }
 
   render() {
-    const { activeItem, stats } = this.state;
     const { internalReviewsCount, externalReviewsCount, lastUpdated, totalMatching, totalProducts} = this.props.filter.stats;
     const { products } = this.props;
-    // console.log(products, ' aasdf');
     const { filterOptions: filter } = this.props.filter.stats;
 
     return (
@@ -67,5 +55,3 @@ class CompareProducts extends Component {
     );
   }
 }
-
-export default CompareProducts;
