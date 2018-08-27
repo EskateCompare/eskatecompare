@@ -27,15 +27,19 @@ export default class ImageList extends Component {
         <Grid.Column width={13}>
           <ReactImageMagnify {...{
             smallImage: {
-                alt: 'Wristwatch by Ted Baker London',
+                alt: '',
                 isFluidWidth: true,
-                src: image
+                src: image,
+                isFluidWidth: true,
             },
             largeImage: {
                 src: image,
                 width: 1200,
-                height: 1800
-            }
+                height: 1800,
+                
+            },
+            isHintEnabled: true,
+            lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' }
           }} />
         </Grid.Column>
       </Grid>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Label, Input, Checkbox } from 'semantic-ui-react';
+import { Form, Label, Input, Checkbox, Header } from 'semantic-ui-react';
 
 export default class Filter extends Component {
   renderFilterOptions() {
@@ -8,7 +8,7 @@ export default class Filter extends Component {
     const filterItems = filter.map((option, index) => {
       return (
         <Form.Group key={index} grouped>
-          <label>{option.displayTitle}</label>
+          <label><Header as='h4'>{option.displayTitle}</Header></label>
           { option.title === 'brands' ? <Form.Field icon='search' control={Input} type='input' placeholder='Search Brands'/> : null}
           { option.options.map((value) => <Form.Field label={value.label} control={Checkbox} type='checkbox' />) }
         </Form.Group>
@@ -20,12 +20,12 @@ export default class Filter extends Component {
   }
 
   render() {
-    this.renderedFilterOptions = this.renderFilterOptions();
+    const renderedFilterOptions = this.renderFilterOptions();
 
     return (
       <div>
         <Form>
-          {this.renderedFilterOptions}
+          {renderedFilterOptions}
         </Form>   
       </div>
     );

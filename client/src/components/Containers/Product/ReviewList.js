@@ -10,27 +10,17 @@ export default class ReviewList extends Component {
     const renderReviews = reviews.map((review, index) => {
       const { name, rating, content} = review;
 
-      return (
-        <div key={index}>
-          <List.Item>
-            <Grid container columns={16} stackable>
-              <Feed>
-                <Feed.Event>
-                  <Feed.Label image={image} />
-                  <Feed.Content>
-                    <Feed.Date content={name} />
-                    <Feed.Summary>
-                      <Rating icon='star' defaultRating={rating} maxRating={5} />
-                    </Feed.Summary>
-                    <Feed.Extra text content={content} />
-                  </Feed.Content>
-                </Feed.Event>
-              </Feed>
-            </Grid>
-          </List.Item>
-          <Divider />
-          <Divider hidden/>
-        </div>
+      return (            
+        <Feed.Event key={index}>
+          <Feed.Label image={image} />
+          <Feed.Content>
+            <Feed.Date content={name} />
+            <Feed.Summary>
+              <Rating icon='star' defaultRating={rating} maxRating={5} />
+            </Feed.Summary>
+            <Feed.Extra text content={content} />
+          </Feed.Content>
+        </Feed.Event>
         )
       }
     );
@@ -46,9 +36,9 @@ export default class ReviewList extends Component {
       <div>
         <Header as='h3'>Reviews</Header>
           <Divider hidden/>
-          <List divided relaxed>
+            <Feed>
             {renderedReviews}
-          </List>
+            </Feed>
         </div>
     );
   }

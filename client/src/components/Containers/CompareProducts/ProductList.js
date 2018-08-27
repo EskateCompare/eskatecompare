@@ -23,8 +23,8 @@ export default class ProductList extends Component {
   }
 
   render() {
-    this.renderedListItems = this.renderListItems();
-    this.renderedDropdownItems = this.renderDropdownItems();
+    const renderedListItems = this.renderListItems();
+    const renderedDropdownItems = this.renderDropdownItems();
 
     return (
       <div>
@@ -37,17 +37,17 @@ export default class ProductList extends Component {
           <Grid.Column floated='right' width={3}>
             <Dropdown text='Sort By' icon='sort' floating labeled button className='icon'>
               <Dropdown.Menu>
-                {this.renderedDropdownItems}
+                {renderedDropdownItems}
               </Dropdown.Menu>
             </Dropdown>
           </Grid.Column>
         </Grid>
-        <Table basic='very' striped selectable>
+        <Table textAlign='center' basic='very' striped selectable>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell></Table.HeaderCell>
-              <Table.HeaderCell>Image</Table.HeaderCell>
-              <Table.HeaderCell>Board</Table.HeaderCell>
+              <Table.HeaderCell><Icon name='trophy'/></Table.HeaderCell>
+              <Table.HeaderCell><Icon name='image outline'/></Table.HeaderCell>
+              <Table.HeaderCell textAlign='center' verticalAlign='middle'>Board</Table.HeaderCell>
               <Table.HeaderCell>Max Speed</Table.HeaderCell>
               <Table.HeaderCell>Range</Table.HeaderCell>
               <Table.HeaderCell>Price</Table.HeaderCell>
@@ -56,7 +56,7 @@ export default class ProductList extends Component {
           </Table.Header>
 
           <Table.Body>
-            {this.renderedListItems}
+            {renderedListItems}
           </Table.Body>
         </Table>
       </div>

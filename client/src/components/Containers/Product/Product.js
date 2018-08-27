@@ -43,22 +43,25 @@ export default class Product extends React.Component {
         </Grid>
 
         <Grid container columns={2} stackable>
-          <Grid.Column width={8}> 
-            <ImageList images={product}/>
+          <Grid.Row>
+            <Grid.Column width={8}> 
+              <ImageList images={product}/>
+              </Grid.Column>
+            <Grid.Column width={8}>
+              <DealList deals={deals}/>
             </Grid.Column>
-          <Grid.Column width={8}>
-            <DealList deals={deals}/>
-          </Grid.Column>
-        </Grid>
+          </Grid.Row>
 
-        <Grid container columns={2} stackable>
-          <Grid.Column width={4}>
-            <SpecList specs={product}/>
-          </Grid.Column>
-          <Grid.Column width={1}><Divider vertical/> </Grid.Column>
-          <Grid.Column width={11}>
-            <ReviewList reviews={reviews}/>
-          </Grid.Column>
+          <Divider />
+          
+          <Grid.Row divided>
+            <Grid.Column width={5}>
+              <SpecList specs={product}/>
+            </Grid.Column>
+            <Grid.Column width={11}>
+              <ReviewList reviews={reviews}/>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
       </div>
     )

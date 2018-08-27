@@ -27,13 +27,13 @@ export default class ListItem extends Component {
 
     return (
       <Table.Row onClick={this.handleRowClick}>
-        <Table.Cell>#{rank}</Table.Cell>
-        <Table.Cell><Image src={image} size='mini' /></Table.Cell>
-        <Table.Cell>{name}</Table.Cell>
-        <Table.Cell>{speed}</Table.Cell>
-        <Table.Cell>{range}</Table.Cell>
-        <Table.Cell>${msrp}</Table.Cell>
-        <Table.Cell>
+        <Table.Cell verticalAlign='middle'>#{rank}</Table.Cell>
+        <Table.Cell verticalAlign='middle'><Image centered src={image} size='mini' /></Table.Cell>
+        <Table.Cell verticalAlign='middle'>{name}</Table.Cell>
+        <Table.Cell verticalAlign='middle'>{speed}</Table.Cell>
+        <Table.Cell verticalAlign='middle'>{range}</Table.Cell>
+        <Table.Cell verticalAlign='middle'>${msrp}</Table.Cell>
+        <Table.Cell verticalAlign='middle'>
           <Label color={color}>
             {ratings.compositeScore}%
           </Label>

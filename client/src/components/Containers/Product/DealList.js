@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, List, Image, Button, Divider } from 'semantic-ui-react';
+import { Grid, Table, List, Image, Button, Divider } from 'semantic-ui-react';
 
 export default class DealList extends Component {
   renderDeals() {
@@ -8,25 +8,12 @@ export default class DealList extends Component {
     const renderDeals = deals.map((deal, index) => {
       const { originalPrice, salesPrice } = deal;
       return (
-        <div key={index}>
-          <List.Item>
-            <Grid container columns={16} stackable>
-              <Grid.Column width={4}>
-                <Image src='https://react.semantic-ui.com/images/wireframe/image.png' size='tiny' />
-              </Grid.Column>
-              <Grid.Column width={4}>
-                {originalPrice}
-              </Grid.Column>
-              <Grid.Column width={4}>
-                {salesPrice}
-              </Grid.Column>
-              <Grid.Column width={4}>
-                <Button>Buy</Button>
-              </Grid.Column>
-            </Grid>
-          </List.Item>
-          <Divider />
-        </div>
+        <Table.Row key={index}>
+          <Table.Cell verticalAlign='middle'><Image centered src='https://react.semantic-ui.com/images/wireframe/image.png' size='tiny' /></Table.Cell>
+          <Table.Cell verticalAlign='middle'>{originalPrice}</Table.Cell>
+          <Table.Cell verticalAlign='middle'>{salesPrice}</Table.Cell>
+          <Table.Cell verticalAlign='middle'><Button>Buy</Button></Table.Cell>
+        </Table.Row>
         )
       }
     );
@@ -37,10 +24,13 @@ export default class DealList extends Component {
     const renderedDeals = this.renderDeals();
 
     return (
-        <List divided relaxed>
+      <Table textAlign='center' basic='very' striped selectable>
+        <Table.Body>
           {renderedDeals}
-        </List>
+        </Table.Body>
+      </Table>
     );
   }
 }
 
+  
