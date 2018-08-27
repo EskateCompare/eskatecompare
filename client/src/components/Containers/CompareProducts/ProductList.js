@@ -46,7 +46,7 @@ export default class ProductList extends Component {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell><Icon name='trophy'/></Table.HeaderCell>
-              <Table.HeaderCell><Icon name='image outline'/></Table.HeaderCell>
+              <Table.HeaderCell><Icon name='image'/></Table.HeaderCell>
               <Table.HeaderCell textAlign='center' verticalAlign='middle'>Board</Table.HeaderCell>
               <Table.HeaderCell>Max Speed</Table.HeaderCell>
               <Table.HeaderCell>Range</Table.HeaderCell>
