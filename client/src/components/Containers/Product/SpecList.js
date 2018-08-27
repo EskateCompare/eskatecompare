@@ -30,7 +30,7 @@ export default class SpecList extends Component {
             <List.Content floated='right'>
               <Label>24 miles</Label>
             </List.Content>
-            <List.Icon name='map marker alternate' size='large'/>
+            <List.Icon name='arrows alternate horizontal' size='large'/>
             <List.Content>Range</List.Content>
           </List.Item>
           <List.Item>

@@ -1,14 +1,14 @@
 import fetch from 'cross-fetch'
 // import { constants: SET_FILTER, SET_PRODUCTS } from '../constants';
 
-export function setFilter(payload){
+export function setFilter(payload) {
   return {
     type: 'SET_FILTER',
     payload
   }
 }
 
-export function setProducts(payload){
+export function setProducts(payload) {
   return {
     type: 'SET_PRODUCTS',
     payload

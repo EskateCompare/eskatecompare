@@ -34,7 +34,7 @@ export default class ReviewList extends Component {
 
     return (
       <div>
-        <Header as='h3'>Reviews</Header>
+        <Header as='h2'>Reviews</Header>
           <Divider hidden/>
             <Feed>
             {renderedReviews}

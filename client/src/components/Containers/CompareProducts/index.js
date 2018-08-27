@@ -11,7 +11,7 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = dispatch => ({
 	fetchProducts: () => dispatch(fetchProducts()),
-	fetchFilter: () => dispatch(fetchFilter())
+	fetchFilter: () => dispatch(fetchFilter()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompareProducts);

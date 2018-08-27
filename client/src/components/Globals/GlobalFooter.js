@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Link} from 'react-router-dom';
-import { Container, Menu } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { Icon, Grid, List, Image, Label, Table } from 'semantic-ui-react';
+import { Container, List } from 'semantic-ui-react';
 
 class GlobalFooter extends Component {
   render() {
@@ -11,7 +8,7 @@ class GlobalFooter extends Component {
         <Container>
         <List floated='right' horizontal>
           <List.Item disabled href='#'>
-            © GitHub, Inc.
+            © SkateCompare, Inc.
           </List.Item>
           <List.Item href='#'>Terms</List.Item>
           <List.Item href='#'>Privacy</List.Item>
