@@ -4,6 +4,33 @@ import { Button, Icon, Grid, Dropdown, Divider, Table } from 'semantic-ui-react'
 import sortingOptions from '../constants'
 
 export default class ProductList extends Component {
+  constructor(){
+    super();
+
+    this.state = {
+      sortIcon: 'sort amount up',
+      filterText: 'Sort By',
+    }
+
+    this.handleSort = this.handleSort.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
+  }
+
+  handleSort(){
+    const { sortIcon } = this.state;
+
+    if (sortIcon === 'sort amount up') {
+      this.setState({ sortIcon: 'sort amount down' });
+    }
+    if (sortIcon === 'sort amount down') {
+      this.setState({ sortIcon: 'sort amount up' });
+    }
+  }
+
+  handleFilter(e, value){
+    this.setState({ filterText: value.text });
+  }
+
   renderListItems(){
     const { products } = this.props.products;
  
@@ -16,13 +43,14 @@ export default class ProductList extends Component {
 
   renderDropdownItems() {
     const dropdownItems = sortingOptions.map((option, index) =>
-      <Dropdown.Item key={index} text={option} />
+      <Dropdown.Item key={index} onClick={this.handleFilter} text={option} />
     );
 
     return dropdownItems;
   }
 
   render() {
+    const { sortIcon, filterText } = this.state;
     const renderedListItems = this.renderListItems();
     const renderedDropdownItems = this.renderDropdownItems();
 
@@ -30,12 +58,10 @@ export default class ProductList extends Component {
       <div>
         <Grid>
           <Grid.Column floated='left' width={2}>
-            <Button icon>
-              <Icon name='sort amount up' />
-            </Button>
+            <Button icon={sortIcon} onClick={this.handleSort}/>
           </Grid.Column>
           <Grid.Column floated='right' width={3}>
-            <Dropdown text='Sort By' icon='sort' floating labeled button className='icon'>
+            <Dropdown text={filterText} icon='sort' floating labeled button className='icon'>
               <Dropdown.Menu>
                 {renderedDropdownItems}
               </Dropdown.Menu>

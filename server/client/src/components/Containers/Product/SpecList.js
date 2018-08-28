@@ -22,8 +22,6 @@ export default class SpecList extends Component {
   // }
 
   render() {
-    console.log(this.props);
-
     return (
       <List relaxed='very' verticalAlign='middle'>
           <List.Item>

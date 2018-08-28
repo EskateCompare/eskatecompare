@@ -8,9 +8,10 @@ export function setProduct(payload){
   }
 }
 
-export function fetchProduct() {
+export function fetchProduct(payload) {
+	console.log(payload, 'payload')
   return dispatch => {
-    return fetch(`/api/products/sampleproductone/`)
+    return fetch(`/api/products/${payload}`)
       .then(response => response.json())
       .then(json => dispatch(setProduct(json)))
   }

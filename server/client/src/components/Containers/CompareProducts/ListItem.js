@@ -21,7 +21,8 @@ export default class ListItem extends Component {
   
   render() {
     const { rank, product } = this.props;
-    const { image, name, speed, range, msrp, ratings } = product;
+    const { image, specs,  ratings, name } = product;
+    const {  speed, range, msrp } = specs;
     let color = '';
 
     if (ratings.compositeScore > 90) { color = 'green' } 
@@ -37,10 +38,10 @@ export default class ListItem extends Component {
     return (
       <Table.Row onClick={this.handleRowClick}>
         <Table.Cell verticalAlign='middle'>#{rank}</Table.Cell>
-        <Table.Cell verticalAlign='middle'><Image centered src={image} size='mini' /></Table.Cell>
+        <Table.Cell verticalAlign='middle'><Image centered src={image.source} size='mini' /></Table.Cell>
         <Table.Cell verticalAlign='middle'>{name}</Table.Cell>
-        <Table.Cell verticalAlign='middle'>{speed}</Table.Cell>
-        <Table.Cell verticalAlign='middle'>{range}</Table.Cell>
+        <Table.Cell verticalAlign='middle'>{speed} km/h</Table.Cell>
+        <Table.Cell verticalAlign='middle'>{range} km</Table.Cell>
         <Table.Cell verticalAlign='middle'>${msrp}</Table.Cell>
         <Table.Cell verticalAlign='middle'>
           <Label color={color}>

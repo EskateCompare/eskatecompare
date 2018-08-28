@@ -29,7 +29,6 @@ export default class ReviewList extends Component {
   }
 
   render() {
-    console.log(this.props.reviews, 'reviewlist');
     const renderedReviews = this.renderReviews();
 
     return (

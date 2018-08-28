@@ -9,9 +9,8 @@ import { Container, Menu, Feed, Segment, Button, Header, Icon, Grid, List, Image
 
 export default class Product extends React.Component {
   componentDidMount() {
-    const { fetchProduct } = this.props;
-
-    fetchProduct();
+    const { fetchProduct, match } = this.props;
+    fetchProduct(match.params.slug);
   }
 
   render() {
@@ -67,5 +66,7 @@ export default class Product extends React.Component {
     )
   }
 }
+
+
 
 

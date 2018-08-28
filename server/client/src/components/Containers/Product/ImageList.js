@@ -4,19 +4,18 @@ import ReactImageMagnify from 'react-image-magnify';
 
 export default class ImageList extends Component {
   renderImages() {
-    // const { additionalImages } = this.props.images;
-    const { image } = this.props.images;
+    const { image, additionalImages } = this.props.images;
 
-    const renderImages =
-    // = additionalImages.map((image, index) =>
-      <Image src={image} />;
-    // );
+    const renderImages = additionalImages.map((image, index) =>
+      <Image src={image.source} />
+    );
 
     return renderImages;
   }
 
   render() {
     const { image } = this.props.images;
+
     this.renderedImages = this.renderImages();
 
     return (
@@ -29,11 +28,11 @@ export default class ImageList extends Component {
             smallImage: {
                 alt: '',
                 isFluidWidth: true,
-                src: image,
+                src: image.source,
                 isFluidWidth: true,
             },
             largeImage: {
-                src: image,
+                src: image.source,
                 width: 1200,
                 height: 1800,
                 
