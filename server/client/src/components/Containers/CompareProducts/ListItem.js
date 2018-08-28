@@ -31,7 +31,7 @@ export default class ListItem extends Component {
     if (ratings.compositeScore < 60) { color = 'red' }
 
     if (this.state.link) {
-      return <Redirect push to="/product/${this.state.product.slug}" />;
+      return <Redirect push to={`/product/${this.props.product.slug}`} />;
     }
 
     return (
