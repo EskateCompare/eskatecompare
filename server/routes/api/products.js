@@ -46,9 +46,9 @@ router.get('/:slug', async function(req, res, next) {
   //front-end mapping
 
   const frontEndMap = {
-    "dbKey" :        ["year", "msrp", "range", "speed", "weight", "maxWeight", "drive", "batteryCapacity", "batteryRemovable", "width", "length", "waterproof", "terrain", "style", "deckMaterials", "travelSafe"],
-    "displayName" :  ["Year", "MSRP", "Range", "Speed", "Weight", "Max Weight", "Drive", "Battery Capacity", "Battery Removable", "Width", "Length", "Waterproof", "Terrain", "Style", "Deck Material", "Travel Safe"],
-    "semanticIcon" : ["play", "play", "play", "play", "play", "play", "play", "play", "play", "play", "play", "play", "play", "play", "play", "play"]
+    "dbKey" :        ["year", "range", "speed", "weight", "drive", "batteryCapacity", "batteryRemovable", "width", "length", "waterproof", "terrain", "style", "deckMaterials", "travelSafe"],
+    "displayName" :  ["Year", "Range", "Speed", "Weight", "Drive", "Battery Capacity", "Battery Removable", "Width", "Length", "Waterproof", "Terrain", "Style", "Deck Material", "Travel Safe"],
+    "semanticIcon" : ["calendar check outline", "map marker alternate", "dashboard", "balance scale", "power off", "battery three quarters", "plug", "arrows alternate horizontal", "arrows alternate vertical", "tint", "road", "adjust", "diamond", "plane"]
   }
 
   var displaySpecs = [];
@@ -60,7 +60,7 @@ router.get('/:slug', async function(req, res, next) {
 
     var displaySpecObject = {};
     displaySpecObject["displayName"] = displayName;
-    displaySpecObject["semanticIcon"] = semanticIcon;
+    displaySpecObject["icon"] = semanticIcon;
     displaySpecObject["value"] = product.specs[dbKey];
 
     displaySpecs.push(displaySpecObject);
