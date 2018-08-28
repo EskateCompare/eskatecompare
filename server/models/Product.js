@@ -9,24 +9,26 @@ var ProductSchema = new mongoose.Schema({
   deals: [{type: mongoose.Schema.Types.ObjectId, ref: 'Deal'}],
   name: { type: String, unique: true },
   slug: {type: String, lowercase: true, unique: true},  //auto-generated
-  image: String,
-  additionalImages: [String],
-  year: Number,
-  msrp: Number,  //us dollars
-  range: Number,  //miles
-  speed: Number, //mph
-  weight: Number,
-  maxWeight: Number,
-  drive: String,
-  batteryCapacity: Number,  //mAh
-  batteryRemovable: Boolean,
-  width: Number,
-  length: Number,
-  waterproof: Boolean,
-  terrain: String,
-  style: String,
-  deckMaterials: [String],
-  travelSafe: Boolean,
+  image: {type: mongoose.Schema.Types.ObjectId, ref: 'Image'},
+  additionalImages: [{type: mongoose.Schema.Types.ObjectId, ref: 'Image'}],
+  specs: {
+    year: Number,
+    msrp: Number,  //us dollars
+    range: Number,  //miles
+    speed: Number, //mph
+    weight: Number,
+    maxWeight: Number,
+    drive: String,
+    batteryCapacity: Number,  //mAh
+    batteryRemovable: Boolean,
+    width: Number,
+    length: Number,
+    waterproof: Boolean,
+    terrain: String,
+    style: String,
+    deckMaterials: [String],
+    travelSafe: Boolean
+  },
   ratings: {
     external: {
       average: Number,
@@ -39,13 +41,7 @@ var ProductSchema = new mongoose.Schema({
     compositeScore: Number
   },
   reviews: [
-    {
-      name: String,
-      date: Date,
-      rating: Number,
-      content: String,
-      source: String
-    }
+    {type: mongoose.Schema.Types.ObjectId, ref: 'Review'}
   ],
   popularity: Number,
   value: Number

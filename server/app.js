@@ -45,11 +45,14 @@ mongoose.connect('mongodb://mvalen:Ma.301934@ds129762.mlab.com:29762/heroku_p0dq
 require('dotenv').config()
 
 //mongoose models here
+require ('./models/Image');
 require('./models/Brand');
+require('./models/Review');
 require('./models/Product');
 require ('./models/Store');
 require ('./models/Deal');
 require ('./models/UpdateStats');
+
 
 app.use(require('./routes'));
 

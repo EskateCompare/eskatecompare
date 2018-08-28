@@ -5,7 +5,8 @@ var Product = mongoose.model('Product')
 
 router.get('/:slug', async function(req, res, next) {
 
-  let product = await Product.findOne({ slug : req.params.slug }).populate('brands').populate('deals').lean().exec();
+  let product = await Product.findOne({ slug : req.params.slug }).populate('brand').populate('deals').
+  populate('reviews').populate('image').populate('additionalImages').lean().exec();
 
   if (!product) return res.status(422).json({ 'error' : 'product not found' });
 
