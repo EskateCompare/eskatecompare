@@ -17,7 +17,7 @@ export default class App extends React.Component {
         <GlobalHeader />
         <Switch>
           <Route exact path='/' component={CompareProducts} />
-          <Route exact path='/product' component={Product} />
+          <Route exact path='/product/:slug' component={Product} />
         </Switch>
         <GlobalFooter />
       </div>
