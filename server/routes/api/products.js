@@ -43,16 +43,39 @@ router.get('/:slug', async function(req, res, next) {
     return new Date(b.date) - new Date(a.date);
   })
 
+  //front-end mapping
+
+  const frontEndMap = {
+    "dbKey" :        ["year", "msrp", "range", "speed", "weight", "maxWeight", "drive", "batteryCapacity", "batteryRemovable", "width", "length", "waterproof", "terrain", "style", "deckMaterials", "travelSafe"],
+    "displayName" :  ["Year", "MSRP", "Range", "Speed", "Weight", "Max Weight", "Drive", "Battery Capacity", "Battery Removable", "Width", "Length", "Waterproof", "Terrain", "Style", "Deck Material", "Travel Safe"],
+    "semanticIcon" : ["play", "play", "play", "play", "play", "play", "play", "play", "play", "play", "play", "play", "play", "play", "play", "play"]
+  }
+
+  var displaySpecs = [];
+
+  for (var i = 0; i < frontEndMap.dbKey.length; i++) {
+    var dbKey = frontEndMap.dbKey[i];
+    var displayName = frontEndMap.displayName[i];
+    var semanticIcon = frontEndMap.semanticIcon[i];
+
+    var displaySpecObject = {};
+    displaySpecObject["displayName"] = displayName;
+    displaySpecObject["semanticIcon"] = semanticIcon;
+    displaySpecObject["value"] = product.specs[dbKey];
+
+    displaySpecs.push(displaySpecObject);
+
+  }
+
+  product["displaySpecs"] = displaySpecs;
+
   return res.json({ product });
-
-
-
 
 })
 
 router.get('/', async function(req, res, next) {
   //Replace this find with filter function
-  Product.find({}).select('-reviews').populate('brand').populate('deals').exec().then(function(products) {
+  Product.find({}).select('-reviews').populate('brand').populate('deals').populate('image').exec().then(function(products) {
     return res.json({ products })
   })
 })
