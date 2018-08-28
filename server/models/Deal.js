@@ -8,6 +8,7 @@ var Product = mongoose.model('Product');
 var DealSchema = new mongoose.Schema({
   store: {type: mongoose.Schema.Types.ObjectId, ref: 'Store'},
   product: {type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
+  url: String,
   originalPrice: Number,   //in currency of store
   salesPrice: Number, //in currency of store
   lastChecked: Date,

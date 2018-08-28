@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
 import { Icon, Grid, List, Image, Label, Table } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 export default class ListItem extends Component {
   constructor(props){
     super(props);
 
-    this.state = {
-      link: false,
-    }
-
     this.handleRowClick = this.handleRowClick.bind(this);
   }
 
-  handleRowClick(e, value) {
-    console.log(this.props.product.name, 'listttttt');
-    this.setState({link: true});
-
+  handleRowClick() {
+    alert(this.props.product.name);
+    return <Redirect to='/product' />
   }
   
   render() {
@@ -30,10 +24,6 @@ export default class ListItem extends Component {
     if (ratings.compositeScore >= 70 && ratings.compositeScore <= 79) { color = 'yellow' }
     if (ratings.compositeScore >= 60 && ratings.compositeScore <= 69) { color = 'orange' }
     if (ratings.compositeScore < 60) { color = 'red' }
-
-    if (this.state.link) {
-      return <Redirect push to="/product/${this.state.product.slug}" />;
-    }
 
     return (
       <Table.Row onClick={this.handleRowClick}>

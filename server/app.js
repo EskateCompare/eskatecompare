@@ -1,6 +1,7 @@
 var fs = require('fs'),
     http = require('http'),
     path = require('path'),
+    https = require('https'),
     methods = require('methods'),
     express = require('express'),
     bodyParser = require('body-parser'),
@@ -14,6 +15,8 @@ var isProduction = process.env.NODE_ENV === 'production';
 // Create global app object
 var app = express();
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(cors());
 
 // Normal express config defaults
@@ -29,9 +32,10 @@ app.use(session({ secret: 'skatecompare', cookie: { maxAge: 60000 }, resave: fal
 if (!isProduction) {
   app.use(errorhandler());
 }
-mongodb://<dbuser>:<dbpassword>@ds129762.mlab.com:29762/heroku_p0dqrw89
+//mongodb:<dbuser>:<dbpassword>@ds129762.mlab.com:29762/heroku_p0dqrw89
 if(isProduction){
-  mongoose.connect(process.env.MONGODB_URI);
+//  mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect('mongodb://mvalen:Ma.301934@ds129762.mlab.com:29762/heroku_p0dqrw89')
 } else {
   //mongoose.connect('mongodb://localhost/skatecompare');
   mongoose.connect('mongodb://mvalen:Ma.301934@ds129762.mlab.com:29762/heroku_p0dqrw89')
@@ -50,12 +54,12 @@ require ('./models/UpdateStats');
 app.use(require('./routes'));
 
 /// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
-
+*/
 /// error handlers
 
 // development error handler
@@ -75,12 +79,20 @@ if (!isProduction) {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+/*app.use(function(err, req, res, next) {
+  console.log("app.use function");
   res.status(err.status || 500);
   res.json({'errors': {
     message: err.message,
     error: {}
   }});
+});
+*/
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  console.log ("app.get function");
+  res.sendFile(path.join(__dirname + 'client/build/index.html'));
 });
 
 // finally, let's start our server...
