@@ -6,10 +6,10 @@ export default class DealList extends Component {
     const { deals } = this.props;
 
     const renderDeals = deals.map((deal, index) => {
-      const { originalPrice, salesPrice, url, logo } = deal;
+      const { originalPrice, salesPrice, url, store } = deal;
       return (
         <Table.Row key={index}>
-          <Table.Cell verticalAlign='middle'><Image centered src={logo} size='tiny' /></Table.Cell>
+          <Table.Cell verticalAlign='middle'><Image centered src={store.logo} size='tiny' /></Table.Cell>
           <Table.Cell verticalAlign='middle'>${originalPrice}</Table.Cell>
           <Table.Cell verticalAlign='middle'><Label color='red' tag>${salesPrice}</Label></Table.Cell>
           <Table.Cell verticalAlign='middle'><a href={url}><Button primary>See Deal</Button></a></Table.Cell>
@@ -24,7 +24,7 @@ export default class DealList extends Component {
     const renderedDeals = this.renderDeals();
 
     return (
-      <Table textAlign='center' basic='very' striped selectable>
+      <Table textAlign='center' basic='very' striped>
         <Table.Body>
           {renderedDeals}
         </Table.Body>

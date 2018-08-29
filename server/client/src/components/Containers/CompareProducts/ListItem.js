@@ -16,7 +16,6 @@ export default class ListItem extends Component {
 
   handleRowClick(e, value) {
     this.setState({ link: true });
-
   }
   
   render() {

@@ -9,6 +9,7 @@ import { Dimmer, Header, Icon, Grid, Image, Divider, Label, Rating, Loader, Segm
 export default class Product extends React.Component {
   componentDidMount() {
     const { fetchProduct, match } = this.props;
+    
     fetchProduct(match.params.slug);
   }
 

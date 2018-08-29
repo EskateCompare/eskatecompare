@@ -7,11 +7,20 @@ export default class SpecList extends Component {
 
     const renderSpec = displaySpecs.map((spec, index) => {
       const { displayName, icon, value } = spec;
+
+      let displayValue = value;
+
+      if (typeof value === 'boolean') {
+        value ? displayValue = 'yes' : displayValue = 'no'
+      }
+
+      if (Array.isArray(value)) {
+        displayValue = value.join(' | ')
+      }
+
       return (
         <List.Item>
-          <List.Content floated='right'>
-            <Label>{value}</Label>
-          </List.Content>
+          <List.Content floated='right'>{displayValue}</List.Content>
           <List.Icon name={icon} size='large'/>
           <List.Content>{displayName}</List.Content>
         </List.Item>
@@ -26,7 +35,7 @@ export default class SpecList extends Component {
     const renderedSpec = this.renderSpec();
 
     return (
-      <List relaxed='very' verticalAlign='middle'>
+      <List divided relaxed='very' verticalAlign='middle'>
         {renderedSpec}
       </List>
     );
