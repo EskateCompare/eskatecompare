@@ -11,6 +11,11 @@ import GlobalFooter from './Globals/GlobalFooter';
 // const history = createHistory();
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    //localStorage.clear();
+  }
+
   render() {
     return (
       <div>

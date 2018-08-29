@@ -24,8 +24,8 @@ router.get('/', async function(req, res, next) {
       "ranges" : [[0, 10], [10, 16], [16, 22], [22,999]] },
     { "title" : "weight", "type" : "ranges", "attribute" : "weight",  "displayTitle" : "Weight", "formType" : "Checkbox",
       "ranges" : [[0, 10], [10, 15], [15, 20], [20,999]] },
-    { "title" : "max-weight", "type" : "ranges", "attribute" : "maxWeight",  "displayTitle" : "Max Weight", "formType" : "Checkbox",
-      "ranges" : [[0, 200], [200, 300], [300, 400], [400, 999]] },
+    /*{ "title" : "max-weight", "type" : "ranges", "attribute" : "maxWeight",  "displayTitle" : "Max Weight", "formType" : "Checkbox",
+      "ranges" : [[0, 200], [200, 300], [300, 400], [400, 999]] },*/
     { "title" : "drive", "type" : "discrete", "attribute" : "drive", "displayTitle" : "Drive", "formType" : "Checkbox" },
     { "title" : "width", "type" : "ranges", "attribute" : "width" ,  "displayTitle" : "Width", "formType" : "Checkbox",
       "ranges" : [[0, 3], [3, 4], [4, 6], [6, 99]] },
