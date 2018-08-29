@@ -1,32 +1,61 @@
 import fetch from 'cross-fetch'
-// import { constants: SET_FILTER, SET_PRODUCTS } from '../constants';
 
-export function setFilter(payload){
+export function requestFilter() {
   return {
-    type: 'SET_FILTER',
+    type: 'REQUEST_FILTER',
+  }
+}
+
+export function receiveFilter(payload) {
+  return {
+    type: 'RECEIVE_FILTER',
     payload
   }
 }
 
-export function setProducts(payload){
+export function fetchFilterError(payload) {
   return {
-    type: 'SET_PRODUCTS',
+    type: 'FETCH_FILTER_ERROR',
     payload
   }
 }
 
 export function fetchFilter() {
   return dispatch => {
-    return fetch(`/api/filter-options`)
+    dispatch(requestFilter())
+    return fetch(`/api/filter-options/`)
       .then(response => response.json())
-      .then(json => dispatch(setFilter(json)))
+      .then(json => dispatch(receiveFilter(json)))
+      .catch(err => dispatch(fetchFilterError(err)))
+  }
+}
+
+export function requestProducts() {
+  return {
+    type: 'REQUEST_PRODUCTS',
+  }
+}
+
+export function receiveProducts(payload) {
+  return {
+    type: 'RECEIVE_PRODUCTS',
+    payload
+  }
+}
+
+export function fetchProductsError(payload) {
+  return {
+    type: 'FETCH_PRODUCTS_ERROR',
+    payload
   }
 }
 
 export function fetchProducts() {
   return dispatch => {
+    dispatch(requestProducts())
     return fetch(`/api/products`)
       .then(response => response.json())
-      .then(json => dispatch(setProducts(json)))
+      .then(json => dispatch(receiveProducts(json)))
+      .catch(err => dispatch(fetchProductsError(err)))
   }
 }

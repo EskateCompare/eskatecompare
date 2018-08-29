@@ -27,11 +27,11 @@ export default class ProductList extends Component {
     }
   }
 
-  handleFilter(e, value){
+  handleFilter(e, value) {
     this.setState({ filterText: value.text });
   }
 
-  renderListItems(){
+  renderListItems() {
     const { products } = this.props.products;
  
     const listItems = products.map((product, index) =>
