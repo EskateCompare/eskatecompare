@@ -6,13 +6,13 @@ export default class DealList extends Component {
     const { deals } = this.props;
 
     const renderDeals = deals.map((deal, index) => {
-      const { originalPrice, salesPrice } = deal;
+      const { originalPrice, salesPrice, url, logo } = deal;
       return (
         <Table.Row key={index}>
-          <Table.Cell verticalAlign='middle'><Image centered src='https://react.semantic-ui.com/images/wireframe/image.png' size='tiny' /></Table.Cell>
+          <Table.Cell verticalAlign='middle'><Image centered src={logo} size='tiny' /></Table.Cell>
           <Table.Cell verticalAlign='middle'>${originalPrice}</Table.Cell>
           <Table.Cell verticalAlign='middle'><Label color='red' tag>${salesPrice}</Label></Table.Cell>
-          <Table.Cell verticalAlign='middle'><Button primary>See Deal</Button></Table.Cell>
+          <Table.Cell verticalAlign='middle'><a href={url}><Button primary>See Deal</Button></a></Table.Cell>
         </Table.Row>
         )
       }

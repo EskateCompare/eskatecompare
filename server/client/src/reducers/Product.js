@@ -3,6 +3,7 @@ const defaultState = {
     product: {
   		name: '',
       deals: [],
+      displaySpecs: [],
       reviews: [],
       specs: {},
   		ratings: {
@@ -13,6 +14,7 @@ const defaultState = {
   	}
   },
   fetching: false,
+  error: null,
 };
 
 export default (state = defaultState, action) => {
@@ -21,10 +23,10 @@ export default (state = defaultState, action) => {
       return Object.assign({}, state, {
         fetching: true
       })
-    // case 'FETCH_PRODUCT_ERROR':
-    //   return Object.assign({}, state, {
-    //     fetching: action.payload
-    // })
+    case 'FETCH_PRODUCT_ERROR':
+      return Object.assign({}, state, {
+        error: action.payload
+    })
     case 'RECEIVE_PRODUCT':
       return Object.assign({}, state, {
         product: action.payload,

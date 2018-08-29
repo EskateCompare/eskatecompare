@@ -14,12 +14,20 @@ export function receiveProduct(payload) {
   }
 }
 
+export function fetchProductError(payload) {
+  return {
+    type: 'FETCH_PRODUCT_ERROR',
+    payload
+  }
+}
+
 export function fetchProduct(payload) {
   return dispatch => {
     dispatch(requestProduct())
     return fetch(`/api/products/${payload}`)
       .then(response => response.json())
       .then(json => dispatch(receiveProduct(json)))
+      .catch(err => dispatch(fetchProductError(err)))
   }
 }
 
