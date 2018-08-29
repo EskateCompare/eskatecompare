@@ -2,6 +2,9 @@ const defaultState = {
   product: {
     product: {
   		name: '',
+      brand: {
+        logo: '',
+      },
       deals: [],
       displaySpecs: [],
       reviews: [],

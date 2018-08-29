@@ -15,7 +15,9 @@ export default class Product extends React.Component {
 
   render() {
     const { product } = this.props.product;
-    const { name, deals, reviews } = product;
+    const { name, deals, reviews, brand, ratings } = product;
+
+    console.log(product, 'product');
 
     if (this.props.fetching) {
       return (
@@ -30,7 +32,7 @@ export default class Product extends React.Component {
         <Grid container columns={2} stackable>
           <Grid.Column width={7}>
             <Header floated='left' as='h1'>
-              <Image src='https://react.semantic-ui.com/images/wireframe/image.png' size='small' />
+              <Image src={brand.logo} size='small' />
               {name}
             </Header>
           </Grid.Column>
@@ -38,7 +40,7 @@ export default class Product extends React.Component {
             <Header floated='right' as='h6'>
               <Rating icon='star' defaultRating={4} maxRating={5} />
               <Label color='green'>      
-                99
+                {ratings.compositeScore}
               </Label>
               <Label>
                 <Icon name='checkmark' />
