@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CompareProducts from './CompareProducts';
 import { fetchProducts, fetchFilter } from '../../../actions/CompareProducts';

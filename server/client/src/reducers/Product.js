@@ -1,8 +1,5 @@
-import actions from '../actions/Product';
-// import { SET_FILTER, SET_PRODUCTS } from '../constants';
-
 const defaultState = {
-product: {
+  product: {
     product: {
   		name: '',
       deals: [],
@@ -14,15 +11,25 @@ product: {
       image: {},
       additionalImages: [],
   	}
-  }
+  },
+  fetching: false,
 };
 
 export default (state = defaultState, action) => {
   switch(action.type) {
-    case 'SET_PRODUCT':
+    case 'REQUEST_PRODUCT':
       return Object.assign({}, state, {
-        product: action.payload
+        fetching: true
       })
+    // case 'FETCH_PRODUCT_ERROR':
+    //   return Object.assign({}, state, {
+    //     fetching: action.payload
+    // })
+    case 'RECEIVE_PRODUCT':
+      return Object.assign({}, state, {
+        product: action.payload,
+        fetching: false
+    })
   };
   return state;
 }

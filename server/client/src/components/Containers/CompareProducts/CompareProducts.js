@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ProductList from './ProductList';
 import Filter from './Filter';
-import fetch from 'cross-fetch';
 import { Header, Icon, Grid, Label } from 'semantic-ui-react';
 
 export default class CompareProducts extends Component {

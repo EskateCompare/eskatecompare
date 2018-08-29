@@ -3,7 +3,7 @@ import { Form, Label, Input, Checkbox, Header } from 'semantic-ui-react';
 
 export default class Filter extends Component {
   renderFilterOptions() {
-    const { filter: filter } = this.props;
+    const { filter } = this.props;
 
     const filterItems = filter.map((option, index) => {
       return (

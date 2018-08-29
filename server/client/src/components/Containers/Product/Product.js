@@ -4,8 +4,7 @@ import ImageList from './ImageList';
 import DealList from './DealList';
 import SpecList from './SpecList';
 import ReviewList from './ReviewList';
-import fetch from 'cross-fetch';
-import { Container, Menu, Feed, Segment, Button, Header, Icon, Grid, List, Image, Dropdown, Divider, Label, Rating } from 'semantic-ui-react';
+import { Dimmer, Header, Icon, Grid, Image, Divider, Label, Rating, Loader, Segment } from 'semantic-ui-react';
 
 export default class Product extends React.Component {
   componentDidMount() {
@@ -14,8 +13,16 @@ export default class Product extends React.Component {
   }
 
   render() {
-    const { product } = this.props;
+    const { product } = this.props.product;
     const { name, deals, reviews } = product;
+
+    if (this.props.fetching) {
+      return (
+        <Dimmer inverted active>
+          <Loader size='massive'>Loading</Loader>
+        </Dimmer>
+      )
+    }
 
     return (
       <div className="App">

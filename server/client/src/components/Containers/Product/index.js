@@ -4,7 +4,7 @@ import { fetchProduct } from '../../../actions/Product';
 
 const mapStateToProps = function(state) {
   return ({
-    ...state.Product.product
+    ...state.Product
   })
 }
 

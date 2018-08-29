@@ -1,6 +1,3 @@
-import actions from '../actions/CompareProducts';
-// import { SET_FILTER, SET_PRODUCTS } from '../constants';
-
 const defaultState = {
   products: {
     products: []

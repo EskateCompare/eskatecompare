@@ -1,14 +1,14 @@
 import React from 'react';
-import {  Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import {  Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 
 import CompareProducts from './Containers/CompareProducts';
 import Product from './Containers/Product';
-import Home from './Home';
+// import Home from './Home';
 import GlobalHeader from './Globals/GlobalHeader';
 import GlobalFooter from './Globals/GlobalFooter';
 
-const history = createHistory();
+// const history = createHistory();
 
 export default class App extends React.Component {
   render() {

@@ -2,7 +2,7 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import {persistStore, autoRehydrate} from 'redux-persist-2';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { promiseMiddleware } from './middleware'
+// import { promiseMiddleware } from './middleware'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 
