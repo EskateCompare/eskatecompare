@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 const unwind = require('javascript-unwind');
 
+var pipeline = require('./pipelines/product-aggregation');
+
 var Product = mongoose.model('Product')
 var UpdateStats = mongoose.model('UpdateStats')
 
@@ -11,30 +13,30 @@ router.get('/', async function(req, res, next) {
   //Reference Filter
   const referenceFilter = [
     { "title" : "brands", "type" : "discrete", "attribute" : "brand.name", "displayTitle" : "Brand", "formType" : "Checkbox"},
-    { "title" : "year", "type" : "discrete", "attribute" : "year", "displayTitle" : "Year", "formType" : "Checkbox" },
+    { "title" : "year", "type" : "discrete", "attribute" : "specs.year", "displayTitle" : "Year", "formType" : "Checkbox" },
     { "title" : "price", "type" : "ranges", "attribute" : "bestPrice", "formType" : "Checkbox",
       "ranges" : [[0, 250], [250, 500], [500, 1000], [1000-1500], [1500,9999]] },
-    { "title" : "range", "type" : "ranges", "attribute" : "range", "displayTitle" : "Range", "formType" : "Checkbox",
+    { "title" : "range", "type" : "ranges", "attribute" : "specs.range", "displayTitle" : "Range", "formType" : "Checkbox",
       "ranges" : [[0, 10], [10, 17], [17, 24], [24, 9999]] },
-    { "title" : "battery-capacity", "type" : "ranges", "attribute" : "batteryCapacity",  "displayTitle" : "Battery Capacity", "formType" : "Checkbox",
+    { "title" : "battery-capacity", "type" : "ranges", "attribute" : "specs.batteryCapacity",  "displayTitle" : "Battery Capacity", "formType" : "Checkbox",
       "ranges": [[0, 3000], [3000, 6000], [6000, 10000], [10000, 999999]] },
-    { "title" : "battery-removable", "type" : "discrete", "attribute" : "batteryRemovable",  "displayTitle" : "Battery Removable", "formType" : "Radio" },
-    { "title" : "travel-safe", "type" : "discrete", "attribute" : "travelSafe",  "displayTitle" : "Travel Safe", "formType" : "Radio" },
-    { "title" : "speed", "type" : "ranges", "attribute" : "speed",  "displayTitle" : "Speed", "formType" : "Checkbox",
+    { "title" : "battery-removable", "type" : "discrete", "attribute" : "specs.batteryRemovable",  "displayTitle" : "Battery Removable", "formType" : "Radio" },
+    { "title" : "travel-safe", "type" : "discrete", "attribute" : "specs.travelSafe",  "displayTitle" : "Travel Safe", "formType" : "Radio" },
+    { "title" : "speed", "type" : "ranges", "attribute" : "specs.speed",  "displayTitle" : "Speed", "formType" : "Checkbox",
       "ranges" : [[0, 10], [10, 16], [16, 22], [22,999]] },
-    { "title" : "weight", "type" : "ranges", "attribute" : "weight",  "displayTitle" : "Weight", "formType" : "Checkbox",
+    { "title" : "weight", "type" : "ranges", "attribute" : "specs.weight",  "displayTitle" : "Weight", "formType" : "Checkbox",
       "ranges" : [[0, 10], [10, 15], [15, 20], [20,999]] },
     /*{ "title" : "max-weight", "type" : "ranges", "attribute" : "maxWeight",  "displayTitle" : "Max Weight", "formType" : "Checkbox",
       "ranges" : [[0, 200], [200, 300], [300, 400], [400, 999]] },*/
-    { "title" : "drive", "type" : "discrete", "attribute" : "drive", "displayTitle" : "Drive", "formType" : "Checkbox" },
-    { "title" : "width", "type" : "ranges", "attribute" : "width" ,  "displayTitle" : "Width", "formType" : "Checkbox",
+    { "title" : "drive", "type" : "discrete", "attribute" : "specs.drive", "displayTitle" : "Drive", "formType" : "Checkbox" },
+    { "title" : "width", "type" : "ranges", "attribute" : "specs.width" ,  "displayTitle" : "Width", "formType" : "Checkbox",
       "ranges" : [[0, 3], [3, 4], [4, 6], [6, 99]] },
-    { "title" : "length", "type" : "ranges", "attribute" : "length" ,  "displayTitle" : "Length", "formType" : "Checkbox",
+    { "title" : "length", "type" : "ranges", "attribute" : "specs.length" ,  "displayTitle" : "Length", "formType" : "Checkbox",
       "ranges" : [[0, 6], [6, 12], [12, 18], [18, 24], [24, 99]] },
-    { "title" : "waterproof", "type" : "discrete", "attribute" : "waterproof", "displayTitle" : "Waterproof", "formType" : "Radio" },
-    { "title" : "terrain", "type" : "discrete", "attribute" : "terrain", "displayTitle" : "Terrain", "formType" : "Checkbox" },
-    { "title" : "style", "type" : "discrete", "attribute" : "style", "displayTitle" : "Style", "formType" : "Checkbox" },
-    { "title" : "deck-materials", "type" : "discrete", "attribute" : "deckMaterials", "displayTitle" : "Deck Material", "formType" : "Checkbox" },
+    { "title" : "waterproof", "type" : "discrete", "attribute" : "specs.waterproof", "displayTitle" : "Waterproof", "formType" : "Radio" },
+    { "title" : "terrain", "type" : "discrete", "attribute" : "specs.terrain", "displayTitle" : "Terrain", "formType" : "Checkbox" },
+    { "title" : "style", "type" : "discrete", "attribute" : "specs.style", "displayTitle" : "Style", "formType" : "Checkbox" },
+    { "title" : "deck-materials", "type" : "discrete", "attribute" : "specs.deckMaterials", "displayTitle" : "Deck Material", "formType" : "Checkbox" },
     { "title" : "rating", "type" : "range", "attribute" : "ratings.compositeScore", "displayTitle" : "Rating", "formType" : "Checkbox",
       "ranges" : [[0, 60], [60, 70], [70, 80], [80, 90], [90, 100]] }
   ]
@@ -42,21 +44,43 @@ router.get('/', async function(req, res, next) {
   let stats = {};
   let filterOptions = [];
 
-  //Replace this find with filter function
-  Product.find({}).populate('brand').populate('deals').lean().exec().then(async function(products) {
-    referenceFilter.forEach(function(element) {
+  //get products
+  const params = req.query;
 
+  pipeline.aggregationFilter(params, false).then(async function(products) {
+
+
+  //Replace this find with filter function
+  //Product.find({}).populate('brand').populate('deals').lean().exec().then(async function(products) {
+    referenceFilter.forEach(function(element) {
       let optionsArray = [];
       let itemToAdd = {};
       let counts = {};
       if (element.type === "discrete") {
+        let productsToCount = [];
         if (Array.isArray(eval("products[0]." + element.attribute))) {
-          productsToCount = _.clone(unwind(products, element.attribute))
+          //unwind the products on the attribute array.
+          //this implementation is a workaround with the extra step of moving the attribute to the top level of the object, since javascript-unwind doesn't sort Array
+            //nested in a nested object
+            // this was the original:  productsToCount = _.clone(unwind(products, element.attribute))
+          //productsToCount = _.clone(products);
+
+          products.forEach(function(prod) {
+            prod['workaroundArray'] = _.get(prod, 'specs.deckMaterials');
+            //console.log(prod);
+            productsToCount.push(prod);
+          })
+
+          productsToCount = unwind(productsToCount, "workaroundArray")
+
+          element.attribute = "workaroundArray";
         }
         else {
           productsToCount = products;
         }
+      console.log(productsToCount.length)
       counts = _.countBy(productsToCount, function(e) {
+        console.log('attribute' + element.attribute);
         return eval("e." + element.attribute)
       });
 

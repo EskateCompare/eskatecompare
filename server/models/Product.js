@@ -54,12 +54,15 @@ ProductSchema.methods.slugify = function() {
 };
 
 ProductSchema.pre('validate', function(next) {
-  if (!this.slug) {
+  if (!this.slug) { 
     this.slugify();
   } else if (this.slug != slug(this.name)) {
     this.slugify();
   }
   next();
 });
+
+//ProductSchema.index({ "name": "text"});
+ProductSchema.index({ "specs.style" : "text"})
 
 mongoose.model('Product', ProductSchema);
