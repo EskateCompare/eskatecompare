@@ -1,3 +1,5 @@
+import { Map, updateIn, update, setIn, set } from 'immutable';
+
 const defaultState = {
   products: {
     products: []
@@ -6,6 +8,14 @@ const defaultState = {
     stats: {
       filterOptions: []
     }
+  },
+  filterState: {
+    brands: [],
+    year: [],
+    price: [],
+    range: [],
+    sortBy: 'rating',
+    sortDir: 'asc',
   },
   fetching: false,
   error: null,
@@ -38,6 +48,30 @@ export default (state = defaultState, action) => {
       return Object.assign({}, state, {
         filter: action.payload,
         fetching: false
+    })
+    case 'ON_FILTER_CHANGE':
+      const { payload } = action;
+      const { checked } = payload;
+      const key = Object.keys(action.payload)[0];
+      const arr = state.filterState[key];
+      const finalArr = checked ? arr.concat(action.payload[key]) : arr.filter(val => val !== action.payload[key]);
+      state.filterState[key] = finalArr;
+
+      return Object.assign({}, state, {
+        filterState: state.filterState
+    })
+    case 'ON_SORT_DIRECTION':
+      const sortDir = Object.assign({}, state.filterState, action.payload)
+
+      return Object.assign({}, state, {
+        filterState: sortDir
+      })
+
+    case 'ON_SORT_BY':
+      const sortBy = Object.assign({}, state.filterState, action.payload)
+
+      return Object.assign({}, state, {
+        filterState: sortBy
     })
   };
   return state;

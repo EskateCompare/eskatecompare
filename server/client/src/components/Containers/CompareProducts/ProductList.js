@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ListItem from './ListItem';
-import { Button, Icon, Grid, Dropdown, Divider, Table } from 'semantic-ui-react';
+import { Button, Icon, Grid, Dropdown, Divider, Table, Loader, Dimmer } from 'semantic-ui-react';
 import sortingOptions from '../constants'
 
 export default class ProductList extends Component {
@@ -8,27 +8,36 @@ export default class ProductList extends Component {
     super();
 
     this.state = {
-      sortIcon: 'sort amount up',
+      sortIcon: 'sort amount down',
       filterText: 'Sort By',
     }
 
-    this.handleSort = this.handleSort.bind(this);
-    this.handleFilter = this.handleFilter.bind(this);
+    this.handleSortDirection = this.handleSortDirection.bind(this);
+    this.handleSortBy = this.handleSortBy.bind(this);
   }
 
-  handleSort(){
+  handleSortDirection(e, target) {
+    const { fetchProducts, onSortDirection, filterState } = this.props;
     const { sortIcon } = this.state;
 
     if (sortIcon === 'sort amount up') {
       this.setState({ sortIcon: 'sort amount down' });
+      onSortDirection({ sortDir: 'dsc' })
+      fetchProducts(filterState);
     }
     if (sortIcon === 'sort amount down') {
       this.setState({ sortIcon: 'sort amount up' });
+      onSortDirection({ sortDir: 'asc' })
+      fetchProducts(filterState);
     }
   }
 
-  handleFilter(e, value) {
+  handleSortBy(e, value) {
+    const { fetchProducts, onSortBy, filterState } = this.props;
+    console.log(value);
     this.setState({ filterText: value.text });
+    onSortBy({ sortBy: value.text })
+    fetchProducts(filterState);
   }
 
   renderListItems() {
@@ -43,7 +52,7 @@ export default class ProductList extends Component {
 
   renderDropdownItems() {
     const dropdownItems = sortingOptions.map((option, index) =>
-      <Dropdown.Item key={index} onClick={this.handleFilter} text={option} />
+      <Dropdown.Item key={index} onClick={this.handleSortBy} text={option} />
     );
 
     return dropdownItems;
@@ -58,7 +67,7 @@ export default class ProductList extends Component {
       <div>
         <Grid>
           <Grid.Column floated='left' width={2}>
-            <Button icon={sortIcon} onClick={this.handleSort}/>
+            <Button icon={sortIcon} onClick={this.handleSortDirection}/>
           </Grid.Column>
           <Grid.Column floated='right' width={3}>
             <Dropdown text={filterText} icon='sort' floating labeled button className='icon'>

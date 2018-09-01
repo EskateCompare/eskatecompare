@@ -1,6 +1,12 @@
 import { connect } from 'react-redux';
 import CompareProducts from './CompareProducts';
-import { fetchProducts, fetchFilter } from '../../../actions/CompareProducts';
+import { 
+	fetchProducts,
+	fetchFilter,
+	onFilterChange,
+	onSortDirection,
+	onSortBy
+} from '../../../actions/CompareProducts';
 
 const mapStateToProps = function(state) {
   return ({
@@ -9,8 +15,11 @@ const mapStateToProps = function(state) {
 }
 
 const mapDispatchToProps = dispatch => ({
-	fetchProducts: () => dispatch(fetchProducts()),
-	fetchFilter: () => dispatch(fetchFilter())
+	fetchProducts: (payload) => dispatch(fetchProducts(payload)),
+	fetchFilter: () => dispatch(fetchFilter()),
+	onFilterChange: (payload) => dispatch(onFilterChange(payload)),
+	onSortDirection: (payload) => dispatch(onSortDirection(payload)),
+	onSortBy: (payload) => dispatch(onSortBy(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompareProducts);
