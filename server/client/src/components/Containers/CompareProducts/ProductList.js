@@ -17,27 +17,32 @@ export default class ProductList extends Component {
   }
 
   handleSortDirection(e, target) {
-    const { fetchProducts, onSortDirection, filterState } = this.props;
+    const { fetchProducts, onSortDirection, filterState, fetching } = this.props;
     const { sortIcon } = this.state;
 
     if (sortIcon === 'sort amount up') {
       this.setState({ sortIcon: 'sort amount down' });
       onSortDirection({ sortDir: 'dsc' })
-      fetchProducts(filterState);
     }
     if (sortIcon === 'sort amount down') {
       this.setState({ sortIcon: 'sort amount up' });
       onSortDirection({ sortDir: 'asc' })
-      fetchProducts(filterState);
     }
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const { fetchProducts, filterState, fetching } = this.props;
+
+    if (prevProps.filterState !== this.props.filterState ) {
+      fetchProducts(filterState);
+    } 
   }
 
   handleSortBy(e, value) {
     const { fetchProducts, onSortBy, filterState } = this.props;
-    console.log(value);
+
     this.setState({ filterText: value.text });
     onSortBy({ sortBy: value.text })
-    fetchProducts(filterState);
   }
 
   renderListItems() {

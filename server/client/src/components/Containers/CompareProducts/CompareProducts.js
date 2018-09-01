@@ -13,7 +13,7 @@ export default class CompareProducts extends Component {
 
   render() {
     const { internalReviewsCount, externalReviewsCount, lastUpdated, totalMatching, totalProducts} = this.props.filter.stats;
-    const { products, filterState, onSortBy, onSortDirection, onFilterChange, fetchProducts } = this.props;
+    const { products, filterState, onSortBy, onSortDirection, onFilterChange, fetchProducts, fetching } = this.props;
     const { filterOptions: filter } = this.props.filter.stats;
 
     return (
@@ -47,7 +47,7 @@ export default class CompareProducts extends Component {
             <Filter filter={filter} fetchProducts={fetchProducts} onFilterChange={onFilterChange} filterState={filterState}/>
           </Grid.Column>
           <Grid.Column width={12}>
-            <ProductList products={products} fetchProducts={fetchProducts} onSortBy={onSortBy} onSortDirection={onSortDirection} filterState={filterState}/>
+            <ProductList fetching={fetching} products={products} fetchProducts={fetchProducts} onSortBy={onSortBy} onSortDirection={onSortDirection} filterState={filterState}/>
           </Grid.Column>
         </Grid>
       </div>

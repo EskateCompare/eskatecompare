@@ -55,7 +55,7 @@ export function fetchProducts(payload) {
   
   return dispatch => {
     dispatch(requestProducts())
-    console.log(urlParams, 'urlParams')
+    // console.log(urlParams, 'urlParams')
     return fetch(`/api/products?${urlParams}`)
       .then(response => response.json())
       .then(json => dispatch(receiveProducts(json)))

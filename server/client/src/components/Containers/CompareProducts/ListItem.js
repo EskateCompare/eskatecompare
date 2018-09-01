@@ -20,7 +20,7 @@ export default class ListItem extends Component {
   
   render() {
     const { rank, product } = this.props;
-    const { image, specs,  ratings, name } = product;
+    const { image, specs,  ratings, name, bestPrice } = product;
     const {  speed, range, msrp } = specs;
     let color = '';
 
@@ -41,7 +41,7 @@ export default class ListItem extends Component {
         <Table.Cell verticalAlign='middle'>{name}</Table.Cell>
         <Table.Cell verticalAlign='middle'>{speed} km/h</Table.Cell>
         <Table.Cell verticalAlign='middle'>{range} km</Table.Cell>
-        <Table.Cell verticalAlign='middle'>${msrp}</Table.Cell>
+        <Table.Cell verticalAlign='middle'>${bestPrice}</Table.Cell>
         <Table.Cell verticalAlign='middle'>
           <Label color={color}>
             {ratings.compositeScore}%
