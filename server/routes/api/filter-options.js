@@ -14,7 +14,7 @@ router.get('/', async function(req, res, next) {
   const referenceFilter = [
     { "title" : "brands", "type" : "discrete", "attribute" : "brand.name", "displayTitle" : "Brand", "formType" : "Checkbox"},
     { "title" : "year", "type" : "discrete", "attribute" : "specs.year", "displayTitle" : "Year", "formType" : "Checkbox" },
-    { "title" : "price", "type" : "ranges", "attribute" : "bestPrice", "formType" : "Checkbox",
+    { "title" : "price", "type" : "ranges", "attribute" : "bestPrice", "formType" : "Checkbox", "displayTitle" : "Price",
       "ranges" : [[0, 250], [250, 500], [500, 1000], [1000-1500], [1500,9999]] },
     { "title" : "range", "type" : "ranges", "attribute" : "specs.range", "displayTitle" : "Range", "formType" : "Checkbox",
       "ranges" : [[0, 10], [10, 17], [17, 24], [24, 9999]] },
