@@ -9,7 +9,11 @@ export default class Filter extends Component {
   }
 
   handleFilterSelect(e, value) {
-    console.log(value);
+    const { title, label, checked } = value;
+    const { fetchProducts, onFilterChange, filterState } = this.props;
+
+    onFilterChange({ [title]: label, checked: checked });
+    fetchProducts(filterState);
   }
 
   renderFilterOptions() {
@@ -20,7 +24,7 @@ export default class Filter extends Component {
         <Form.Group key={index} grouped>
           <label><Header as='h4'>{option.displayTitle}</Header></label>
           { option.title === 'brands' ? <Form.Field icon='search' control={Input} type='input' placeholder='Search Brands'/> : null}
-          { option.options.map((value) => <Form.Field label={value.label} onChange={this.handleFilterSelect} control={Checkbox} type='checkbox' />) }
+          { option.options.map((value) => <Form.Field label={value.label} title={option.title} onChange={this.handleFilterSelect} control={Checkbox} type='checkbox' />) }
         </Form.Group>
         )
       }

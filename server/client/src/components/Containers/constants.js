@@ -1,3 +1,3 @@
-const sortingOptions = ['Rating', 'Popularity', 'Price', 'Discount', 'Speed', 'Range' ];
+const sortingOptions = ['rating', 'popularity', 'price', 'discount', 'speed', 'range' ];
 
 export default sortingOptions;
