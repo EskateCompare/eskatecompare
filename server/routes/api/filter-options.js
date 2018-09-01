@@ -15,30 +15,30 @@ router.get('/', async function(req, res, next) {
     { "title" : "brands", "type" : "discrete", "attribute" : "brand.name", "displayTitle" : "Brand", "formType" : "checkbox"},
     { "title" : "year", "type" : "discrete", "attribute" : "specs.year", "displayTitle" : "Year", "formType" : "checkbox" },
     { "title" : "price", "type" : "ranges", "attribute" : "bestPrice", "formType" : "checkbox", "displayTitle" : "Price",
-      "ranges" : [[0, 250], [250, 500], [500, 1000], [1000-1500], [1500,9999]] },
+      "ranges" : [[0, 250], [250, 500], [500, 1000], [1000, 1500], [1500]] },
     { "title" : "range", "type" : "ranges", "attribute" : "specs.range", "displayTitle" : "Range", "formType" : "checkbox",
-      "ranges" : [[0, 10], [10, 17], [17, 24], [24, 9999]] },
+      "ranges" : [[0, 10], [10, 17], [17, 24], [24]] },
     { "title" : "batteryCapacity", "type" : "ranges", "attribute" : "specs.batteryCapacity",  "displayTitle" : "Battery Capacity", "formType" : "checkbox",
-      "ranges": [[0, 3000], [3000, 6000], [6000, 10000], [10000, 999999]] },
+      "ranges": [[0, 3000], [3000, 6000], [6000, 10000], [10000]] },
     { "title" : "batteryRemovable", "type" : "discrete", "attribute" : "specs.batteryRemovable",  "displayTitle" : "Battery Removable", "formType" : "radio" },
     { "title" : "travel-safe", "type" : "discrete", "attribute" : "specs.travelSafe",  "displayTitle" : "Travel Safe", "formType" : "radio" },
     { "title" : "speed", "type" : "ranges", "attribute" : "specs.speed",  "displayTitle" : "Speed", "formType" : "checkbox",
-      "ranges" : [[0, 10], [10, 16], [16, 22], [22,999]] },
+      "ranges" : [[0, 10], [10, 16], [16, 22], [22]] },
     { "title" : "weight", "type" : "ranges", "attribute" : "specs.weight",  "displayTitle" : "Weight", "formType" : "checkbox",
-      "ranges" : [[0, 10], [10, 15], [15, 20], [20,999]] },
+      "ranges" : [[0, 10], [10, 15], [15, 20], [20]] },
     /*{ "title" : "max-weight", "type" : "ranges", "attribute" : "maxWeight",  "displayTitle" : "Max Weight", "formType" : "Checkbox",
       "ranges" : [[0, 200], [200, 300], [300, 400], [400, 999]] },*/
     { "title" : "drive", "type" : "discrete", "attribute" : "specs.drive", "displayTitle" : "Drive", "formType" : "checkbox" },
     { "title" : "width", "type" : "ranges", "attribute" : "specs.width" ,  "displayTitle" : "Width", "formType" : "checkbox",
-      "ranges" : [[0, 3], [3, 4], [4, 6], [6, 99]] },
+      "ranges" : [[0, 3], [3, 4], [4, 6], [6]] },
     { "title" : "length", "type" : "ranges", "attribute" : "specs.length" ,  "displayTitle" : "Length", "formType" : "checkbox",
-      "ranges" : [[0, 6], [6, 12], [12, 18], [18, 24], [24, 99]] },
+      "ranges" : [[0, 6], [6, 12], [12, 18], [18, 24], [24]] },
     { "title" : "waterproof", "type" : "discrete", "attribute" : "specs.waterproof", "displayTitle" : "Waterproof", "formType" : "radio" },
     { "title" : "terrain", "type" : "discrete", "attribute" : "specs.terrain", "displayTitle" : "Terrain", "formType" : "checkbox" },
     { "title" : "style", "type" : "discrete", "attribute" : "specs.style", "displayTitle" : "Style", "formType" : "checkbox" },
     { "title" : "deck-materials", "type" : "discrete", "attribute" : "specs.deckMaterials", "displayTitle" : "Deck Material", "formType" : "checkbox" },
     { "title" : "rating", "type" : "range", "attribute" : "ratings.compositeScore", "displayTitle" : "Rating", "formType" : "checkbox",
-      "ranges" : [[0, 60], [60, 70], [70, 80], [80, 90], [90, 100]] }
+      "ranges" : [[0, 60], [60, 70], [70, 80], [80, 90], [90]] }
   ]
 
   let stats = {};
@@ -97,8 +97,13 @@ router.get('/', async function(req, res, next) {
           e.bestPrice = deals[0].salesPrice;
           ranges.forEach(function(minMaxArray) {
             let value = eval("e." + element.attribute);
-            if (value > minMaxArray[0] && value < minMaxArray[1]) {
-              let bucketTitle = minMaxArray[0] + "-" + minMaxArray[1];
+            if (value >= minMaxArray[0] && (minMaxArray.length == 1 || value < minMaxArray[1])) {
+              let bucketTitle = "";
+              if (minMaxArray.length > 1) {
+                bucketTitle = minMaxArray[0] + "-" + minMaxArray[1];
+              } else {
+                bucketTitle = minMaxArray[0] + "+"
+              }
               counts[bucketTitle] = counts.hasOwnProperty(bucketTitle) ? counts[bucketTitle] + 1 : 1;
               return;
             }

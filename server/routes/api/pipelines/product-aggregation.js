@@ -37,10 +37,13 @@ exports.aggregationFilter = function (params, doSkipLimit) {
          rangeArray.forEach(function(minMaxPair) {
           minMaxPair = minMaxPair.split('-');
           let matchObject = {};
-          matchObject[rangeMatchesLookupKeys[i]] = { $gte : Number(minMaxPair[0]), $lt : Number(minMaxPair[1]) }
+          if (minMaxPair.length > 1) {
+            matchObject[rangeMatchesLookupKeys[i]] = { $gte : Number(minMaxPair[0]), $lt : Number(minMaxPair[1]) }
+          } else {
+            matchObject[rangeMatchesLookupKeys[i]] = { $gte : Number(minMaxPair[0]) }
+          }
           rangeMatchConditions.push(matchObject)
         })
-        console.log(rangeMatchConditions);
         rangeMatch = { $or : rangeMatchConditions  }
 
         pipeline.push({
@@ -166,7 +169,11 @@ exports.aggregationFilter = function (params, doSkipLimit) {
          priceParamArray.forEach(function(minMaxPair) {
           minMaxPair = minMaxPair.split('-');
           let matchObject = {};
-          matchObject['bestPrice'] = { $gte : Number(minMaxPair[0]), $lt : Number(minMaxPair[1]) }
+          if (minMaxPair.length > 1) {
+            matchObject['bestPrice'] = { $gte : Number(minMaxPair[0]), $lt : Number(minMaxPair[1]) }
+          } else {
+            matchObject['bestPrice'] = { $gte : Number(minMaxPair[0]) }
+          }
           priceMatchConditions.push(matchObject)
         })
         priceMatch = { $or : priceMatchConditions  }
