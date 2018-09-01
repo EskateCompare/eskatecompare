@@ -16,27 +16,39 @@ router.get('/', async function(req, res, next) {
     { "title" : "year", "type" : "discrete", "attribute" : "specs.year", "displayTitle" : "Year", "formType" : "checkbox" },
     { "title" : "price", "type" : "ranges", "attribute" : "bestPrice", "formType" : "checkbox", "displayTitle" : "Price",
       "ranges" : [[0, 250], [250, 500], [500, 1000], [1000, 1500], [1500]] },
-    { "title" : "range", "type" : "ranges", "attribute" : "specs.range", "displayTitle" : "Range", "formType" : "checkbox",
+    { "title" : "range", "type" : "ranges", "attribute" : "specs.range", "displayTitle" : "Range  (miles)", "formType" : "checkbox",
       "ranges" : [[0, 10], [10, 17], [17, 24], [24]] },
-    { "title" : "batteryCapacity", "type" : "ranges", "attribute" : "specs.batteryCapacity",  "displayTitle" : "Battery Capacity", "formType" : "checkbox",
+    { "title" : "batteryCapacity", "type" : "ranges", "attribute" : "specs.batteryCapacity",  "displayTitle" : "Battery Capacity (mAh)", "formType" : "checkbox",
       "ranges": [[0, 3000], [3000, 6000], [6000, 10000], [10000]] },
-    { "title" : "batteryRemovable", "type" : "discrete", "attribute" : "specs.batteryRemovable",  "displayTitle" : "Battery Removable", "formType" : "radio" },
-    { "title" : "travel-safe", "type" : "discrete", "attribute" : "specs.travelSafe",  "displayTitle" : "Travel Safe", "formType" : "radio" },
-    { "title" : "speed", "type" : "ranges", "attribute" : "specs.speed",  "displayTitle" : "Speed", "formType" : "checkbox",
+    { "title" : "batteryPower", "type" : "ranges", "attribute" : "specs.batteryPower",  "displayTitle" : "Battery Power (W)", "formType" : "checkbox",
+      "ranges": [[0, 2500], [2500, 3500], [3500, 5000], [5000]] },
+    { "title" : "batteryWattHours", "type" : "ranges", "attribute" : "specs.batteryWattHours",  "displayTitle" : "Battery Watt Hours  (Wh)", "formType" : "checkbox",
+      "ranges": [[0, 100], [100, 150], [150, 200], [200]] },
+    { "title" : "chargeTime", "type" : "ranges", "attribute" : "specs.chargeTime",  "displayTitle" : "Battery Charge Time (minutes)", "formType" : "checkbox",
+      "ranges": [[0, 90], [90, 150], [150, 210], [210]] },
+    { "title" : "speed", "type" : "ranges", "attribute" : "specs.speed",  "displayTitle" : "Speed (mph)", "formType" : "checkbox",
       "ranges" : [[0, 10], [10, 16], [16, 22], [22]] },
-    { "title" : "weight", "type" : "ranges", "attribute" : "specs.weight",  "displayTitle" : "Weight", "formType" : "checkbox",
+    { "title" : "weight", "type" : "ranges", "attribute" : "specs.weight",  "displayTitle" : "Weight (pounds)", "formType" : "checkbox",
       "ranges" : [[0, 10], [10, 15], [15, 20], [20]] },
-    /*{ "title" : "max-weight", "type" : "ranges", "attribute" : "maxWeight",  "displayTitle" : "Max Weight", "formType" : "Checkbox",
-      "ranges" : [[0, 200], [200, 300], [300, 400], [400, 999]] },*/
+    { "title" : "maxWeight", "type" : "ranges", "attribute" : "maxWeight",  "displayTitle" : "Max Load (pounds)", "formType" : "Checkbox",
+      "ranges" : [[0, 200], [200, 250], [250, 300], [300]] },
     { "title" : "drive", "type" : "discrete", "attribute" : "specs.drive", "displayTitle" : "Drive", "formType" : "checkbox" },
-    { "title" : "width", "type" : "ranges", "attribute" : "specs.width" ,  "displayTitle" : "Width", "formType" : "checkbox",
+    { "title" : "width", "type" : "ranges", "attribute" : "specs.width" ,  "displayTitle" : "Board Width (inches)", "formType" : "checkbox",
       "ranges" : [[0, 3], [3, 4], [4, 6], [6]] },
-    { "title" : "length", "type" : "ranges", "attribute" : "specs.length" ,  "displayTitle" : "Length", "formType" : "checkbox",
+    { "title" : "trucksWidth", "type" : "ranges", "attribute" : "specs.trucksWidth",  "displayTitle" : "Trucks Width (inches)", "formType" : "checkbox",
+      "ranges": [[0, 10], [10, 12], [12, 15], [15]] },
+    { "title" : "length", "type" : "ranges", "attribute" : "specs.length" ,  "displayTitle" : "Board Length (inches)", "formType" : "checkbox",
       "ranges" : [[0, 6], [6, 12], [12, 18], [18, 24], [24]] },
-    { "title" : "waterproof", "type" : "discrete", "attribute" : "specs.waterproof", "displayTitle" : "Waterproof", "formType" : "radio" },
+    { "title" : "wheelBaseLength", "type" : "ranges", "attribute" : "specs.wheelBaseLength",  "displayTitle" : "Wheelbase Length (inches)", "formType" : "checkbox",
+      "ranges": [[0, 24], [24, 30], [30, 36], [36]] },
+    { "title" : "wheelDiameter", "type" : "ranges", "attribute" : "specs.wheelDiameter",  "displayTitle" : "Wheel Diameter (mm)", "formType" : "checkbox",
+      "ranges": [[0, 80], [80, 85], [85, 90], [90, 95], [95]] },
     { "title" : "terrain", "type" : "discrete", "attribute" : "specs.terrain", "displayTitle" : "Terrain", "formType" : "checkbox" },
     { "title" : "style", "type" : "discrete", "attribute" : "specs.style", "displayTitle" : "Style", "formType" : "checkbox" },
-    { "title" : "deck-materials", "type" : "discrete", "attribute" : "specs.deckMaterials", "displayTitle" : "Deck Material", "formType" : "checkbox" },
+    { "title" : "deckMaterials", "type" : "discrete", "attribute" : "specs.deckMaterials", "displayTitle" : "Deck Material", "formType" : "checkbox" },
+    { "title" : "features", "type" : "discrete", "attribute" : "specs.tags", "displayTitle" : "Features", "formType" : "checkbox" },
+    { "title" : "manufacturerWarranty", "type" : "ranges", "attribute" : "specs.manufacturerWarranty",  "displayTitle" : "Manufacturer Warranty (months)", "formType" : "checkbox",
+      "ranges": [[0, 6], [6, 12], [12, 24], [24]] },
     { "title" : "rating", "type" : "range", "attribute" : "ratings.compositeScore", "displayTitle" : "Rating", "formType" : "checkbox",
       "ranges" : [[0, 60], [60, 70], [70, 80], [80, 90], [90]] }
   ]
@@ -91,10 +103,10 @@ router.get('/', async function(req, res, next) {
 
         let ranges = element.ranges;
         products.forEach(function(e) {
-          var deals = e.deals.sort(function(a, b) {
+          /*var deals = e.deals.sort(function(a, b) {
             return a.salesPrice - b.salesPrice;
           })
-          e.bestPrice = deals[0].salesPrice;
+          e.bestPrice = deals[0].salesPrice;*/
           ranges.forEach(function(minMaxArray) {
             let value = eval("e." + element.attribute);
             if (value >= minMaxArray[0] && (minMaxArray.length == 1 || value < minMaxArray[1])) {

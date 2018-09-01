@@ -14,20 +14,26 @@ var ProductSchema = new mongoose.Schema({
   specs: {
     year: Number,
     msrp: Number,  //us dollars
+    msrpCurrency: String,
     range: Number,  //miles
     speed: Number, //mph
     weight: Number,
     maxWeight: Number,
-    drive: String,
+    drive: { type : String, enum: ['drive', 'hub'] },
     batteryCapacity: Number,  //mAh
-    batteryRemovable: Boolean,
+    batteryPower: Number, //watts
+    batteryWattHours: Number, //Wh
+    chargeTime: Number,  //minutes
     width: Number,
-    length: Number,
-    waterproof: Boolean,
+    trucksWidth: Number, //inches
+    wheelbaseLength: Number,  //inches
+    length: Number,   //board length inches
+    wheelDiameter: Number,  //mm
     terrain: String,
     style: String,
-    deckMaterials: [String],
-    travelSafe: Boolean
+    deckMaterials: { type: String, enum: ['carbon fiber', 'kevlar', 'wood', 'bamboo', 'fiberglass', 'polyurethane'] },
+    manufacturerWarranty: Number,  //months
+    tags: { type: String, enum: ['travel safe', 'battery removable', 'companion app', 'water resistant', '']}
   },
   ratings: {
     external: {
@@ -54,7 +60,7 @@ ProductSchema.methods.slugify = function() {
 };
 
 ProductSchema.pre('validate', function(next) {
-  if (!this.slug) { 
+  if (!this.slug) {
     this.slugify();
   } else if (this.slug != slug(this.name)) {
     this.slugify();

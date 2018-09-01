@@ -9,7 +9,9 @@ router.post('/', async function(req, res, next) {
     product = new Product(req.body.product);
     product.save().then(function(product) {
       return res.json({ product : product })
-    }).catch(next);
+    }).catch(function(err) {
+      return res.json({ err: err })
+    });
 
 })
 

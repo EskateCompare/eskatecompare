@@ -16,8 +16,8 @@ exports.aggregationFilter = function (params, doSkipLimit) {
 
       //within range
 
-      var rangeMatchesParams =     ["batteryCapacity",      'rating',                 'length',        'width',      'weight',       'speed',       'range'];
-      var rangeMatchesLookupKeys = ["specs.batteryCapacity", 'ratings.compositeScore', 'specs.length', 'specs.width', 'specs.weight', 'specs.speed', 'specs.range'];
+      var rangeMatchesParams =     ["batteryCapacity",      'rating',                 'length',        'width',      'weight',       'speed',       'range',        'maxWeight',      'batteryPower',       'batteryWattHours',       'chargeTime',       'trucksWidth',      'wheelbaseLength',       'wheelDiameter',       'manufacturerWarranty'];
+      var rangeMatchesLookupKeys = ["specs.batteryCapacity", 'ratings.compositeScore', 'specs.length', 'specs.width', 'specs.weight', 'specs.speed', 'specs.range', 'specs.maxWeight','specs.batteryPower', 'specs.batteryWattHours', 'specs.chargeTime', 'specs.trucksWidth','specs.wheelbaseLength', 'specs.wheelDiameter', 'specs.manufacturerWarranty'];
 
       for (var i = 0; i < rangeMatchesParams.length; i++) {
 
@@ -53,9 +53,9 @@ exports.aggregationFilter = function (params, doSkipLimit) {
 
       //multi-match discrete
 
-      var discreteMatchesParams =       ["batteryRemovable",       "travelSafe"      , 'waterproof',        "drive"       , "terrain",      "style",       'deckMaterials',        'year']
-      var discreteMatchesLookupKeys =   ["specs.batteryRemovable", "specs.travelSafe", 'specs.waterproof',  "specs.drive" , "specs.terrain", "specs.style", 'specs.deckMaterials', 'specs.year' ]
-      var discreteMatchesTypes =        ["boolean",                "boolean",           "boolean",         "strings"      , "strings",       "strings",     'strings',             'numbers']
+      var discreteMatchesParams =       ["drive"       , "terrain",      "style",       'deckMaterials',        'year']
+      var discreteMatchesLookupKeys =   ["specs.drive" , "specs.terrain", "specs.style", 'specs.deckMaterials', 'specs.year' ]
+      var discreteMatchesTypes =        ["strings"      , "strings",       "strings",     'strings',             'numbers']
 
       for (var i = 0; i < discreteMatchesParams.length; i++) {
 
@@ -120,7 +120,7 @@ exports.aggregationFilter = function (params, doSkipLimit) {
         pipeline.push(
           {
             $match: {
-              "brand.slug": {
+              "brand.name": {
                 $in: brandsParamArray
               }
             }
