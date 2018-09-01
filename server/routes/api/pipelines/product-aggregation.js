@@ -182,7 +182,7 @@ exports.aggregationFilter = function (params, doSkipLimit) {
       var sortParam = params.sortBy;
 
       if (params.sortBy == 'popularity') sortKey = 'popularity';
-      if (params.sortBy == 'bestPrice') sortKey = 'bestPrice';
+      if (params.sortBy == 'price') sortKey = 'bestPrice';
       if (params.sortBy == 'rating') sortKey = 'ratings.compositeScore';
       if (params.sortBy == 'discount') sortKey = 'discount';
       if (params.sortBy == 'speed') sortKey = 'specs.speed';
