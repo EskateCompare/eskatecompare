@@ -97,7 +97,7 @@ router.get('/', async function(req, res, next) {
           e.bestPrice = deals[0].salesPrice;
           ranges.forEach(function(minMaxArray) {
             let value = eval("e." + element.attribute);
-            if (value > minMaxArray[0] && value <= minMaxArray[1]) {
+            if (value > minMaxArray[0] && value < minMaxArray[1]) {
               let bucketTitle = minMaxArray[0] + "-" + minMaxArray[1];
               counts[bucketTitle] = counts.hasOwnProperty(bucketTitle) ? counts[bucketTitle] + 1 : 1;
               return;
