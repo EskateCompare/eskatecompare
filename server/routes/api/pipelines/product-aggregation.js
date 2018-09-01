@@ -25,11 +25,27 @@ exports.aggregationFilter = function (params, doSkipLimit) {
           continue;
         }
 
+        let rangeMatch = {};
+
         var rangeArray = [];
         var rawParams = params[rangeMatchesParams[i]];
-        rangeArray = rawParams.split(',');
+        rangeArray = rawParams.split(',');   // list like 0-250,400-600
+        //make list of or conditions
 
-        initialMatch[rangeMatchesLookupKeys[i]] = { $gte : Number(rangeArray[0]), $lt : Number(rangeArray[1]) }
+        //or condition pairs array
+        let rangeMatchConditions = [];
+         rangeArray.forEach(function(minMaxPair) {
+          minMaxPair = minMaxPair.split('-');
+          let matchObject = {};
+          matchObject[rangeMatchesLookupKeys[i]] = { $gte : Number(minMaxPair[0]), $lt : Number(minMaxPair[1]) }
+          rangeMatchConditions.push(matchObject)
+        })
+        console.log(rangeMatchConditions);
+        rangeMatch = { $or : rangeMatchConditions  }
+
+        pipeline.push({
+          $match :  rangeMatch
+        })
       }
 
       //multi-match discrete
@@ -140,20 +156,24 @@ exports.aggregationFilter = function (params, doSkipLimit) {
 
       if (params.hasOwnProperty('price')) {
 
-        priceParamArray = params.price.split(',');
-        var minPrice = Number(priceParamArray[0]);
-        var maxPrice = Number(priceParamArray[1]);
 
-        pipeline.push(
-          {
-            $match: {
-              "bestPrice": {
-                $gte: minPrice,
-                $lte: maxPrice
-              }
-            }
-          }
-        )
+
+        priceParamArray = params.price.split(',');
+
+        let priceMatch = {};
+
+        let priceMatchConditions = [];
+         priceParamArray.forEach(function(minMaxPair) {
+          minMaxPair = minMaxPair.split('-');
+          let matchObject = {};
+          matchObject['bestPrice'] = { $gte : Number(minMaxPair[0]), $lt : Number(minMaxPair[1]) }
+          priceMatchConditions.push(matchObject)
+        })
+        priceMatch = { $or : priceMatchConditions  }
+
+        pipeline.push({
+          $match :  priceMatch
+        })
       }
 
       //Add discount && popularity fields
