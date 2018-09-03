@@ -4,7 +4,7 @@ import { Container, List, Segment, Grid, Header, Icon } from 'semantic-ui-react'
 class GlobalFooter extends Component {
   render() {
     return (
-      <div>
+      <div style={{marginTop: '80px'}}>
         <Segment inverted vertical style={{ padding: '5em 0em' }}>
           <Container>
             <Grid divided inverted stackable>
