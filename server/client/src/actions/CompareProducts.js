@@ -51,11 +51,12 @@ export function fetchProductsError(payload) {
 }
 
 export function fetchProducts(payload) {
+  console.log(payload)
   const urlParams = (payload) ? serialize(payload) : '';
   
   return dispatch => {
     dispatch(requestProducts())
-    // console.log(urlParams, 'urlParams')
+    console.log(urlParams, 'urlParams')
     return fetch(`/api/products?${urlParams}`)
       .then(response => response.json())
       .then(json => dispatch(receiveProducts(json)))
@@ -67,7 +68,7 @@ function serialize(payload) {
   let obj = {
     perPage: 10,
     page: 1,
-    sortDir: 'asc',
+    sortDir: 'dsc',
     sortBy: 'price'
   }
 
@@ -76,7 +77,7 @@ function serialize(payload) {
   let str = [];
   for (let p in merged)
     if (merged.hasOwnProperty(p)) {
-      if(!merged[p].length === 0) {
+      if(!merged[p].length == 0) {
       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(merged[p]));
       }
     }

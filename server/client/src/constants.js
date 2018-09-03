@@ -1,25 +1,25 @@
 export const boardType = [
   {
-    key: 'Long',
-    text: 'Long',
-    value: 'Long',
+    key: 'longboard',
+    text: 'Longboard',
+    value: 'longboard',
   },
   {
-    key: 'Short',
-    text: 'Short',
-    value: 'Short',
+    key: 'pennyboard',
+    text: 'Pennyboard',
+    value: 'pennyboard',
   },
 ]
 
 export const terrainType = [
   {
-    key: 'Road',
+    key: 'road',
     text: 'Road',
-    value: 'Road',
+    value: 'road',
   },
   {
-    key: 'All Terrain',
-    text: 'All Terrain',
-    value: 'All Terrain',
+    key: 'all',
+    text: 'All',
+    value: 'all',
   },
 ]

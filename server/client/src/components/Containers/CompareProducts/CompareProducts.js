@@ -5,9 +5,9 @@ import { Header, Icon, Grid, Label } from 'semantic-ui-react';
 
 export default class CompareProducts extends Component {
   componentDidMount() {
-    const { fetchFilter, fetchProducts } = this.props;
+    const { fetchFilter, fetchProducts, filterState } = this.props;
 
-    fetchProducts();
+    fetchProducts(filterState);
     fetchFilter();
   }
 

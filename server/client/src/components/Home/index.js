@@ -1,14 +1,19 @@
 import { connect } from 'react-redux';
 import Home from './Home';
+import { 
+	  fetchProducts,
+	  fetchFilter,
+	  onFilterChange,
+	  onSortDirection,
+	  onSortBy
+} from '../../actions/CompareProducts';
 
 const mapStateToProps = state => ({
-  ...state.main
+  ...state.CompareProducts
 })
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: function(payload) {
-    dispatch({ type: 'RETRIEVE_SINGLE_PRODUCT', payload })
-  }
+  onFilterChange: (payload) => dispatch(onFilterChange(payload)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
