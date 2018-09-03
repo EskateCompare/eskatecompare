@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Icon, Grid, List, Image, Label, Table } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 export default class ListItem extends Component {
   constructor(props){

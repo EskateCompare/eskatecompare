@@ -18,11 +18,11 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Route path={['/compare', '/product/:slug']} component={GlobalHeader} />
+        <Route path={['/compare', '/product']} component={GlobalHeader} />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/compare' component={CompareProducts} />
-          <Route exact path='/product/:slug' component={Product} />
+          <Route path='/compare' component={CompareProducts} />
+          <Route path='/product/:slug' component={Product} />
         </Switch>
         <GlobalFooter />
       </div>

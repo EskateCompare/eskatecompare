@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { Link, Redirect } from 'react-router-dom'
 import {
   Button,
   Container,
   Divider,
+  Dropdown,
   Grid,
   Header,
   Icon,
@@ -27,17 +29,24 @@ const src = 'https://images.unsplash.com/photo-1506361797048-46a149213205?ixlib=
 const HomepageHeading = ({ mobile }) => (
   <Container text>
     <Header
-      as='h5'
-      content='Imagine-a-Company'
-      inverted
+      as='h1'
+      content='Find your Perfect Electric Board!'
       style={{
-        fontSize: mobile ? '2em' : '4em',
+        fontSize: mobile ? '1em' : '2em',
+        fontColor: 'black',
         fontWeight: 'normal',
         marginBottom: 0,
-        marginTop: mobile ? '1.5em' : '3em',
+        marginTop: mobile ? '1.5em' : '5em',
       }}
     />
-    <Input icon={{ name: 'search', circular: true, link: true }} placeholder='Search...' fluid/>
+    <Dropdown placeholder='Board Type' closeOnBlur selection options={[1,2,3]} />{' '}
+    <Dropdown
+      placeholder='Terrain'
+      closeOnBlur={false}
+      selection
+      options={[0,1,2]}
+    />
+    <Button style={{marginLeft: '10px'}} size='big' color='green'>Find</Button>
   </Container>
 )
 
@@ -50,14 +59,29 @@ HomepageHeading.propTypes = {
  * It can be more complicated, but you can create really flexible markup.
  */
 class DesktopContainer extends Component {
-  state = {}
+  constructor(){
+    super()
+
+    this.state = { link: false }
+
+    this.handleRedirect = this.handleRedirect.bind(this);
+  }
+  
 
   hideFixedMenu = () => this.setState({ fixed: false })
   showFixedMenu = () => this.setState({ fixed: true })
 
+  handleRedirect() {
+    this.setState({ link: true })
+  }
+
   render() {
     const { children } = this.props
     const { fixed } = this.state
+
+    if (this.state.link) {
+      return <Redirect exact push to={`/compare`} />;
+    }
 
     return (
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
@@ -85,9 +109,9 @@ class DesktopContainer extends Component {
                 <Menu.Item>
                 	<img src='https://react.semantic-ui.com/logo.png' />
               	</Menu.Item>
-                <Menu.Item as='a'>Electric Boards</Menu.Item>
-                <Menu.Item as='a'>Electric Longboards</Menu.Item>
-                <Menu.Item as='a'>Electric Penny Boards</Menu.Item>
+                <Menu.Item onClick={this.handleRedirect} as='a'>Electric Boards</Menu.Item>
+                <Menu.Item onClick={this.handleRedirect} as='a'>Electric Longboards</Menu.Item>
+                <Menu.Item onClick={this.handleRedirect} as='a'>Electric Penny Boards</Menu.Item>
                 <Menu.Item position='right'>
                   <Input icon={{ name: 'search', circular: true, link: true }} placeholder='Search...' />
                 </Menu.Item>

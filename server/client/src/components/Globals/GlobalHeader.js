@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link} from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Container, Menu } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
@@ -10,12 +10,28 @@ const mapDispatchToProps = function(dispatch) {
 }
 
 class GlobalHeader extends Component {
-  state = { activeItem: 'home' };
+  constructor() {
+    super()
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+    this.state = {
+      activeItem: 'home',
+      link: false,
+    }
+
+    this.handleItemClick = this.handleItemClick.bind(this);
+  }
+
+
+  handleItemClick() {
+    this.setState({ link: true });
+  }
 
   render() {
-    const { activeItem } = this.state;
+    const { activeItem, link } = this.state;
+
+    if (link) {
+      return <Redirect exact push to={`/compare`} />;
+    }
 
     return (
       <div style={{marginBottom: '80px'}}>
@@ -26,15 +42,19 @@ class GlobalHeader extends Component {
                 <img src='https://react.semantic-ui.com/logo.png' />
               </Menu.Item>
             </Link>
-            <Menu.Item position='right' name='Electric Boards' active={activeItem === 'home'} onClick={this.handleItemClick} />
+            <Menu.Item 
+              name='Electric Boards'
+              active={this.state.activeItem === 'Electric Boards'}
+              onClick={this.handleItemClick} 
+            />
             <Menu.Item
               name='Electric Longboards'
-              active={activeItem === 'messages'}
+              active={this.state.activeItem === 'Electric Longboards'}
               onClick={this.handleItemClick}
             />
             <Menu.Item
               name='Electric Pennyboards'
-              active={activeItem === 'friends'}
+              active={this.state.activeItem === 'Electric Pennyboards'}
               onClick={this.handleItemClick}
             />
           </Container>
