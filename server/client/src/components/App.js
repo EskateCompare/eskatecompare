@@ -4,7 +4,7 @@ import createHistory from 'history/createBrowserHistory';
 
 import CompareProducts from './Containers/CompareProducts';
 import Product from './Containers/Product';
-// import Home from './Home';
+import Home from './Home';
 import GlobalHeader from './Globals/GlobalHeader';
 import GlobalFooter from './Globals/GlobalFooter';
 
@@ -18,9 +18,10 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <GlobalHeader />
+        <Route path={['/compare', '/product/:slug']} component={GlobalHeader} />
         <Switch>
-          <Route exact path='/' component={CompareProducts} />
+          <Route exact path='/' component={Home} />
+          <Route exact path='/compare' component={CompareProducts} />
           <Route exact path='/product/:slug' component={Product} />
         </Switch>
         <GlobalFooter />
