@@ -41,7 +41,7 @@ const HomepageHeading = ({ mobile }) => (
         marginTop: mobile ? '1.5em' : '5em',
       }}
     />
-    <Dropdown placeholder='Board Type' closeOnBlur selection options={boardType} />{' '}
+    <Dropdown placeholder='Board Type' closeOnBlur selection options={boardType} onChange={(x, y) => console.log(y.value)}/>{' '}
     <Dropdown
       placeholder='Terrain'
       closeOnBlur={false}
@@ -111,9 +111,9 @@ class DesktopContainer extends Component {
                 <Menu.Item>
                 	<img src='https://react.semantic-ui.com/logo.png' />
               	</Menu.Item>
-                <Menu.Item onClick={this.handleRedirect} as='a'>Electric Boards</Menu.Item>
-                <Menu.Item onClick={this.handleRedirect} as='a'>Electric Longboards</Menu.Item>
-                <Menu.Item onClick={this.handleRedirect} as='a'>Electric Penny Boards</Menu.Item>
+                <Menu.Item as='a'><Link to='/compare' style={{color: '#000'}}>Electric Boards</Link></Menu.Item>
+                <Menu.Item as='a'><Link to='/compare' style={{color: '#000'}}>Electric Longboards</Link></Menu.Item>
+                <Menu.Item as='a'><Link to='/compare' style={{color: '#000'}}>Electric Penny Boards</Link></Menu.Item>
                 <Menu.Item position='right'>
                   <Input icon={{ name: 'search', circular: true, link: true }} placeholder='Search...' />
                 </Menu.Item>

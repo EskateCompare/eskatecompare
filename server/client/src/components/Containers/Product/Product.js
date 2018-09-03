@@ -21,9 +21,11 @@ export default class Product extends React.Component {
 
     if (this.props.fetching) {
       return (
-        <Dimmer inverted active>
-          <Loader size='massive'>Loading</Loader>
-        </Dimmer>
+        <Segment style={{padding: '10em 0'}} vertical size='massive'>
+          <Dimmer inverted active>
+            <Loader size='massive'>Loading</Loader>
+          </Dimmer>
+        </Segment>
       )
     }
 

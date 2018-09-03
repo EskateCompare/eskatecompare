@@ -10,7 +10,7 @@ import GlobalFooter from './Globals/GlobalFooter';
 
 // const history = createHistory();
 
-export default class App extends React.Component {
+class App extends React.Component {
   componentDidMount() {
     localStorage.clear();
   }
@@ -29,3 +29,5 @@ export default class App extends React.Component {
     )
   }
 }
+
+export default App

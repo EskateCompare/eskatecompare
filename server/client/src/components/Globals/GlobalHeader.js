@@ -3,60 +3,26 @@ import { Link, Redirect } from 'react-router-dom';
 import { Container, Menu } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
-const mapStateToProps = state => ({...state.main});
-
-const mapDispatchToProps = function(dispatch) {
-
-}
-
 class GlobalHeader extends Component {
-  constructor() {
-    super()
-
-    this.state = {
-      activeItem: 'home',
-      link: false,
-    }
-
-    this.handleItemClick = this.handleItemClick.bind(this);
-  }
-
-
-  handleItemClick() {
-    this.setState({ link: true });
-  }
-
   render() {
-    const { activeItem, link } = this.state;
-
-    if (link) {
-      return <Redirect exact push to={`/compare`} />;
-    }
-
     return (
       <div style={{marginBottom: '80px'}}>
         <Menu fixed='top' inverted stackable>
           <Container>
             <Link to="/">
-              <Menu.Item>
+              <Menu.Item as='a'>
                 <img src='https://react.semantic-ui.com/logo.png' />
               </Menu.Item>
             </Link>
-            <Menu.Item 
-              name='Electric Boards'
-              active={this.state.activeItem === 'Electric Boards'}
-              onClick={this.handleItemClick} 
-            />
-            <Menu.Item
-              name='Electric Longboards'
-              active={this.state.activeItem === 'Electric Longboards'}
-              onClick={this.handleItemClick}
-            />
-            <Menu.Item
-              name='Electric Pennyboards'
-              active={this.state.activeItem === 'Electric Pennyboards'}
-              onClick={this.handleItemClick}
-            />
+            <Menu.Item as='a'>
+              <Link to='/compare'>Electric Boards</Link>
+            </Menu.Item>
+            <Menu.Item as='a'>
+              <Link to='/compare'>Electric Long Boards</Link>
+            </Menu.Item>
+            <Menu.Item as='a'>
+              <Link to='/compare'>Electric Penny Boards</Link>
+            </Menu.Item>
           </Container>
         </Menu>
       </div>
@@ -64,4 +30,4 @@ class GlobalHeader extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GlobalHeader);
+export default GlobalHeader;
