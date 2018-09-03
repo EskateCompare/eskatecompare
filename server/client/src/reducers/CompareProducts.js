@@ -73,6 +73,7 @@ export default (state = defaultState, action) => {
       return Object.assign({}, state, {
         filterState: sortBy
     })
-  };
-  return state;
+    default:
+      return state;
+  }
 }

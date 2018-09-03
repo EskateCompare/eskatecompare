@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Label, Input, Checkbox, Header, Radio } from 'semantic-ui-react';
+import { Form, Input, Checkbox, Header, Radio } from 'semantic-ui-react';
 
 export default class Filter extends Component {
   constructor() {
@@ -18,9 +18,8 @@ export default class Filter extends Component {
 
   renderFilterOptions() {
     const { filter } = this.props;
-    console.log(filter);
+    
     const filterItems = filter.map((option, index) => {
-      console.log(option)
       return (
         <Form.Group key={index} grouped>
           <label><Header as='h4'>{option.displayTitle}</Header></label>

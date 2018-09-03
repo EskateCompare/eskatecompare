@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Image, Button, List } from 'semantic-ui-react';
+import { Grid, Image, List } from 'semantic-ui-react';
 import ReactImageMagnify from 'react-image-magnify';
 
 export default class ImageList extends Component {

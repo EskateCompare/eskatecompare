@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ListItem from './ListItem';
-import { Button, Icon, Grid, Dropdown, Divider, Table, Loader, Dimmer } from 'semantic-ui-react';
+import { Button, Icon, Grid, Dropdown, Table } from 'semantic-ui-react';
 import sortingOptions from '../constants'
 
 export default class ProductList extends Component {
@@ -17,7 +17,7 @@ export default class ProductList extends Component {
   }
 
   handleSortDirection(e, target) {
-    const { fetchProducts, onSortDirection, filterState, fetching } = this.props;
+    const { onSortDirection } = this.props;
     const { sortIcon } = this.state;
 
     if (sortIcon === 'sort amount up') {
@@ -31,7 +31,7 @@ export default class ProductList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const { fetchProducts, filterState, fetching } = this.props;
+    const { fetchProducts, filterState } = this.props;
 
     if (prevProps.filterState !== this.props.filterState ) {
       fetchProducts(filterState);
@@ -39,7 +39,7 @@ export default class ProductList extends Component {
   }
 
   handleSortBy(e, value) {
-    const { fetchProducts, onSortBy, filterState } = this.props;
+    const { onSortBy } = this.props;
 
     this.setState({ filterText: value.text });
     onSortBy({ sortBy: value.text })

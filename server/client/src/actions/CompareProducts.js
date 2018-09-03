@@ -63,15 +63,6 @@ export function fetchProducts(payload) {
   }
 }
 
-function clearEmptyKeys(payload) {
-  for (let key in payload) { 
-    if (payload[key].length == 0) {
-      delete payload[key]
-    }
-  }
-  return payload
-}
-
 function serialize(payload) {
   let obj = {
     perPage: 10,
@@ -85,7 +76,7 @@ function serialize(payload) {
   let str = [];
   for (let p in merged)
     if (merged.hasOwnProperty(p)) {
-      if(!merged[p].length == 0) {
+      if(!merged[p].length === 0) {
       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(merged[p]));
       }
     }

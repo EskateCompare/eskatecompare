@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Container, Menu } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 
 class GlobalHeader extends Component {
   render() {
@@ -10,17 +9,17 @@ class GlobalHeader extends Component {
         <Menu fixed='top' inverted stackable>
           <Container>
             <Link to="/">
-              <Menu.Item as='a'>
-                <img src='https://react.semantic-ui.com/logo.png' />
+              <Menu.Item link>
+                <img src='https://react.semantic-ui.com/logo.png' alt=''/>
               </Menu.Item>
             </Link>
-            <Menu.Item as='a'>
+            <Menu.Item link>
               <Link to='/compare'>Electric Boards</Link>
             </Menu.Item>
-            <Menu.Item as='a'>
+            <Menu.Item link>
               <Link to='/compare'>Electric Long Boards</Link>
             </Menu.Item>
-            <Menu.Item as='a'>
+            <Menu.Item link>
               <Link to='/compare'>Electric Penny Boards</Link>
             </Menu.Item>
           </Container>

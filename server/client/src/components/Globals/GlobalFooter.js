@@ -26,7 +26,7 @@ class GlobalFooter extends Component {
                 </Grid.Column>
                 <Grid.Column width={7}>
                   <Header as='h4' inverted>
-                   <Icon name='heart' size='mini'/> We Love Electric Boards! 
+                   <Icon className='heart' size='mini'/> We Love Electric Boards! 
                   </Header>
                   <p>
                     We find and curate all of the best electric boards in the world!

@@ -26,16 +26,16 @@ import { boardType, terrainType } from '../../constants'
  * such things.
  */
 
-const src = 'https://images.unsplash.com/photo-1506361797048-46a149213205?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=493e200df17b54d1ef10eb61e1df148a&w=1000&q=80'
+const src = "url('https://www.mellowboards.com/out/pictures/zmbwysiwygeditor/Blog-Posts/mellow-electric-skateboard-what-is-an-electric-skateboard-1.jpg')"
 
 const HomepageHeading = ({ mobile }) => (
   <Container text>
     <Header
       as='h1'
+      inverted
       content='Find your Perfect Electric Board!'
       style={{
         fontSize: mobile ? '1em' : '2em',
-        fontColor: 'black',
         fontWeight: 'normal',
         marginBottom: 0,
         marginTop: mobile ? '1.5em' : '5em',
@@ -111,9 +111,9 @@ class DesktopContainer extends Component {
                 <Menu.Item>
                 	<img src='https://react.semantic-ui.com/logo.png' />
               	</Menu.Item>
-                <Menu.Item as='a'><Link to='/compare' style={{color: '#000'}}>Electric Boards</Link></Menu.Item>
-                <Menu.Item as='a'><Link to='/compare' style={{color: '#000'}}>Electric Longboards</Link></Menu.Item>
-                <Menu.Item as='a'><Link to='/compare' style={{color: '#000'}}>Electric Penny Boards</Link></Menu.Item>
+                <Menu.Item as='a'><Link to='/compare'>Electric Boards</Link></Menu.Item>
+                <Menu.Item as='a'><Link to='/compare'>Electric Longboards</Link></Menu.Item>
+                <Menu.Item as='a'><Link to='/compare'>Electric Penny Boards</Link></Menu.Item>
                 <Menu.Item position='right'>
                   <Input icon={{ name: 'search', circular: true, link: true }} placeholder='Search...' />
                 </Menu.Item>
@@ -216,31 +216,32 @@ ResponsiveContainer.propTypes = {
 
 const Home = () => (
   <ResponsiveContainer>
-    <Segment style={{ padding: '8em 0em' }} vertical>
-      <Container text>
-        <Grid>
-          <Grid.Column width={4}>
+    <Segment style={{ padding: '4em 0em' }} vertical>
+      <Container>
+      <Header as='h2' content="Explore Electric Skateboards"/>
+        <Grid columns={4} container stackable>
+          <Grid.Column>
             <List link>
               <List.Item as='a'><a href='/'>Boosted</a></List.Item>
               <List.Item as='a'>InBoard</List.Item>
               <List.Item as='a'>So Flow</List.Item>
             </List>
           </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column>
             <List link>
               <List.Item as='a'>Best Electric Boards</List.Item>
               <List.Item as='a'>Best Electric Longboards</List.Item>
               <List.Item as='a'>Best Electric Pennyboards</List.Item>
             </List>
           </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column>
             <List link>
               <List.Item as='a'>Top Electric Boards</List.Item>
               <List.Item as='a'>Top Electric Longboards</List.Item>
               <List.Item as='a'>Top Electric Pennyboards</List.Item>
             </List>
           </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column>
             <List link>
               <List.Item as='a'>Fastest Electric Boards</List.Item>
               <List.Item as='a'>Top Travel Friendly Electric Boards</List.Item>
@@ -248,7 +249,10 @@ const Home = () => (
             </List>
           </Grid.Column>
         </Grid>
-        <Divider/>
+      </Container>
+    </Segment>
+    <Segment style={{ padding: '2em 0em' }} vertical>
+      <Container text>
         <Header as='h3' style={{ fontSize: '2em' }}>
           Did We Tell You About Our Bananas?
         </Header>

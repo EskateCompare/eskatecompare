@@ -25,7 +25,7 @@ export default (state = defaultState, action) => {
     case 'REQUEST_PRODUCT':
       return Object.assign({}, state, {
         fetching: true
-      })
+    })
     case 'FETCH_PRODUCT_ERROR':
       return Object.assign({}, state, {
         error: action.payload
@@ -35,6 +35,7 @@ export default (state = defaultState, action) => {
         product: action.payload,
         fetching: false
     })
-  };
-  return state;
+    default:
+      return state;
+  }
 }

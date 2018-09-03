@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import ImageList from './ImageList';
 import DealList from './DealList';
 import SpecList from './SpecList';
@@ -16,8 +15,6 @@ export default class Product extends React.Component {
   render() {
     const { product } = this.props.product;
     const { name, deals, reviews, brand, ratings } = product;
-
-    console.log(product, 'product');
 
     if (this.props.fetching) {
       return (

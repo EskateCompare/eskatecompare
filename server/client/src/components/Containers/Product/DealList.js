@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Table, List, Image, Button, Divider, Icon, Label } from 'semantic-ui-react';
+import { Table, Image, Button, Label } from 'semantic-ui-react';
 
 export default class DealList extends Component {
   renderDeals() {

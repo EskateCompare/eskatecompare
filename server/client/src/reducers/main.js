@@ -14,6 +14,7 @@ export default (state = defaultState, action) => {
 
     case 'RETRIEVE_SINGLE_PRODUCT':
       return {...state, product: action.value}
+    default:
+      return state;
     }
-  return state;
 };

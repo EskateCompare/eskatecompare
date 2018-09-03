@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Grid, List, Image, Label, Table } from 'semantic-ui-react';
+import { Image, Label, Table } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 
 export default class ListItem extends Component {
@@ -20,8 +20,8 @@ export default class ListItem extends Component {
   render() {
     const { rank, product } = this.props;
     const { image, specs,  ratings, name, bestPrice } = product;
-    const {  speed, range, msrp } = specs;
-    let color = '';
+    const {  speed, range } = specs;
+    let color = undefined;
 
     if (ratings.compositeScore > 90) { color = 'green' } 
     if (ratings.compositeScore >= 80 && ratings.compositeScore <= 89) { color = 'olive' }

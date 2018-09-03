@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Image, Header, Divider, Feed, List, Rating } from 'semantic-ui-react';
+import { Header, Feed, Rating, Divider } from 'semantic-ui-react';
 
 const image = 'https://react.semantic-ui.com/images/wireframe/square-image.png'
 

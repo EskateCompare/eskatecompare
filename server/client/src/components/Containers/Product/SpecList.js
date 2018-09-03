@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, List, Label } from 'semantic-ui-react';
+import { List } from 'semantic-ui-react';
 
 export default class SpecList extends Component {
   renderSpec() {

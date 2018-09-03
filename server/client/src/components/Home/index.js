@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import Home from './Home';
-import agent from '../../agent';
 
 const mapStateToProps = state => ({
   ...state.main
