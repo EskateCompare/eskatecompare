@@ -50,7 +50,6 @@ export default (state = defaultState, action) => {
         fetching: false
     })
     case 'ON_FILTER_CHANGE':
-      console.log(action.payload);
       const { payload } = action;
       const { checked } = payload;
       const key = Object.keys(action.payload)[0];
