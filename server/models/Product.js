@@ -19,7 +19,7 @@ var ProductSchema = new mongoose.Schema({
     speed: Number, //mph
     weight: Number,
     maxWeight: Number,
-    drive: { type : String, enum: ['drive', 'hub'] },
+    drive: { type : String, enum: ['belt', 'hub'] },
     batteryCapacity: Number,  //mAh
     batteryPower: Number, //watts
     batteryWattHours: Number, //Wh
@@ -31,9 +31,9 @@ var ProductSchema = new mongoose.Schema({
     wheelDiameter: Number,  //mm
     terrain: String,
     style: String,
-    deckMaterials: { type: String, enum: ['carbon fiber', 'kevlar', 'wood', 'bamboo', 'fiberglass', 'polyurethane'] },
+    deckMaterials: [{ type: String, enum: ['carbon fiber', 'kevlar', 'wood', 'bamboo', 'fiberglass', 'polyurethane'] }],
     manufacturerWarranty: Number,  //months
-    tags: { type: String, enum: ['travel safe', 'battery removable', 'companion app', 'water resistant', '']}
+    tags: [{ type: String, enum: ['travel safe', 'battery removable', 'companion app', 'water resistant', '']}]
   },
   ratings: {
     external: {

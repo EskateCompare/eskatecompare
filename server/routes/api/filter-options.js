@@ -39,7 +39,7 @@ router.get('/', async function(req, res, next) {
       "ranges": [[0, 10], [10, 12], [12, 15], [15]] },
     { "title" : "length", "type" : "ranges", "attribute" : "specs.length" ,  "displayTitle" : "Board Length (inches)", "formType" : "checkbox",
       "ranges" : [[0, 6], [6, 12], [12, 18], [18, 24], [24]] },
-    { "title" : "wheelBaseLength", "type" : "ranges", "attribute" : "specs.wheelBaseLength",  "displayTitle" : "Wheelbase Length (inches)", "formType" : "checkbox",
+    { "title" : "wheelBaseLength", "type" : "ranges", "attribute" : "specs.wheelbaseLength",  "displayTitle" : "Wheelbase Length (inches)", "formType" : "checkbox",
       "ranges": [[0, 24], [24, 30], [30, 36], [36]] },
     { "title" : "wheelDiameter", "type" : "ranges", "attribute" : "specs.wheelDiameter",  "displayTitle" : "Wheel Diameter (mm)", "formType" : "checkbox",
       "ranges": [[0, 80], [80, 85], [85, 90], [90, 95], [95]] },
@@ -70,7 +70,10 @@ router.get('/', async function(req, res, next) {
       let counts = {};
       if (element.type === "discrete") {
         let productsToCount = [];
-        if (Array.isArray(eval("products[0]." + element.attribute))) {
+        console.log(Product.schema.paths[element.attribute] != undefined);
+        if ((Product.schema.paths[element.attribute]) != undefined && Product.schema.paths[element.attribute].hasOwnProperty('instance')
+              && Product.schema.paths[element.attribute].instance == 'Array') {
+          console.log(element.attribute + " whooooo ");
           //unwind the products on the attribute array.
           //this implementation is a workaround with the extra step of moving the attribute to the top level of the object, since javascript-unwind doesn't sort Array
             //nested in a nested object
@@ -78,11 +81,12 @@ router.get('/', async function(req, res, next) {
           //productsToCount = _.clone(products);
 
           products.forEach(function(prod) {
-            prod['workaroundArray'] = _.get(prod, 'specs.deckMaterials');
+            prod['workaroundArray'] = _.get(prod, element.attribute);
             //console.log(prod);
+            if (prod['workaroundArray'] == undefined || prod['workaroundArray'] == '') prod['workaroundArray'] = [];
             productsToCount.push(prod);
           })
-
+          console.log(productsToCount);
           productsToCount = unwind(productsToCount, "workaroundArray")
 
           element.attribute = "workaroundArray";
