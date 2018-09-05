@@ -264,8 +264,6 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
 
       pipeline.push( { $sort : sortObject } );
 
-      console.log(pipeline);
-
       if (doSkipLimit) {
 
       //Skip

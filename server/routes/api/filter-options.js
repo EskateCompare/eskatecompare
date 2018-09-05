@@ -31,7 +31,7 @@ router.get('/', async function(req, res, next) {
 
     { "title" : "weight", "type" : "ranges", "attribute" : "specs.weight",  "displayTitle" : "Weight (pounds)", "formType" : "checkbox",
       "ranges" : [[0, 12], [12, 15], [15, 18], [18]] },
-    { "title" : "maxWeight", "type" : "ranges", "attribute" : "specs.maxWeight",  "displayTitle" : "Max Load (pounds)", "formType" : "Checkbox",
+    { "title" : "maxWeight", "type" : "ranges", "attribute" : "specs.maxWeight",  "displayTitle" : "Max Load (pounds)", "formType" : "checkbox",
       "ranges" : [[0, 200], [200, 250], [250, 300], [300]] },
 
     { "title" : "width", "type" : "ranges", "attribute" : "specs.width" ,  "displayTitle" : "Board Width (inches)", "formType" : "checkbox",
