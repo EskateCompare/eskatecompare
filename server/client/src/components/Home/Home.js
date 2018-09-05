@@ -36,25 +36,30 @@ class Home extends Component {
 
     this.handleRedirect = this.handleRedirect.bind(this);
     this.handleOnBoardTypeSelect = this.handleOnBoardTypeSelect.bind(this);
-    this.handleOnTerrainTypeSelect = this.handleOnTerrainTypeSelect.bind(this);
+    this.handleNavClick = this.handleNavClick.bind(this);
+    this.handleNavClickAllProducts = this.handleNavClickAllProducts.bind(this);
   }
 
   handleOnBoardTypeSelect(e, target) {
-    console.log(target.value)
+    this.props.onClearFilter()
     this.props.onFilterChange({ style: target.value, checked: true })
     this.setState({boardType: target.value})
   }
-
-  handleOnTerrainTypeSelect(e, target) {
-    this.props.onFilterChange({ terrain: target.value, checked: true })
-    this.setState({boardTerrain: target.value})
-  } 
   
   hideFixedMenu = () => this.setState({ fixed: false })
   showFixedMenu = () => this.setState({ fixed: true })
 
   handleRedirect() {
     this.setState({ link: true })
+  }
+
+  handleNavClick(event, data) {
+    this.props.onClearFilter();
+    this.props.onFilterChange({ style: data.name, checked: true });
+  }
+
+  handleNavClickAllProducts(event, data) {
+    this.props.onClearFilter();
   }
 
   render() {
@@ -84,9 +89,15 @@ class Home extends Component {
                 <Menu.Item>
                   <img src='https://react.semantic-ui.com/logo.png' />
                 </Menu.Item>
-                <Menu.Item as='a'><Link to='/compare'>Electric Boards</Link></Menu.Item>
-                <Menu.Item as='a'><Link to='/compare'>Electric Longboards</Link></Menu.Item>
-                <Menu.Item as='a'><Link to='/compare'>Electric Penny Boards</Link></Menu.Item>
+                <Menu.Item link onClick={this.handleNavClickAllProducts}>
+                  <Link to='/compare'>Electric Boards</Link>
+                </Menu.Item>
+                <Menu.Item link name='longboard' onClick={this.handleNavClick}>
+                  <Link to='/compare'>Electric Long Boards</Link>
+                </Menu.Item>
+                <Menu.Item link name='pennyboard' onClick={this.handleNavClick}>
+                  <Link to='/compare'>Electric Penny Boards</Link>
+                </Menu.Item>
                 <Menu.Item position='right'>
                   <Input icon={{ name: 'search', circular: true, link: true }} placeholder='Search...' />
                 </Menu.Item>
@@ -96,7 +107,7 @@ class Home extends Component {
               <Header
                 as='h1'
                 inverted
-                content='Find your Perfect Electric Board!'
+                content='Find your Perfect Electric Skateboard!'
                 style={{
                   fontSize: '2em',
                   fontWeight: 'normal',
@@ -104,15 +115,13 @@ class Home extends Component {
                   marginTop: '5em',
                 }}
               />
-              <Dropdown placeholder='Board Type' closeOnBlur selection options={boardType} onChange={this.handleOnBoardTypeSelect}/>{' '}
               <Dropdown
-                placeholder='Terrain'
-                closeOnBlur={false}
+                placeholder='Board Type'
                 selection
-                onChange={this.handleOnTerrainTypeSelect}
-                options={terrainType}
-              />
-              <Link to='/compare'><Button style={{marginLeft: '10px'}} size='big' color='green'>Find</Button></Link>
+                options={boardType}
+                onChange={this.handleOnBoardTypeSelect}
+              />{' '}
+              <Link to='/compare'><Button size='big' color='green'>Find</Button></Link>
             </Container>
           </Segment>
         </Visibility>

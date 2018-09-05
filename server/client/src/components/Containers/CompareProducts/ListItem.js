@@ -38,8 +38,8 @@ export default class ListItem extends Component {
         <Table.Cell verticalAlign='middle'>#{rank}</Table.Cell>
         <Table.Cell verticalAlign='middle'><Image centered src={image.source} size='mini' /></Table.Cell>
         <Table.Cell verticalAlign='middle'>{name}</Table.Cell>
-        <Table.Cell verticalAlign='middle'>{speed} km/h</Table.Cell>
-        <Table.Cell verticalAlign='middle'>{range} km</Table.Cell>
+        <Table.Cell verticalAlign='middle'>{speed} mph</Table.Cell>
+        <Table.Cell verticalAlign='middle'>{range} m</Table.Cell>
         <Table.Cell verticalAlign='middle'>${bestPrice}</Table.Cell>
         <Table.Cell verticalAlign='middle'>
           <Label color={color}>

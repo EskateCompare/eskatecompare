@@ -1,11 +1,8 @@
 import { connect } from 'react-redux';
 import Home from './Home';
 import { 
-	  fetchProducts,
-	  fetchFilter,
 	  onFilterChange,
-	  onSortDirection,
-	  onSortBy
+	  onClearFilter,
 } from '../../actions/CompareProducts';
 
 const mapStateToProps = state => ({
@@ -14,6 +11,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onFilterChange: (payload) => dispatch(onFilterChange(payload)),
+  onClearFilter: () => dispatch(onClearFilter()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

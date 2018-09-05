@@ -94,6 +94,12 @@ export function onFilterChange(payload) {
   }
 }
 
+export function onClearFilter() {
+  return {
+    type: 'ON_CLEAR_FILTER',
+  }
+}
+
 export function onSortDirection(payload) {
   return {
     type: 'ON_SORT_DIRECTION',

@@ -18,7 +18,7 @@ export default class Product extends React.Component {
 
     if (this.props.fetching) {
       return (
-        <Segment style={{padding: '10em 0'}} vertical size='massive'>
+        <Segment style={{padding: '10em 0', border: 'none'}} vertical size='massive'>
           <Dimmer inverted active>
             <Loader size='massive'>Loading</Loader>
           </Dimmer>

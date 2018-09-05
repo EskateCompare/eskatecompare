@@ -14,8 +14,8 @@ const defaultState = {
     range: [],
     sortBy: 'rating',
     sortDir: 'dsc',
-    style: '',
-    terrain: '',
+    style: [],
+    terrain: [],
   },
   fetching: false,
   error: null,
@@ -73,6 +73,19 @@ export default (state = defaultState, action) => {
 
       return Object.assign({}, state, {
         filterState: sortBy
+    })
+    case 'ON_CLEAR_FILTER':
+      return Object.assign({}, state, {
+        filterState: {
+          brands: [],
+          year: [],
+          price: [],
+          range: [],
+          sortBy: 'rating',
+          sortDir: 'dsc',
+          style: [],
+          terrain: [],
+        }
     })
     default:
       return state;
