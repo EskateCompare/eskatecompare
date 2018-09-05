@@ -13,26 +13,27 @@ router.get('/', async function(req, res, next) {
   //Reference Filter
   const referenceFilter = [
     { "title" : "brands", "type" : "discrete", "attribute" : "brand.name", "displayTitle" : "Brand", "formType" : "checkbox"},
+    { "title" : "style", "type" : "discrete", "attribute" : "specs.style", "displayTitle" : "Style", "formType" : "checkbox" },
+    { "title" : "deckMaterials", "type" : "discrete", "attribute" : "specs.deckMaterials", "displayTitle" : "Deck Material", "formType" : "checkbox" },
+    { "title" : "range", "type" : "ranges", "attribute" : "specs.range", "displayTitle" : "Range  (miles)", "formType" : "checkbox",
+      "ranges" : [[0, 10], [10, 17], [17, 24], [24]] },
+    { "title" : "drive", "type" : "discrete", "attribute" : "specs.drive", "displayTitle" : "Drive", "formType" : "checkbox" },
+    /*{ "title" : "batteryCapacity", "type" : "ranges", "attribute" : "specs.batteryCapacity",  "displayTitle" : "Battery Capacity (mAh)", "formType" : "checkbox",
+      "ranges": [[0, 3000], [3000, 6000], [6000, 10000], [10000]] },*/
+
+    { "title" : "speed", "type" : "ranges", "attribute" : "specs.speed",  "displayTitle" : "Speed (mph)", "formType" : "checkbox",
+      "ranges" : [[0, 10], [10, 16], [16, 22], [22]] },
+    { "title" : "terrain", "type" : "discrete", "attribute" : "specs.terrain", "displayTitle" : "Terrain", "formType" : "checkbox" },
+    { "title" : "features", "type" : "discrete", "attribute" : "specs.tags", "displayTitle" : "Features", "formType" : "checkbox", "logicType" : "and" },
     { "title" : "year", "type" : "discrete", "attribute" : "specs.year", "displayTitle" : "Year", "formType" : "checkbox" },
     { "title" : "price", "type" : "ranges", "attribute" : "bestPrice", "formType" : "checkbox", "displayTitle" : "Price",
       "ranges" : [[0, 250], [250, 500], [500, 1000], [1000, 1500], [1500]] },
-    { "title" : "range", "type" : "ranges", "attribute" : "specs.range", "displayTitle" : "Range  (miles)", "formType" : "checkbox",
-      "ranges" : [[0, 10], [10, 17], [17, 24], [24]] },
-    /*{ "title" : "batteryCapacity", "type" : "ranges", "attribute" : "specs.batteryCapacity",  "displayTitle" : "Battery Capacity (mAh)", "formType" : "checkbox",
-      "ranges": [[0, 3000], [3000, 6000], [6000, 10000], [10000]] },*/
-    { "title" : "batteryPower", "type" : "ranges", "attribute" : "specs.batteryPower",  "displayTitle" : "Battery Power (W)", "formType" : "checkbox",
-      "ranges": [[0, 2500], [2500, 3500], [3500, 5000], [5000]] },
-    { "title" : "batteryWattHours", "type" : "ranges", "attribute" : "specs.batteryWattHours",  "displayTitle" : "Battery Watt Hours  (Wh)", "formType" : "checkbox",
-      "ranges": [[0, 100], [100, 150], [150, 200], [200]] },
-    { "title" : "chargeTime", "type" : "ranges", "attribute" : "specs.chargeTime",  "displayTitle" : "Battery Charge Time (minutes)", "formType" : "checkbox",
-      "ranges": [[0, 90], [90, 150], [150, 210], [210]] },
-    { "title" : "speed", "type" : "ranges", "attribute" : "specs.speed",  "displayTitle" : "Speed (mph)", "formType" : "checkbox",
-      "ranges" : [[0, 10], [10, 16], [16, 22], [22]] },
+
     { "title" : "weight", "type" : "ranges", "attribute" : "specs.weight",  "displayTitle" : "Weight (pounds)", "formType" : "checkbox",
       "ranges" : [[0, 10], [10, 15], [15, 20], [20]] },
     { "title" : "maxWeight", "type" : "ranges", "attribute" : "specs.maxWeight",  "displayTitle" : "Max Load (pounds)", "formType" : "Checkbox",
       "ranges" : [[0, 200], [200, 250], [250, 300], [300]] },
-    { "title" : "drive", "type" : "discrete", "attribute" : "specs.drive", "displayTitle" : "Drive", "formType" : "checkbox" },
+
     { "title" : "width", "type" : "ranges", "attribute" : "specs.width" ,  "displayTitle" : "Board Width (inches)", "formType" : "checkbox",
       "ranges" : [[0, 3], [3, 4], [4, 6], [6]] },
     /*{ "title" : "trucksWidth", "type" : "ranges", "attribute" : "specs.trucksWidth",  "displayTitle" : "Trucks Width (inches)", "formType" : "checkbox",
@@ -46,10 +47,14 @@ router.get('/', async function(req, res, next) {
     { "title" : "hillGrade", "type" : "ranges", "attribute" : "specs.hillGrade",  "displayTitle" : "Hill Grade (%)", "formType" : "checkbox",
       "ranges": [[0, 16], [16, 21], [21, 26], [26]] },
     { "title" : "speedModes", "type" : "discrete", "attribute" : "specs.speedModes", "displayTitle" : "Speed Modes (#)", "formType" : "checkbox" },
-    { "title" : "terrain", "type" : "discrete", "attribute" : "specs.terrain", "displayTitle" : "Terrain", "formType" : "checkbox" },
-    { "title" : "style", "type" : "discrete", "attribute" : "specs.style", "displayTitle" : "Style", "formType" : "checkbox" },
-    { "title" : "deckMaterials", "type" : "discrete", "attribute" : "specs.deckMaterials", "displayTitle" : "Deck Material", "formType" : "checkbox" },
-    { "title" : "features", "type" : "discrete", "attribute" : "specs.tags", "displayTitle" : "Features", "formType" : "checkbox" },
+
+    { "title" : "batteryPower", "type" : "ranges", "attribute" : "specs.batteryPower",  "displayTitle" : "Battery Power (W)", "formType" : "checkbox",
+      "ranges": [[0, 2500], [2500, 3500], [3500, 5000], [5000]] },
+    { "title" : "batteryWattHours", "type" : "ranges", "attribute" : "specs.batteryWattHours",  "displayTitle" : "Battery Watt Hours  (Wh)", "formType" : "checkbox",
+      "ranges": [[0, 100], [100, 150], [150, 200], [200]] },
+    { "title" : "chargeTime", "type" : "ranges", "attribute" : "specs.chargeTime",  "displayTitle" : "Battery Charge Time (minutes)", "formType" : "checkbox",
+      "ranges": [[0, 90], [90, 150], [150, 210], [210]] },
+
     { "title" : "manufacturerWarranty", "type" : "ranges", "attribute" : "specs.manufacturerWarranty",  "displayTitle" : "Manufacturer Warranty (months)", "formType" : "checkbox",
       "ranges": [[0, 6], [6, 12], [12, 24], [24]] },
     { "title" : "rating", "type" : "range", "attribute" : "ratings.compositeScore", "displayTitle" : "Rating", "formType" : "checkbox",
@@ -57,81 +62,97 @@ router.get('/', async function(req, res, next) {
   ]
 
   let stats = {};
-  let filterOptions = [];
+  let unsortedFilterOptions = [];
+  let sortedFilterOptions = [];
 
   //get products
   const params = req.query;
 
-  pipeline.aggregationFilter(params, false).then(async function(products) {
+  //pipeline.aggregationFilter(params, false).then(async function(products) {
 
 
   //Replace this find with filter function
   //Product.find({}).populate('brand').populate('deals').lean().exec().then(async function(products) {
-    referenceFilter.forEach(function(element) {
-      let optionsArray = [];
-      let itemToAdd = {};
-      let counts = {};
-      if (element.type === "discrete") {
-        let productsToCount = [];
-        if ((Product.schema.paths[element.attribute]) != undefined && Product.schema.paths[element.attribute].hasOwnProperty('instance')
-              && Product.schema.paths[element.attribute].instance == 'Array') {
-          //unwind the products on the attribute array.
-          //this implementation is a workaround with the extra step of moving the attribute to the top level of the object, since javascript-unwind doesn't sort Array
-            //nested in a nested object
-            // this was the original:  productsToCount = _.clone(unwind(products, element.attribute))
-          //productsToCount = _.clone(products);
+  let filterOptionsPromises = referenceFilter.map(async function(element) {
+      return new Promise(async function(resolve, reject) {
+        let elementToSkip = element.title;
+        if (element.hasOwnProperty('logicType') && element.logicType == 'and' ) elementToSkip = "";  //don't exclude from filter if AND
 
-          products.forEach(function(prod) {
-            prod['workaroundArray'] = _.get(prod, element.attribute);
-            //console.log(prod);
-            if (prod['workaroundArray'] == undefined || prod['workaroundArray'] == '') prod['workaroundArray'] = [];
-            productsToCount.push(prod);
-          })
-          productsToCount = unwind(productsToCount, "workaroundArray")
+        let displayLogicType = 'and';
+        if (params.hasOwnProperty(element.title) && !(element.hasOwnProperty('logicType') && element.logicType == 'and'))
+         { displayLogicType = 'or' }
 
-          element.attribute = "workaroundArray";
+        let products = await pipeline.aggregationFilter(params, false, [elementToSkip]);
+        let optionsArray = [];
+        let itemToAdd = {};
+        let counts = {};
+        if (element.type === "discrete") {
+          let productsToCount = [];
+          if ((Product.schema.paths[element.attribute]) != undefined && Product.schema.paths[element.attribute].hasOwnProperty('instance')
+                && Product.schema.paths[element.attribute].instance == 'Array') {
+            //unwind the products on the attribute array.
+            //this implementation is a workaround with the extra step of moving the attribute to the top level of the object, since javascript-unwind doesn't sort Array
+              //nested in a nested object
+              // this was the original:  productsToCount = _.clone(unwind(products, element.attribute))
+            //productsToCount = _.clone(products);
+
+            products.forEach(function(prod) {
+              prod['workaroundArray'] = _.get(prod, element.attribute);
+              //console.log(prod);
+              if (prod['workaroundArray'] == undefined || prod['workaroundArray'] == '') prod['workaroundArray'] = [];
+              productsToCount.push(prod);
+            })
+            productsToCount = unwind(productsToCount, "workaroundArray")
+
+            element.attribute = "workaroundArray";
+          }
+          else {
+            productsToCount = products;
+          }
+
+        //productsToCount = _.pick(productsToCount, _.identity);
+        counts = _.countBy(productsToCount, function(e) {
+          e.specs = _.pickBy(e.specs, _.identity);
+          if (eval("e." + element.attribute) == undefined) return "";
+          return eval("e." + element.attribute)
+        });
+
+        itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle, element.formType, displayLogicType);
         }
+
         else {
-          productsToCount = products;
-        }
 
-      //productsToCount = _.pick(productsToCount, _.identity);
-      counts = _.countBy(productsToCount, function(e) {
-        e.specs = _.pickBy(e.specs, _.identity);
-        if (eval("e." + element.attribute) == undefined) return "";
-        return eval("e." + element.attribute)
-      });
-
-      itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle, element.formType);
-      }
-
-      else {
-
-        let ranges = element.ranges;
-        products.forEach(function(e) {
-          /*var deals = e.deals.sort(function(a, b) {
-            return a.salesPrice - b.salesPrice;
-          })
-          e.bestPrice = deals[0].salesPrice;*/
-          ranges.forEach(function(minMaxArray) {
-            let value = eval("e." + element.attribute);
-            if (value >= minMaxArray[0] && (minMaxArray.length == 1 || value < minMaxArray[1])) {
-              let bucketTitle = "";
-              if (minMaxArray.length > 1) {
-                bucketTitle = minMaxArray[0] + "-" + minMaxArray[1];
-              } else {
-                bucketTitle = minMaxArray[0] + "+"
+          let ranges = element.ranges;
+          products.forEach(function(e) {
+            /*var deals = e.deals.sort(function(a, b) {
+              return a.salesPrice - b.salesPrice;
+            })
+            e.bestPrice = deals[0].salesPrice;*/
+            ranges.forEach(function(minMaxArray) {
+              let value = eval("e." + element.attribute);
+              if (value >= minMaxArray[0] && (minMaxArray.length == 1 || value < minMaxArray[1])) {
+                let bucketTitle = "";
+                if (minMaxArray.length > 1) {
+                  bucketTitle = minMaxArray[0] + "-" + minMaxArray[1];
+                } else {
+                  bucketTitle = minMaxArray[0] + "+"
+                }
+                counts[bucketTitle] = counts.hasOwnProperty(bucketTitle) ? counts[bucketTitle] + 1 : 1;
+                return;
               }
-              counts[bucketTitle] = counts.hasOwnProperty(bucketTitle) ? counts[bucketTitle] + 1 : 1;
-              return;
-            }
+            })
           })
-        })
 
-       itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle, element.formType);
-      }
-      filterOptions.push(itemToAdd);
+         itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle, element.formType, displayLogicType);
+        }
+        unsortedFilterOptions.push(itemToAdd);
+        resolve();
     })
+  })
+
+  await Promise.all(filterOptionsPromises);
+    //pipeline call with full filter to get stats
+  pipeline.aggregationFilter(params, false).then(async function(products) {
 
     let internalReviewsCount = _.sumBy(products, function(e) {
       return e.ratings.internal.amount
@@ -175,18 +196,31 @@ router.get('/', async function(req, res, next) {
 
     stats['lastUpdated'] = lastUpdatedObject.lastUpdated.toLocaleDateString("en-US", options);
 
-    stats['filterOptions'] = filterOptions;
+    //sort filter options
+
+    referenceFilter.forEach(function(element) {
+      //get array from unsortedFilter;
+      for (let i = 0; i < unsortedFilterOptions.length; i++) {
+        if (unsortedFilterOptions[i].title == element.title) {
+          sortedFilterOptions.push(unsortedFilterOptions[i]);
+        }
+      }
+    })
+
+    stats['filterOptions'] = sortedFilterOptions;
 
     return res.json({ stats })
   })
 })
 
-function prepItemToAdd(counts, title, displayTitle, formType) {
+function prepItemToAdd(counts, title, displayTitle, formType, logicType) {
   let optionsArray = Object.keys(counts).map(function(key) {
 
      let returnOption = {};
      returnOption['label'] = key;
      returnOption['count'] = counts[key];
+
+     if (logicType == 'or') returnOption['count'] += "+";
 
      return returnOption;
    })

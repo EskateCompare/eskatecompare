@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var Product = mongoose.model('Product')
+var _ = require('lodash');
 
-exports.aggregationFilter = function (params, doSkipLimit) {
+exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
   return new Promise(async function(resolve, reject) {
 
     const sortByDefault = "ratings.compositeScore";
@@ -22,6 +23,9 @@ exports.aggregationFilter = function (params, doSkipLimit) {
       for (var i = 0; i < rangeMatchesParams.length; i++) {
 
         if (!params.hasOwnProperty(rangeMatchesParams[i])) {
+          continue;
+        }
+        if (_.includes(paramsSkipArray, rangeMatchesParams[i])) {
           continue;
         }
 
@@ -64,6 +68,11 @@ exports.aggregationFilter = function (params, doSkipLimit) {
         if (!params.hasOwnProperty(discreteMatchesParams[i])) {
           continue;
         }
+
+        if (_.includes(paramsSkipArray, discreteMatchesParams[i])) {
+          continue;
+        }
+
         var rawParams = params[discreteMatchesParams[i]];
 
 
@@ -104,6 +113,11 @@ exports.aggregationFilter = function (params, doSkipLimit) {
         if (!params.hasOwnProperty(andMatchesParams[i])) {
           continue;
         }
+
+        if (_.includes(paramsSkipArray, andMatchesParams[i])) {
+          continue;
+        }
+
         var rawParams = params[andMatchesParams[i]];
         var valuesArray = [];
         valuesArray = rawParams.split(',');
@@ -113,7 +127,7 @@ exports.aggregationFilter = function (params, doSkipLimit) {
         }
 
       }
-      console.log(andMatch);
+
       pipeline.push({
         $match : andMatch
       })
@@ -135,8 +149,10 @@ exports.aggregationFilter = function (params, doSkipLimit) {
 
       var brandsParamArray = [];
 
-      if (params.hasOwnProperty('brands'))
+      if (params.hasOwnProperty('brands') && !_.includes(paramsSkipArray, 'brands'))
       {
+
+
         var rawBrands = params.brands;
         brandsParamArray = rawBrands.split(',');
 
@@ -180,7 +196,7 @@ exports.aggregationFilter = function (params, doSkipLimit) {
 
       var priceParamArray = [];
 
-      if (params.hasOwnProperty('price')) {
+      if (params.hasOwnProperty('price') && !_.includes(paramsSkipArray, 'price')) {
 
 
 
