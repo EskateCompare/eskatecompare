@@ -197,6 +197,14 @@ function prepItemToAdd(counts, title, displayTitle, formType) {
      return option.label != "";
    })
 
+   console.log(optionsArray);
+
+   optionsArray.sort(function(a, b) {
+     return b.label - a.label;
+   })
+
+  console.log(optionsArray);
+
    let itemToAdd = {};
 
    itemToAdd['title'] = title;

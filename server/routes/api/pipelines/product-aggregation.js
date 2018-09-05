@@ -40,6 +40,7 @@ exports.aggregationFilter = function (params, doSkipLimit) {
           if (minMaxPair.length > 1) {
             matchObject[rangeMatchesLookupKeys[i]] = { $gte : Number(minMaxPair[0]), $lt : Number(minMaxPair[1]) }
           } else {
+            minMaxPair[0] = minMaxPair[0].split('+')[0];
             matchObject[rangeMatchesLookupKeys[i]] = { $gte : Number(minMaxPair[0]) }
           }
           rangeMatchConditions.push(matchObject)
