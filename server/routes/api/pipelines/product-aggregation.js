@@ -92,9 +92,31 @@ exports.aggregationFilter = function (params, doSkipLimit) {
         $match :  initialMatch
       })
 
-      console.log(initialMatch);
+      var andMatchesParams =       ["features" ]
+      var andMatchesLookupKeys =   ["specs.tags"  ]
+      var andMatchesTypes =        ["strings"]
 
+      let andMatch = {};
 
+      for (var i = 0; i < andMatchesParams.length; i++) {
+
+        //AND MATCHES
+        if (!params.hasOwnProperty(andMatchesParams[i])) {
+          continue;
+        }
+        var rawParams = params[andMatchesParams[i]];
+        var valuesArray = [];
+        valuesArray = rawParams.split(',');
+
+        andMatch[andMatchesLookupKeys[i]] = {
+          $all : valuesArray
+        }
+
+      }
+      console.log(andMatch);
+      pipeline.push({
+        $match : andMatch
+      })
 
       //brands lookup
 
