@@ -22,7 +22,7 @@ router.get('/', async function(req, res, next) {
       "ranges": [[0, 3000], [3000, 6000], [6000, 10000], [10000]] },*/
 
     { "title" : "speed", "type" : "ranges", "attribute" : "specs.speed",  "displayTitle" : "Speed (mph)", "formType" : "checkbox",
-      "ranges" : [[0, 10], [10, 16], [16, 22], [22]] },
+      "ranges" : [[0, 15], [15, 20], [20, 25], [25]] },
     { "title" : "terrain", "type" : "discrete", "attribute" : "specs.terrain", "displayTitle" : "Terrain", "formType" : "checkbox" },
     { "title" : "features", "type" : "discrete", "attribute" : "specs.tags", "displayTitle" : "Features", "formType" : "checkbox", "logicType" : "and" },
     { "title" : "year", "type" : "discrete", "attribute" : "specs.year", "displayTitle" : "Year", "formType" : "checkbox" },
@@ -30,16 +30,16 @@ router.get('/', async function(req, res, next) {
       "ranges" : [[0, 250], [250, 500], [500, 1000], [1000, 1500], [1500]] },
 
     { "title" : "weight", "type" : "ranges", "attribute" : "specs.weight",  "displayTitle" : "Weight (pounds)", "formType" : "checkbox",
-      "ranges" : [[0, 10], [10, 15], [15, 20], [20]] },
+      "ranges" : [[0, 12], [12, 15], [15, 18], [18]] },
     { "title" : "maxWeight", "type" : "ranges", "attribute" : "specs.maxWeight",  "displayTitle" : "Max Load (pounds)", "formType" : "Checkbox",
       "ranges" : [[0, 200], [200, 250], [250, 300], [300]] },
 
     { "title" : "width", "type" : "ranges", "attribute" : "specs.width" ,  "displayTitle" : "Board Width (inches)", "formType" : "checkbox",
-      "ranges" : [[0, 3], [3, 4], [4, 6], [6]] },
+      "ranges" : [[0, 5], [5, 6], [6, 7], [7]] },
     /*{ "title" : "trucksWidth", "type" : "ranges", "attribute" : "specs.trucksWidth",  "displayTitle" : "Trucks Width (inches)", "formType" : "checkbox",
       "ranges": [[0, 10], [10, 12], [12, 15], [15]] },*/
     { "title" : "length", "type" : "ranges", "attribute" : "specs.length" ,  "displayTitle" : "Board Length (inches)", "formType" : "checkbox",
-      "ranges" : [[0, 6], [6, 12], [12, 18], [18, 24], [24]] },
+      "ranges" : [[0, 22], [22, 30], [30, 36], [36, 42], [42]] },
     /*{ "title" : "wheelBaseLength", "type" : "ranges", "attribute" : "specs.wheelbaseLength",  "displayTitle" : "Wheelbase Length (inches)", "formType" : "checkbox",
       "ranges": [[0, 24], [24, 30], [30, 36], [36]] },*/
     { "title" : "wheelDiameter", "type" : "ranges", "attribute" : "specs.wheelDiameter",  "displayTitle" : "Wheel Diameter (mm)", "formType" : "checkbox",
@@ -49,9 +49,9 @@ router.get('/', async function(req, res, next) {
     { "title" : "speedModes", "type" : "discrete", "attribute" : "specs.speedModes", "displayTitle" : "Speed Modes (#)", "formType" : "checkbox" },
 
     { "title" : "batteryPower", "type" : "ranges", "attribute" : "specs.batteryPower",  "displayTitle" : "Battery Power (W)", "formType" : "checkbox",
-      "ranges": [[0, 2500], [2500, 3500], [3500, 5000], [5000]] },
+      "ranges": [[0, 1001], [1001, 2001], [2001, 3500], [3500]] },
     { "title" : "batteryWattHours", "type" : "ranges", "attribute" : "specs.batteryWattHours",  "displayTitle" : "Battery Watt Hours  (Wh)", "formType" : "checkbox",
-      "ranges": [[0, 100], [100, 150], [150, 200], [200]] },
+      "ranges": [[0, 100], [100, 150], [150, 250], [250]] },
     { "title" : "chargeTime", "type" : "ranges", "attribute" : "specs.chargeTime",  "displayTitle" : "Battery Charge Time (minutes)", "formType" : "checkbox",
       "ranges": [[0, 90], [90, 150], [150, 210], [210]] },
 
