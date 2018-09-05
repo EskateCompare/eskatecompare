@@ -188,8 +188,6 @@ function prepItemToAdd(counts, title, displayTitle, formType) {
      returnOption['label'] = key;
      returnOption['count'] = counts[key];
 
-
-
      return returnOption;
    })
 
@@ -199,8 +197,20 @@ function prepItemToAdd(counts, title, displayTitle, formType) {
 
    console.log(optionsArray);
 
+
    optionsArray.sort(function(a, b) {
-     return b.label - a.label;
+     let aTest = a.label.split('-')[0].split('+')[0];
+     let bTest = b.label.split('-')[0].split('+')[0];
+
+     //numbers
+     if (!isNaN(aTest)) {
+       return aTest - bTest;
+     }
+
+     //words
+     else  if (aTest < bTest) return -1;
+     else return 1;
+
    })
 
   console.log(optionsArray);
