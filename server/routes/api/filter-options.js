@@ -69,27 +69,36 @@ router.get('/', async function(req, res, next) {
   const params = req.query;
 
   //pipeline.aggregationFilter(params, false).then(async function(products) {
-
+  let allFiltersProducts = await pipeline.aggregationFilter(params, false, [])
 
   //Replace this find with filter function
   //Product.find({}).populate('brand').populate('deals').lean().exec().then(async function(products) {
   let filterOptionsPromises = referenceFilter.map(async function(element) {
       return new Promise(async function(resolve, reject) {
-        let elementToSkip = element.title;
-        if (element.hasOwnProperty('logicType') && element.logicType == 'and' ) elementToSkip = "";  //don't exclude from filter if AND
+        //get element logic type for multiple options within attribute
+        let elementLogicType = 'or'; //default
+        if (element.hasOwnProperty('logicType') && element.logicType == 'and' ) elementLogicType = 'and';
 
-        let displayLogicType = 'and';
-        if (params.hasOwnProperty(element.title) && !(element.hasOwnProperty('logicType') && element.logicType == 'and'))
-         { displayLogicType = 'or' }
+        let displayLogicType = 'and';//default
 
-        let products = await pipeline.aggregationFilter(params, false, [elementToSkip]);
-        let optionsArray = [];
+        //get products, and determine how count is displayed by whether unselected options within attribute are ORs or ANDs
+        let products;
+        if (!params.hasOwnProperty(element.title) || elementLogicType == 'and') {  //if attribute isn't a filter, use previously fetched all filters, unselected options within attribute are ANDs
+          products = allFiltersProducts;
+        } else {  //unselected options within attribute are ORs
+          let elementToSkip = element.title;
+          products = await pipeline.aggregationFilter(params, false, [elementToSkip]);
+          displayLogicType = 'or';
+          console.log("Additional fetch");
+        }
+
         let itemToAdd = {};
+        let optionsArray = [];
         let counts = {};
         if (element.type === "discrete") {
           let productsToCount = [];
           if ((Product.schema.paths[element.attribute]) != undefined && Product.schema.paths[element.attribute].hasOwnProperty('instance')
-                && Product.schema.paths[element.attribute].instance == 'Array') {
+                && Product.schema.paths[element.attribute].instance == 'Array') { //iff array, unwine
             //unwind the products on the attribute array.
             //this implementation is a workaround with the extra step of moving the attribute to the top level of the object, since javascript-unwind doesn't sort Array
               //nested in a nested object
@@ -98,7 +107,6 @@ router.get('/', async function(req, res, next) {
 
             products.forEach(function(prod) {
               prod['workaroundArray'] = _.get(prod, element.attribute);
-              //console.log(prod);
               if (prod['workaroundArray'] == undefined || prod['workaroundArray'] == '') prod['workaroundArray'] = [];
               productsToCount.push(prod);
             })
@@ -112,8 +120,8 @@ router.get('/', async function(req, res, next) {
 
         //productsToCount = _.pick(productsToCount, _.identity);
         counts = _.countBy(productsToCount, function(e) {
-          e.specs = _.pickBy(e.specs, _.identity);
-          if (eval("e." + element.attribute) == undefined) return "";
+          e.specs = _.pickBy(e.specs, _.identity); //remove null or undefined fields
+          if (eval("e." + element.attribute) == undefined) return "";  //prep undefined fields to be removed
           return eval("e." + element.attribute)
         });
 
@@ -124,10 +132,6 @@ router.get('/', async function(req, res, next) {
 
           let ranges = element.ranges;
           products.forEach(function(e) {
-            /*var deals = e.deals.sort(function(a, b) {
-              return a.salesPrice - b.salesPrice;
-            })
-            e.bestPrice = deals[0].salesPrice;*/
             ranges.forEach(function(minMaxArray) {
               let value = eval("e." + element.attribute);
               if (value >= minMaxArray[0] && (minMaxArray.length == 1 || value < minMaxArray[1])) {
@@ -151,8 +155,9 @@ router.get('/', async function(req, res, next) {
   })
 
   await Promise.all(filterOptionsPromises);
+
     //pipeline call with full filter to get stats
-  pipeline.aggregationFilter(params, false).then(async function(products) {
+  products = allFiltersProducts;
 
     let internalReviewsCount = _.sumBy(products, function(e) {
       return e.ratings.internal.amount
@@ -179,7 +184,7 @@ router.get('/', async function(req, res, next) {
     externalReviewsAvg = weightedMean(externalReviewsScores, externalReviewsAmounts);
 
     let totalProducts = await Product.count({}).exec();
-    let lastUpdatedObject = await UpdateStats.findOne({}).exec();
+    let lastUpdatedObject = await UpdateStats.findOne({}).exec();  //ToDo update how this works (latest updated product?)
 
 
 
@@ -210,7 +215,7 @@ router.get('/', async function(req, res, next) {
     stats['filterOptions'] = sortedFilterOptions;
 
     return res.json({ stats })
-  })
+
 })
 
 function prepItemToAdd(counts, title, displayTitle, formType, logicType) {
@@ -228,9 +233,6 @@ function prepItemToAdd(counts, title, displayTitle, formType, logicType) {
    optionsArray = optionsArray.filter(function(option) {
      return option.label != "";
    })
-
-   console.log(optionsArray);
-
 
    optionsArray.sort(function(a, b) {
      let aTest = a.label.split('-')[0].split('+')[0];
