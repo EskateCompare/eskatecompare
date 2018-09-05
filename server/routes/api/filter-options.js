@@ -18,8 +18,8 @@ router.get('/', async function(req, res, next) {
       "ranges" : [[0, 250], [250, 500], [500, 1000], [1000, 1500], [1500]] },
     { "title" : "range", "type" : "ranges", "attribute" : "specs.range", "displayTitle" : "Range  (miles)", "formType" : "checkbox",
       "ranges" : [[0, 10], [10, 17], [17, 24], [24]] },
-    { "title" : "batteryCapacity", "type" : "ranges", "attribute" : "specs.batteryCapacity",  "displayTitle" : "Battery Capacity (mAh)", "formType" : "checkbox",
-      "ranges": [[0, 3000], [3000, 6000], [6000, 10000], [10000]] },
+    /*{ "title" : "batteryCapacity", "type" : "ranges", "attribute" : "specs.batteryCapacity",  "displayTitle" : "Battery Capacity (mAh)", "formType" : "checkbox",
+      "ranges": [[0, 3000], [3000, 6000], [6000, 10000], [10000]] },*/
     { "title" : "batteryPower", "type" : "ranges", "attribute" : "specs.batteryPower",  "displayTitle" : "Battery Power (W)", "formType" : "checkbox",
       "ranges": [[0, 2500], [2500, 3500], [3500, 5000], [5000]] },
     { "title" : "batteryWattHours", "type" : "ranges", "attribute" : "specs.batteryWattHours",  "displayTitle" : "Battery Watt Hours  (Wh)", "formType" : "checkbox",
@@ -30,19 +30,22 @@ router.get('/', async function(req, res, next) {
       "ranges" : [[0, 10], [10, 16], [16, 22], [22]] },
     { "title" : "weight", "type" : "ranges", "attribute" : "specs.weight",  "displayTitle" : "Weight (pounds)", "formType" : "checkbox",
       "ranges" : [[0, 10], [10, 15], [15, 20], [20]] },
-    { "title" : "maxWeight", "type" : "ranges", "attribute" : "maxWeight",  "displayTitle" : "Max Load (pounds)", "formType" : "Checkbox",
+    { "title" : "maxWeight", "type" : "ranges", "attribute" : "specs.maxWeight",  "displayTitle" : "Max Load (pounds)", "formType" : "Checkbox",
       "ranges" : [[0, 200], [200, 250], [250, 300], [300]] },
     { "title" : "drive", "type" : "discrete", "attribute" : "specs.drive", "displayTitle" : "Drive", "formType" : "checkbox" },
     { "title" : "width", "type" : "ranges", "attribute" : "specs.width" ,  "displayTitle" : "Board Width (inches)", "formType" : "checkbox",
       "ranges" : [[0, 3], [3, 4], [4, 6], [6]] },
-    { "title" : "trucksWidth", "type" : "ranges", "attribute" : "specs.trucksWidth",  "displayTitle" : "Trucks Width (inches)", "formType" : "checkbox",
-      "ranges": [[0, 10], [10, 12], [12, 15], [15]] },
+    /*{ "title" : "trucksWidth", "type" : "ranges", "attribute" : "specs.trucksWidth",  "displayTitle" : "Trucks Width (inches)", "formType" : "checkbox",
+      "ranges": [[0, 10], [10, 12], [12, 15], [15]] },*/
     { "title" : "length", "type" : "ranges", "attribute" : "specs.length" ,  "displayTitle" : "Board Length (inches)", "formType" : "checkbox",
       "ranges" : [[0, 6], [6, 12], [12, 18], [18, 24], [24]] },
-    { "title" : "wheelBaseLength", "type" : "ranges", "attribute" : "specs.wheelbaseLength",  "displayTitle" : "Wheelbase Length (inches)", "formType" : "checkbox",
-      "ranges": [[0, 24], [24, 30], [30, 36], [36]] },
+    /*{ "title" : "wheelBaseLength", "type" : "ranges", "attribute" : "specs.wheelbaseLength",  "displayTitle" : "Wheelbase Length (inches)", "formType" : "checkbox",
+      "ranges": [[0, 24], [24, 30], [30, 36], [36]] },*/
     { "title" : "wheelDiameter", "type" : "ranges", "attribute" : "specs.wheelDiameter",  "displayTitle" : "Wheel Diameter (mm)", "formType" : "checkbox",
       "ranges": [[0, 80], [80, 85], [85, 90], [90, 95], [95]] },
+    { "title" : "hillGrade", "type" : "ranges", "attribute" : "specs.hillGrade",  "displayTitle" : "Hill Grade (%)", "formType" : "checkbox",
+      "ranges": [[0, 16], [16, 21], [21, 26], [26]] },
+    { "title" : "speedModes", "type" : "discrete", "attribute" : "specs.speedModes", "displayTitle" : "Speed Modes (#)", "formType" : "checkbox" },
     { "title" : "terrain", "type" : "discrete", "attribute" : "specs.terrain", "displayTitle" : "Terrain", "formType" : "checkbox" },
     { "title" : "style", "type" : "discrete", "attribute" : "specs.style", "displayTitle" : "Style", "formType" : "checkbox" },
     { "title" : "deckMaterials", "type" : "discrete", "attribute" : "specs.deckMaterials", "displayTitle" : "Deck Material", "formType" : "checkbox" },
@@ -70,10 +73,8 @@ router.get('/', async function(req, res, next) {
       let counts = {};
       if (element.type === "discrete") {
         let productsToCount = [];
-        console.log(Product.schema.paths[element.attribute] != undefined);
         if ((Product.schema.paths[element.attribute]) != undefined && Product.schema.paths[element.attribute].hasOwnProperty('instance')
               && Product.schema.paths[element.attribute].instance == 'Array') {
-          console.log(element.attribute + " whooooo ");
           //unwind the products on the attribute array.
           //this implementation is a workaround with the extra step of moving the attribute to the top level of the object, since javascript-unwind doesn't sort Array
             //nested in a nested object
@@ -86,7 +87,6 @@ router.get('/', async function(req, res, next) {
             if (prod['workaroundArray'] == undefined || prod['workaroundArray'] == '') prod['workaroundArray'] = [];
             productsToCount.push(prod);
           })
-          console.log(productsToCount);
           productsToCount = unwind(productsToCount, "workaroundArray")
 
           element.attribute = "workaroundArray";
@@ -94,9 +94,11 @@ router.get('/', async function(req, res, next) {
         else {
           productsToCount = products;
         }
-      console.log(productsToCount.length)
+
+      //productsToCount = _.pick(productsToCount, _.identity);
       counts = _.countBy(productsToCount, function(e) {
-        console.log('attribute' + element.attribute);
+        e.specs = _.pickBy(e.specs, _.identity);
+        if (eval("e." + element.attribute) == undefined) return "";
         return eval("e." + element.attribute)
       });
 
@@ -152,8 +154,6 @@ router.get('/', async function(req, res, next) {
       externalReviewsAmounts.push(product.ratings.external.amount);
     })
 
-
-
     internalReviewsAvg = weightedMean(internalReviewsScores, internalReviewsAmounts);
     externalReviewsAvg = weightedMean(externalReviewsScores, externalReviewsAmounts);
 
@@ -183,14 +183,21 @@ router.get('/', async function(req, res, next) {
 
 function prepItemToAdd(counts, title, displayTitle, formType) {
   let optionsArray = Object.keys(counts).map(function(key) {
+
      let returnOption = {};
      returnOption['label'] = key;
      returnOption['count'] = counts[key];
+
+
+
      return returnOption;
    })
 
-   let itemToAdd = {};
+   optionsArray = optionsArray.filter(function(option) {
+     return option.label != "";
+   })
 
+   let itemToAdd = {};
 
    itemToAdd['title'] = title;
    itemToAdd['displayTitle'] = displayTitle;

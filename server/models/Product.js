@@ -20,6 +20,8 @@ var ProductSchema = new mongoose.Schema({
     weight: Number,
     maxWeight: Number,
     drive: { type : String, enum: ['belt', 'hub'] },
+    hillGrade: Number,   //%
+    speedModes: Number,  //number of modes
     batteryCapacity: Number,  //mAh
     batteryPower: Number, //watts
     batteryWattHours: Number, //Wh

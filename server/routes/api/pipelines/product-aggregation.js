@@ -16,8 +16,8 @@ exports.aggregationFilter = function (params, doSkipLimit) {
 
       //within range
 
-      var rangeMatchesParams =     ["batteryCapacity",      'rating',                 'length',        'width',      'weight',       'speed',       'range',        'maxWeight',      'batteryPower',       'batteryWattHours',       'chargeTime',       'trucksWidth',      'wheelbaseLength',       'wheelDiameter',       'manufacturerWarranty'];
-      var rangeMatchesLookupKeys = ["specs.batteryCapacity", 'ratings.compositeScore', 'specs.length', 'specs.width', 'specs.weight', 'specs.speed', 'specs.range', 'specs.maxWeight','specs.batteryPower', 'specs.batteryWattHours', 'specs.chargeTime', 'specs.trucksWidth','specs.wheelbaseLength', 'specs.wheelDiameter', 'specs.manufacturerWarranty'];
+      var rangeMatchesParams =     ["batteryCapacity",      'rating',                 'length',        'width',      'weight',       'speed',       'range',        'maxWeight',      'batteryPower',       'batteryWattHours',       'chargeTime',       'trucksWidth',      'wheelbaseLength',       'wheelDiameter',       'manufacturerWarranty',       'hillGrade'];
+      var rangeMatchesLookupKeys = ["specs.batteryCapacity", 'ratings.compositeScore', 'specs.length', 'specs.width', 'specs.weight', 'specs.speed', 'specs.range', 'specs.maxWeight','specs.batteryPower', 'specs.batteryWattHours', 'specs.chargeTime', 'specs.trucksWidth','specs.wheelbaseLength', 'specs.wheelDiameter', 'specs.manufacturerWarranty', 'specs.hillGrade'];
 
       for (var i = 0; i < rangeMatchesParams.length; i++) {
 
@@ -53,9 +53,9 @@ exports.aggregationFilter = function (params, doSkipLimit) {
 
       //multi-match discrete
 
-      var discreteMatchesParams =       ["drive"       , "terrain",      "style",       'deckMaterials',        'year']
-      var discreteMatchesLookupKeys =   ["specs.drive" , "specs.terrain", "specs.style", 'specs.deckMaterials', 'specs.year' ]
-      var discreteMatchesTypes =        ["strings"      , "strings",       "strings",     'strings',             'numbers']
+      var discreteMatchesParams =       ["drive"       , "terrain",      "style",       'deckMaterials',        'year',       'speedModes']
+      var discreteMatchesLookupKeys =   ["specs.drive" , "specs.terrain", "specs.style", 'specs.deckMaterials', 'specs.year', 'specs.speedModes' ]
+      var discreteMatchesTypes =        ["strings"      , "strings",       "strings",     'strings',             'numbers',   'numbers']
 
       for (var i = 0; i < discreteMatchesParams.length; i++) {
 
