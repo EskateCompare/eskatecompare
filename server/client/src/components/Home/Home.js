@@ -17,6 +17,7 @@ import {
   Sidebar,
   Visibility,
   Input,
+  Search,
 } from 'semantic-ui-react'
 
 import { boardType, terrainType } from '../../constants'
@@ -34,10 +35,11 @@ class Home extends Component {
     
     this.state = { link: false, fixed: false }
 
-    this.handleRedirect = this.handleRedirect.bind(this);
+    this.handleResultSelect = this.handleResultSelect.bind(this);
     this.handleOnBoardTypeSelect = this.handleOnBoardTypeSelect.bind(this);
     this.handleNavClick = this.handleNavClick.bind(this);
     this.handleNavClickAllProducts = this.handleNavClickAllProducts.bind(this);
+    this.handleOnTextSearchChange = this.handleOnTextSearchChange.bind(this);
   }
 
   handleOnBoardTypeSelect(e, target) {
@@ -49,8 +51,8 @@ class Home extends Component {
   hideFixedMenu = () => this.setState({ fixed: false })
   showFixedMenu = () => this.setState({ fixed: true })
 
-  handleRedirect() {
-    this.setState({ link: true })
+  handleResultSelect(event, data) {
+    this.setState({ link: data.result.slug })
   }
 
   handleNavClick(event, data) {
@@ -62,7 +64,15 @@ class Home extends Component {
     this.props.onClearFilter();
   }
 
+  handleOnTextSearchChange(event, data) {
+    this.props.fetchTextSearch(data.value)
+  }
+
   render() {
+    if (this.state.link) {
+      return <Redirect push to={`/product/${this.state.link}`} />;
+    }
+
     return (
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
         <Visibility
@@ -99,7 +109,13 @@ class Home extends Component {
                   <Link to='/compare'>Electric Penny Boards</Link>
                 </Menu.Item>
                 <Menu.Item position='right'>
-                  <Input icon={{ name: 'search', circular: true, link: true }} placeholder='Search...' />
+                  <Search
+                    onSearchChange={this.handleOnTextSearchChange}
+                    onResultSelect={this.handleResultSelect}
+                    loading={this.props.fetching}
+                    results={this.props.searchResults}
+                    placeholder='Search...'
+                  />
                 </Menu.Item>
               </Container>
             </Menu>

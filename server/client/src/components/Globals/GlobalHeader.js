@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Menu, Search } from 'semantic-ui-react';
 import {
@@ -26,9 +26,11 @@ class GlobalHeader extends Component {
   constructor() {
     super()
 
+    this.state = { link: false };
     this.handleNavClick = this.handleNavClick.bind(this);
     this.handleNavClickAllProducts = this.handleNavClickAllProducts.bind(this);
     this.handleOnTextSearchChange = this.handleOnTextSearchChange.bind(this);
+    this.handleResultSelect = this.handleResultSelect.bind(this);
   }
 
   handleNavClick(event, data) {
@@ -46,7 +48,15 @@ class GlobalHeader extends Component {
     this.props.fetchTextSearch(data.value)
   }
 
+  handleResultSelect(event, data) {
+    this.setState({ link: data.result.slug })
+  }
+
   render() {
+    if (this.state.link) {
+      return <Redirect push to={`/product/${this.state.link}`} />;
+    }
+
     return (
       <div style={{marginBottom: '80px'}}>
         <Menu fixed='top' inverted stackable>
@@ -68,6 +78,7 @@ class GlobalHeader extends Component {
             <Menu.Item position='right'>
               <Search
                 onSearchChange={this.handleOnTextSearchChange}
+                onResultSelect={this.handleResultSelect}
                 loading={this.props.fetching}
                 results={this.props.searchResults}
                 placeholder='Search...'
