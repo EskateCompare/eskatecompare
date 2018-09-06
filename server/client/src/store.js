@@ -6,14 +6,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 
-import main from './reducers/main';
+import Main from './reducers/Main';
 import CompareProducts from './reducers/CompareProducts';
 import Product from './reducers/Product';
 
 const loggerMiddleware = createLogger()
 
 const reducer = combineReducers({
-  main,
+  Main,
   CompareProducts,
   Product,
 })

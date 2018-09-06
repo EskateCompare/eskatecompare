@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Container, Menu } from 'semantic-ui-react';
+import { Container, Menu, Search } from 'semantic-ui-react';
 import {
   onFilterChange,
   fetchProducts,
   onClearFilter,
 } from '../../actions/CompareProducts';
 
+import { fetchTextSearch } from '../../actions/Main';
+
 const mapStateToProps = state => ({
-  ...state.CompareProducts
+  ...state.CompareProducts,
+  ...state.Main
 })
 
 const mapDispatchToProps = dispatch => ({
   onFilterChange: (payload) => dispatch(onFilterChange(payload)),
   fetchProducts: (payload) => dispatch(fetchProducts(payload)),
   onClearFilter: () => dispatch(onClearFilter()),
+  fetchTextSearch: (payload) => dispatch(fetchTextSearch(payload)),
 })
 
 class GlobalHeader extends Component {
@@ -24,6 +28,7 @@ class GlobalHeader extends Component {
 
     this.handleNavClick = this.handleNavClick.bind(this);
     this.handleNavClickAllProducts = this.handleNavClickAllProducts.bind(this);
+    this.handleOnTextSearchChange = this.handleOnTextSearchChange.bind(this);
   }
 
   handleNavClick(event, data) {
@@ -35,6 +40,10 @@ class GlobalHeader extends Component {
   handleNavClickAllProducts(event, data) {
     this.props.onClearFilter();
     this.props.fetchProducts(this.props.filterState);
+  }
+
+  handleOnTextSearchChange(event, data) {
+    this.props.fetchTextSearch(data.value)
   }
 
   render() {
@@ -55,6 +64,14 @@ class GlobalHeader extends Component {
             </Menu.Item>
             <Menu.Item link name='pennyboard' onClick={this.handleNavClick}>
               <Link to='/compare'>Electric Penny Boards</Link>
+            </Menu.Item>
+            <Menu.Item position='right'>
+              <Search
+                onSearchChange={this.handleOnTextSearchChange}
+                loading={this.props.fetching}
+                results={this.props.searchResults}
+                placeholder='Search...'
+              />
             </Menu.Item>
           </Container>
         </Menu>

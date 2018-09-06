@@ -1,20 +1,25 @@
 const defaultState = {
-  appName: 'SkateCompare',
+  searchResults: [],
+  fetching: false,
+  error: null
 };
 
 export default (state = defaultState, action) => {
   switch(action.type) {
-    case 'APP_LOAD':
-      return {
-        ...state,
-        appLoaded: true
-      };
-    case 'REDIRECT':
-      return {...state, redirectTo: null };
-
-    case 'RETRIEVE_SINGLE_PRODUCT':
-      return {...state, product: action.value}
+    case 'REQUEST_TEXT_SEARCH':
+      return Object.assign({}, state, {
+        fetching: true
+    })
+    case 'FETCH_TEXT_SEARCH_ERROR':
+      return Object.assign({}, state, {
+        error: action.payload
+    })
+    case 'RECEIVE_TEXT_SEARCH':
+      return Object.assign({}, state, {
+        searchResults: action.payload,
+        fetching: false
+    })
     default:
       return state;
-    }
-};
+  }
+}
