@@ -31,6 +31,7 @@ router.get('/', function(req, res, next) {
           formattedSearchItem.title = product.name;
           formattedSearchItem.image = product.image.source;
           formattedSearchItem.price = product.bestPrice;
+          formattedSearchItem.slug = product.slug;
 
           formattedSearchResults.push(formattedSearchItem);
       })

@@ -64,7 +64,7 @@ ReviewSchema.post('save', async function(doc, next) {
       compositeScore = ((externalSum + internalSum) / (externalAmount + internalAmount)) * 20
 
       //update product
-      if (!product.toObject().hasOwnProperty('ratings') || product.ratings == null || product.ratings == undefined) product.ratings = {
+      if (!product.hasOwnProperty('ratings') || product.ratings == null || product.ratings == undefined) product.ratings = {
         external : {
           average : 0,
           amount : 0
