@@ -20,10 +20,12 @@ export function fetchFilterError(payload) {
   }
 }
 
-export function fetchFilter() {
+export function fetchFilter(payload) {
+  console.log(payload, 'fetchfilter')
+  const urlParams = (payload) ? serialize(payload) : '';
   return dispatch => {
     dispatch(requestFilter())
-    return fetch(`/api/filter-options/`)
+    return fetch(`/api/filter-options?${urlParams}`)
       .then(response => response.json())
       .then(json => dispatch(receiveFilter(json)))
       .catch(err => dispatch(fetchFilterError(err)))
