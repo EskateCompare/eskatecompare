@@ -1,0 +1,19 @@
+inputting reviews, calculating ratings.compositeScore
+
+
+calculated fields: all of ratings
+
+on each review inserted, calculate:
+
+	average score
+	total amount
+	composite score
+
+composite score:
+	(external average * external amount) + (internal average * internal amount) /
+
+	(external amount + internal amount)
+
+start with equally weighted internal & external
+
+

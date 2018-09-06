@@ -47,8 +47,8 @@ require('dotenv').config()
 //mongoose models here
 require ('./models/Image');
 require('./models/Brand');
-require('./models/Review');
 require('./models/Product');
+require('./models/Review');
 require ('./models/Store');
 require ('./models/Deal');
 require ('./models/UpdateStats');

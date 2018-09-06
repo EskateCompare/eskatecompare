@@ -70,6 +70,9 @@ ProductSchema.pre('validate', function(next) {
   next();
 });
 
+
+
+
 //ProductSchema.index({ "name": "text"});
 ProductSchema.index({ "specs.style" : "text"})
 
