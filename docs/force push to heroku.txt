@@ -1,0 +1,3 @@
+force push to heroku:
+
+https://stackoverflow.com/questions/13756055/git-subtree-subtree-up-to-date-but-cant-push
