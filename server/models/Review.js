@@ -18,9 +18,7 @@ mongoose.model('Review', ReviewSchema);
 var Review = mongoose.model('Review');
 
 ReviewSchema.post('save', async function(doc, next) {
-  console.log("IN THE POST SAVE");
-  console.log(doc);
-  Product.find({ _id: doc.product }).then(async function(product) {
+  Product.findOne({ _id: doc.product }).lean().exec().then(async function(product) {
 
     if (!product.hasOwnProperty('reviews') || product.reviews == null || product.reviews == undefined) product.reviews = [];
     product.reviews.push(doc._id);  //add review to associated product
@@ -35,11 +33,12 @@ ReviewSchema.post('save', async function(doc, next) {
 
     let compositeScore = 0;
 
+
     let fetchedReviews = [];
 
     let reviewFetchPromises = product.reviews.map(function(reviewId) {
       return new Promise(function(resolve, reject) {
-        Review.find({ _id : reviewId }).then(function(review) {
+        Review.findOne({ _id : reviewId }).lean().exec().then(function(review) {
           fetchedReviews.push(review);
           resolve();
         })
@@ -56,12 +55,12 @@ ReviewSchema.post('save', async function(doc, next) {
         externalAmount += 1;
       }
     })
-
     if (internalAmount > 0) internalAverage = internalSum  / internalAmount;
     else if (externalAmount > 0) externalAverage = externalSum / externalAmount;
 
-    if ((internalAmount + externalAmount) > 0)
+    if ((internalAmount + externalAmount) > 0) {
       compositeScore = ((externalSum + internalSum) / (externalAmount + internalAmount)) * 20
+      }
 
       //update product
       if (!product.hasOwnProperty('ratings') || product.ratings == null || product.ratings == undefined) product.ratings = {
@@ -86,9 +85,14 @@ ReviewSchema.post('save', async function(doc, next) {
 
       product['ratings']['compositeScore'] = compositeScore;
 
-      product.save().then(function() {
+      console.log(compositeScore);
+
+      Product.findOneAndUpdate({ slug: product.slug}, {$set : {reviews: product.reviews, ratings: product.ratings}}, {new : true}).then(function(error, result) {
+        console.log(error);
+        console.log(result);
         next();
       })
+
 
   })
 })
