@@ -20,8 +20,8 @@ const defaultState = {
     speed: [],
     deckMaterials: [],
     features: [],
-    maxLoad: [],
     weight: [],
+    maxWeight: [],
     width: [],
     length: [],
     wheelDiameter: [],
@@ -61,12 +61,13 @@ export default (state = defaultState, action) => {
         error: action.payload
     })
     case 'RECEIVE_FILTER':
+      console.log(action.payload, 'receieve filter')
       return Object.assign({}, state, {
         filter: action.payload,
         fetching: false
     })
     case 'ON_FILTER_CHANGE':
-      console.log(payload, 'heree')
+      // console.log(payload, 'heree')
       const { payload } = action;
       const { checked } = payload;
       const key = Object.keys(action.payload)[0];
@@ -105,8 +106,8 @@ export default (state = defaultState, action) => {
           speed: [],
           deckMaterials: [],
           features: [],
-          maxLoad: [],
           weight: [],
+          maxWeight: [],
           width: [],
           length: [],
           wheelDiameter: [],

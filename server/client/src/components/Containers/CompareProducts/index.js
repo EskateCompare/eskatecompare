@@ -16,7 +16,7 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = dispatch => ({
 	fetchProducts: (payload) => dispatch(fetchProducts(payload)),
-	fetchFilter: () => dispatch(fetchFilter()),
+	fetchFilter: (payload) => dispatch(fetchFilter(payload)),
 	onFilterChange: (payload) => dispatch(onFilterChange(payload)),
 	onSortDirection: (payload) => dispatch(onSortDirection(payload)),
 	onSortBy: (payload) => dispatch(onSortBy(payload))

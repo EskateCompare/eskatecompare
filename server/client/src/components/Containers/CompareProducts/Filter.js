@@ -14,9 +14,10 @@ export default class Filter extends Component {
 
   handleFilterSelect(e, value) {
     const { title, label, checked } = value;
-    const { fetchProducts, onFilterChange, filterState } = this.props;
+    const { fetchProducts, onFilterChange, filterState, fetchFilter } = this.props;
 
     onFilterChange({ [title]: label, checked: checked });
+    fetchFilter(filterState);
     fetchProducts(filterState);
   }
 
@@ -26,15 +27,15 @@ export default class Filter extends Component {
     const filterItems = filter.map((option, index) => {
       return (
         <div>
-        <Form.Group key={index} grouped>
-          <label><Header as='h4'>{option.displayTitle}</Header></label>
-          { option.title === 'brands' ? <Form.Field icon='search' control={Input} type='input' placeholder='Search Brands'/> : null}
-          { option.formType === 'checkbox' ? option.options.slice(0, 5).map((value) => <Form.Field><Checkbox label={value.label} title={option.title} onChange={this.handleFilterSelect}/> <Label circular content={value.count}/></Form.Field>) : null }
-          { this.state.showAllBrands ? option.options.slice(5, option.options.length).map((value) => <Form.Field><Checkbox label={value.label} title={option.title} onChange={this.handleFilterSelect}/> <Label circular content={value.count}/></Form.Field>) : null}
-          { option.options.length > 5 && !this.state.showAllBrands ? <div style={{cursor: 'pointer', color: 'blue'}} onClick={() => this.setState({showAllBrands: true})}><Icon name='caret down'/>Show More</div> : null }
-          { option.options.length > 5 && this.state.showAllBrands ? <div style={{cursor: 'pointer', color: 'blue'}} onClick={() => this.setState({showAllBrands: false})}><Icon name='caret up'/>Show Less</div> : null }
-        </Form.Group>
-        <Divider />
+          <Form.Group key={index} grouped>
+            <label><Header as='h4'>{option.displayTitle}</Header></label>
+            { option.title === 'brands' ? <Form.Field icon='search' control={Input} type='input' placeholder='Search Brands'/> : null}
+            { option.formType === 'checkbox' ? option.options.slice(0, 5).map((value) => <Form.Field><Checkbox label={value.label} title={option.title} onChange={this.handleFilterSelect}/> <Label circular content={value.count}/></Form.Field>) : null }
+            { this.state.showAllBrands ? option.options.slice(5, option.options.length).map((value) => <Form.Field><Checkbox label={value.label} title={option.title} onChange={this.handleFilterSelect}/> <Label circular content={value.count}/></Form.Field>) : null}
+            { option.options.length > 5 && !this.state.showAllBrands ? <div style={{cursor: 'pointer', color: 'blue'}} onClick={() => this.setState({showAllBrands: true})}><Icon name='caret down'/>Show More</div> : null }
+            { option.options.length > 5 && this.state.showAllBrands ? <div style={{cursor: 'pointer', color: 'blue'}} onClick={() => this.setState({showAllBrands: false})}><Icon name='caret up'/>Show Less</div> : null }
+          </Form.Group>
+          <Divider />
         </div>
         )
       }
