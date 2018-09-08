@@ -6,7 +6,7 @@
   "scripts": {
     "test": "eslint --fix src/",
     "heroku:add": "heroku git:remote -a",
-    "deploy:heroku": "git subtree push --prefix server heroku master && cd server/client && npm run-script build"
+    "deploy:heroku": "git subtree push --prefix server heroku master"
   },
   "engines": {
     "node": "8.11.3"
