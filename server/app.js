@@ -16,7 +16,7 @@ var isProduction = process.env.NODE_ENV === 'production';
 var app = express();
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname + '/client/build')));
 app.use(cors());
 
 // Normal express config defaults
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(require('method-override')());
-//app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
 app.use(session({ secret: 'skatecompare', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false  }));
 
