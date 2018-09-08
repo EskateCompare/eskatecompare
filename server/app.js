@@ -95,7 +95,7 @@ if (!isProduction) {
 // match one above, send back React's index.html file.
 app.get('*', (req, res) => {
   console.log ("app.get function");
-  res.sendFile(path.join(__dirname + 'client/build/index.html'));
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 // finally, let's start our server...
