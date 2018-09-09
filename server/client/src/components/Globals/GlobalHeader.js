@@ -49,14 +49,10 @@ class GlobalHeader extends Component {
   }
 
   handleResultSelect(event, data) {
-    this.setState({ link: data.result.slug })
+    this.props.history.push(`/product/${data.result.slug}`);
   }
 
   render() {
-    if (this.state.link) {
-      return <Redirect push to={`/product/${this.state.link}`} />;
-    }
-
     return (
       <div style={{marginBottom: '80px'}}>
         <Menu fixed='top' inverted stackable>
