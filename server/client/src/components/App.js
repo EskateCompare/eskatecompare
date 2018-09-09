@@ -28,8 +28,8 @@ class App extends React.Component {
         <Route path={[...navRoutes.map(route => route.path)]} component={GlobalHeader} />
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/compare' component={CompareProducts} />
-          <Route path='/product/:slug' component={Product} />
+          <Route exact path='/compare' component={CompareProducts} />
+          <Route exact path='/product/:slug' component={Product} />
         </Switch>
         <GlobalFooter />
       </div>

@@ -6,9 +6,12 @@ import store from './store';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+import createHistory from 'history/createBrowserHistory';
+const history = createHistory();
+
 ReactDOM.render((
   <Provider store={store}>
-    <Router>
+    <Router forceRefresh={true} history={history}>
       <Route component={App} />
     </Router>
   </Provider>

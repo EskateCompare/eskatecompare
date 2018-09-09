@@ -49,7 +49,8 @@ class GlobalHeader extends Component {
   }
 
   handleResultSelect(event, data) {
-    this.props.history.push(`/product/${data.result.slug}`);
+    console.log(this.props);
+    this.props.history.push(`/product/${data.result.slug}/`);
   }
 
   render() {
