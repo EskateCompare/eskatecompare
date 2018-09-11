@@ -21,7 +21,6 @@ export function fetchFilterError(payload) {
 }
 
 export function fetchFilter(payload) {
-  console.log(payload, 'fetchfilter')
   const urlParams = (payload) ? serialize(payload) : '';
   return dispatch => {
     dispatch(requestFilter())
@@ -53,12 +52,10 @@ export function fetchProductsError(payload) {
 }
 
 export function fetchProducts(payload) {
-  console.log(payload)
   const urlParams = (payload) ? serialize(payload) : '';
   
   return dispatch => {
     dispatch(requestProducts())
-    console.log(urlParams, 'urlParams')
     return fetch(`/api/products?${urlParams}`)
       .then(response => response.json())
       .then(json => dispatch(receiveProducts(json)))

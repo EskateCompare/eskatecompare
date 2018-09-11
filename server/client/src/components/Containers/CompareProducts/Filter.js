@@ -6,13 +6,16 @@ export default class Filter extends Component {
     super()
 
     this.state = {
-      showAllBrands: false,
+      showAllOptions: false,
+      checkedItems: []
     }
 
     this.handleFilterSelect = this.handleFilterSelect.bind(this);
+    this.handleShowAllOptions = this.handleShowAllOptions.bind(this);
   }
 
   handleFilterSelect(e, value) {
+    const { checkedItems } = this.state;
     const { title, label, checked } = value;
     const { fetchProducts, onFilterChange, filterState, fetchFilter } = this.props;
 
@@ -21,19 +24,26 @@ export default class Filter extends Component {
     fetchProducts(filterState);
   }
 
-  renderFilterOptions() {
+  handleShowAllOptions() {
+    this.setState(prevState =>
+      ({ showAllOptions: !prevState.showAllOptions })
+    );
+  }
+
+  renderFilterGroups() {
     const { filter } = this.props;
-    
+    const { showAllOptions } = this.state;
+
     const filterItems = filter.map((option, index) => {
       return (
-        <div>
-          <Form.Group key={index} grouped>
+        <div key={index}>
+          <Form.Group grouped>
             <label><Header as='h4'>{option.displayTitle}</Header></label>
-            { option.title === 'brands' ? <Form.Field icon='search' control={Input} type='input' placeholder='Search Brands'/> : null}
-            { option.formType === 'checkbox' ? option.options.slice(0, 5).map((value) => <Form.Field><Checkbox label={value.label} title={option.title} onChange={this.handleFilterSelect}/> <Label circular content={value.count}/></Form.Field>) : null }
-            { this.state.showAllBrands ? option.options.slice(5, option.options.length).map((value) => <Form.Field><Checkbox label={value.label} title={option.title} onChange={this.handleFilterSelect}/> <Label circular content={value.count}/></Form.Field>) : null}
-            { option.options.length > 5 && !this.state.showAllBrands ? <div style={{cursor: 'pointer', color: 'blue'}} onClick={() => this.setState({showAllBrands: true})}><Icon name='caret down'/>Show More</div> : null }
-            { option.options.length > 5 && this.state.showAllBrands ? <div style={{cursor: 'pointer', color: 'blue'}} onClick={() => this.setState({showAllBrands: false})}><Icon name='caret up'/>Show Less</div> : null }
+            { option.title === 'brands' ? <SearchOptions /> : null }
+            { option.formType === 'checkbox' ? option.options.slice(0, 5).map((value) => <Checkboxes option={option} value={value} handleFilterSelect={this.handleFilterSelect}/>) : null }
+            { showAllOptions ? option.options.slice(5, option.options.length).map((value) => <Checkboxes option={option} value={value} handleFilterSelect={this.handleFilterSelect}/>) : null}
+            { option.options.length > 5 && showAllOptions ? <ShowAllOptionsButton handleShowAllOptions={this.handleShowAllOptions}/> : null }
+            { option.options.length > 5 && showAllOptions ? <ShowAllOptionsButton handleShowAllOptions={this.handleShowAllOptions}/> : null }
           </Form.Group>
           <Divider />
         </div>
@@ -45,14 +55,49 @@ export default class Filter extends Component {
   }
 
   render() {
-    const renderedFilterOptions = this.renderFilterOptions();
+    const renderedFilterGroups = this.renderFilterGroups();
 
     return (
-      <div>
-        <Form>
-          {renderedFilterOptions}
-        </Form>   
-      </div>
+      <Form>
+        {renderedFilterGroups}
+      </Form>   
     );
+  }
+}
+
+class SearchOptions extends Component {
+  render() {
+    return (
+      <Form.Field icon='search' control={Input} type='input' placeholder='Search Brands'/>
+    )
+  } 
+}
+
+class Checkboxes extends Component {
+  render() {
+    const { option, value, handleFilterSelect } = this.props;
+
+    return (
+      <Form.Field>
+        <Checkbox label={value.label} title={option.title} onChange={handleFilterSelect}/>
+        <Label circular content={value.count}/>
+      </Form.Field>
+    )
+  } 
+}
+
+class ShowAllOptionsButton extends Component {
+  render() {
+    const { handleShowAllOptions } = this.props;
+    const showButtonStyle = {
+      cursor: 'pointer',
+      color: 'blue',
+    }
+
+    return(
+      <div style={showButtonStyle} onClick={handleShowAllOptions}>
+        <Icon name='caret down'/>Show More
+      </div>
+    )
   }
 }

@@ -14,7 +14,7 @@ const defaultState = {
     range: [],
     sortBy: 'rating',
     sortDir: 'dsc',
-    style: [],
+    style: ['longboard'],
     terrain: [],
     drive: [],
     speed: [],
@@ -61,13 +61,12 @@ export default (state = defaultState, action) => {
         error: action.payload
     })
     case 'RECEIVE_FILTER':
-      console.log(action.payload, 'receieve filter')
       return Object.assign({}, state, {
         filter: action.payload,
         fetching: false
     })
     case 'ON_FILTER_CHANGE':
-      // console.log(payload, 'heree')
+      console.log(action.payload, 'on filter change')
       const { payload } = action;
       const { checked } = payload;
       const key = Object.keys(action.payload)[0];

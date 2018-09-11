@@ -23,7 +23,7 @@ export default class ListItem extends Component {
     const {  speed, range } = specs;
     let color = undefined;
 
-    if (ratings.compositeScore > 90) { color = 'green' } 
+    if (ratings.compositeScore >= 90) { color = 'green' } 
     if (ratings.compositeScore >= 80 && ratings.compositeScore <= 89) { color = 'olive' }
     if (ratings.compositeScore >= 70 && ratings.compositeScore <= 79) { color = 'yellow' }
     if (ratings.compositeScore >= 60 && ratings.compositeScore <= 69) { color = 'orange' }
