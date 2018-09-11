@@ -29,3 +29,16 @@ export function fetchTextSearch(payload) {
       .catch(err => dispatch(fetchTextSearchError(err)))
   }
 }
+
+export function redirectToSelectedProduct(payload) {
+  return {
+    type: 'PRODUCT_SELECTED_TEXT_SEARCH',
+    payload
+  }
+}
+
+export function resetRedirect() {
+  return {
+    type: 'REDIRECT'
+  }
+}

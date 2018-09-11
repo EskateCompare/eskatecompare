@@ -19,6 +19,14 @@ export default (state = defaultState, action) => {
         searchResults: action.payload,
         fetching: false
     })
+    case 'PRODUCT_SELECTED_TEXT_SEARCH':
+      return Object.assign({}, state, {
+          redirectTo: action.payload
+    })
+    case 'REDIRECT':
+      return Object.assign({}, state, {
+          redirectTo: null
+    })
     default:
       return state;
   }
