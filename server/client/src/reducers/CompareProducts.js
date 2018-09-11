@@ -14,7 +14,7 @@ const defaultState = {
     range: [],
     sortBy: 'rating',
     sortDir: 'dsc',
-    style: ['longboard'],
+    style: [],
     terrain: [],
     drive: [],
     speed: [],

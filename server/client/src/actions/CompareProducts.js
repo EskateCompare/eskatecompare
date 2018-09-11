@@ -53,7 +53,6 @@ export function fetchProductsError(payload) {
 
 export function fetchProducts(payload) {
   const urlParams = (payload) ? serialize(payload) : '';
-  
   return dispatch => {
     dispatch(requestProducts())
     return fetch(`/api/products?${urlParams}`)

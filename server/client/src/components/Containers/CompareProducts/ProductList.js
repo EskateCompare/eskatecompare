@@ -33,7 +33,7 @@ export default class ProductList extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     const { fetchProducts, filterState } = this.props;
 
-    if (prevProps.filterState !== this.props.filterState ) {
+    if (prevProps.filterState !== filterState ) {
       fetchProducts(filterState);
     } 
   }

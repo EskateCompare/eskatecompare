@@ -8,7 +8,7 @@ export default class CompareProducts extends Component {
     const { fetchFilter, fetchProducts, filterState } = this.props;
 
     fetchProducts(filterState);
-    fetchFilter();
+    fetchFilter(filterState);
   }
 
   render() {

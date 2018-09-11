@@ -6,6 +6,7 @@ import {
   onFilterChange,
   fetchProducts,
   onClearFilter,
+  fetchFilter,
 } from '../../actions/CompareProducts';
 
 import { fetchTextSearch, redirectToSelectedProduct } from '../../actions/Main';
@@ -18,6 +19,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onFilterChange: (payload) => dispatch(onFilterChange(payload)),
   fetchProducts: (payload) => dispatch(fetchProducts(payload)),
+  fetchFilter: (payload) => dispatch(fetchFilter(payload)),
   onClearFilter: () => dispatch(onClearFilter()),
   fetchTextSearch: (payload) => dispatch(fetchTextSearch(payload)),
   redirectToProduct: (payload) => dispatch(redirectToSelectedProduct(payload))
@@ -37,12 +39,10 @@ class GlobalHeader extends Component {
   handleNavClick(event, data) {
     this.props.onClearFilter();
     this.props.onFilterChange({ style: data.name, checked: true });
-    this.props.fetchProducts(this.props.filterState);
   }
 
   handleNavClickAllProducts(event, data) {
     this.props.onClearFilter();
-    this.props.fetchProducts(this.props.filterState);
   }
 
   handleOnTextSearchChange(event, data) {
@@ -50,8 +50,6 @@ class GlobalHeader extends Component {
   }
 
   handleResultSelect(event, data) {
-    console.log(this.props);
-    //this.props.history.push(`/product/${data.result.slug}/`);
     this.props.redirectToProduct(`/product/${data.result.slug}/`);
   }
 

@@ -14,6 +14,14 @@ export default class Filter extends Component {
     this.handleShowAllOptions = this.handleShowAllOptions.bind(this);
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const { filterState, fetchFilter } = this.props;
+
+    if (prevProps.filterState !== filterState ) {
+      fetchFilter(filterState);
+    } 
+  }
+
   handleFilterSelect(e, value) {
     const { checkedItems } = this.state;
     const { title, label, checked } = value;
@@ -77,10 +85,14 @@ class Checkboxes extends Component {
   render() {
     const { option, value, handleFilterSelect } = this.props;
 
+    const hideLabelCountStyle = {
+      display: value.checked ? 'none' : null
+    }
+
     return (
       <Form.Field>
-        <Checkbox label={value.label} title={option.title} onChange={handleFilterSelect}/>
-        <Label circular content={value.count}/>
+        <Checkbox checked={value.checked} label={value.label} title={option.title} onChange={handleFilterSelect}/>
+        <Label style={hideLabelCountStyle} circular content={value.count}/>
       </Form.Field>
     )
   } 
