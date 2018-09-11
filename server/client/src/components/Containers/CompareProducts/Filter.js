@@ -50,8 +50,8 @@ export default class Filter extends Component {
             { option.title === 'brands' ? <SearchOptions /> : null }
             { option.formType === 'checkbox' ? option.options.slice(0, 5).map((value) => <Checkboxes option={option} value={value} handleFilterSelect={this.handleFilterSelect}/>) : null }
             { showAllOptions ? option.options.slice(5, option.options.length).map((value) => <Checkboxes option={option} value={value} handleFilterSelect={this.handleFilterSelect}/>) : null}
-            { option.options.length > 5 && showAllOptions ? <ShowAllOptionsButton handleShowAllOptions={this.handleShowAllOptions}/> : null }
-            { option.options.length > 5 && showAllOptions ? <ShowAllOptionsButton handleShowAllOptions={this.handleShowAllOptions}/> : null }
+            { option.options.length > 5 && !showAllOptions ? <ShowAllOptionsButton handleShowAllOptions={this.handleShowAllOptions} children={'Show More'}/> : null }
+            { option.options.length > 5 && showAllOptions ? <ShowAllOptionsButton handleShowAllOptions={this.handleShowAllOptions} children={'Show Less'}/> : null }
           </Form.Group>
           <Divider />
         </div>
@@ -100,7 +100,7 @@ class Checkboxes extends Component {
 
 class ShowAllOptionsButton extends Component {
   render() {
-    const { handleShowAllOptions } = this.props;
+    const { handleShowAllOptions, children } = this.props;
     const showButtonStyle = {
       cursor: 'pointer',
       color: 'blue',
@@ -108,7 +108,7 @@ class ShowAllOptionsButton extends Component {
 
     return(
       <div style={showButtonStyle} onClick={handleShowAllOptions}>
-        <Icon name='caret down'/>Show More
+        <Icon name='caret down'/>{children}
       </div>
     )
   }
