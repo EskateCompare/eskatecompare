@@ -9,6 +9,8 @@ import {
   fetchFilter,
 } from '../../actions/CompareProducts';
 
+import _ from 'lodash';
+
 import { fetchTextSearch, redirectToSelectedProduct } from '../../actions/Main';
 
 const mapStateToProps = state => ({
@@ -74,7 +76,7 @@ class GlobalHeader extends Component {
             </Menu.Item>
             <Menu.Item position='right'>
               <Search
-                onSearchChange={this.handleOnTextSearchChange}
+                onSearchChange={_.debounce(this.handleOnTextSearchChange, 250, { leading: false })}
                 onResultSelect={this.handleResultSelect}
                 loading={this.props.fetching}
                 results={this.props.searchResults}
