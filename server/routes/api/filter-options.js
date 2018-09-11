@@ -77,19 +77,19 @@ router.get('/', async function(req, res, next) {
       return new Promise(async function(resolve, reject) {
         //get element logic type for multiple options within attribute
         let elementLogicType = 'or'; //default
+        let paramsIncludesAttribute = params.hasOwnProperty(element.title);
         if (element.hasOwnProperty('logicType') && element.logicType == 'and' ) elementLogicType = 'and';
 
         let displayLogicType = 'and';//default
 
         //get products, and determine how count is displayed by whether unselected options within attribute are ORs or ANDs
         let products;
-        if (!params.hasOwnProperty(element.title) || elementLogicType == 'and') {  //if attribute isn't a filter, use previously fetched all filters, unselected options within attribute are ANDs
+        if (!paramsIncludesAttribute || elementLogicType == 'and') {  //if attribute isn't a filter, use previously fetched all filters, unselected options within attribute are ANDs
           products = allFiltersProducts;
         } else {  //unselected options within attribute are ORs
           let elementToSkip = element.title;
           products = await pipeline.aggregationFilter(params, false, [elementToSkip]);
           displayLogicType = 'or';
-          console.log("Additional fetch");
         }
 
         let itemToAdd = {};
@@ -125,7 +125,7 @@ router.get('/', async function(req, res, next) {
           return eval("e." + element.attribute)
         });
 
-        itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle, element.formType, displayLogicType);
+        itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle, element.formType, displayLogicType, params[element.title]);
         }
 
         else {
@@ -147,7 +147,7 @@ router.get('/', async function(req, res, next) {
             })
           })
 
-         itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle, element.formType, displayLogicType);
+         itemToAdd = prepItemToAdd(counts, element.title, element.displayTitle, element.formType, displayLogicType, params[element.title]);
         }
         unsortedFilterOptions.push(itemToAdd);
         resolve();
@@ -218,12 +218,24 @@ router.get('/', async function(req, res, next) {
 
 })
 
-function prepItemToAdd(counts, title, displayTitle, formType, logicType) {
+function prepItemToAdd(counts, title, displayTitle, formType, logicType, attributeParams) {
+
+  let params = [];
+  if (attributeParams != null && attributeParams != undefined) {
+    params = attributeParams.split(',');
+  }
+
   let optionsArray = Object.keys(counts).map(function(key) {
 
      let returnOption = {};
      returnOption['label'] = key;
      returnOption['count'] = counts[key];
+     returnOption['checked'] = false;
+     if (params.length > 0) {
+        console.log("HERE " + key);
+        console.log(params);
+       if (params.includes(key)) returnOption['checked'] = true;
+     }
 
      if (logicType == 'or') returnOption['count'] += "+";
 
