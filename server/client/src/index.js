@@ -11,7 +11,7 @@ const history = createHistory();
 
 ReactDOM.render((
   <Provider store={store}>
-    <Router forceRefresh={true} history={history}>
+    <Router history={history}>
       <Route component={App} />
     </Router>
   </Provider>
