@@ -5,15 +5,17 @@ calculated fields: all of ratings
 
 on each review inserted, calculate:
 
-	average score
+		average score
 	total amount
 	composite score
 
 composite score:
-	(external average * external amount) + (internal average * internal amount) /
+	((external average * external amount) + (internal average * internal amount) /
 
-	(external amount + internal amount)
+	(external amount + internal amount)) * 20
 
-start with equally weighted internal & external
+when to calculate?
+
+on any reviews change (deletion, insertion, update, etc.)
 
 

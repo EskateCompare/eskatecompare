@@ -16,3 +16,19 @@ var DealSchema = new mongoose.Schema({
 })
 
 mongoose.model('Deal', DealSchema);
+
+var Deal = mongoose.model('Deal');
+
+DealSchema.post('save', async function(doc, next) {
+  Product.findOne({_id: doc.product}).lean().exec().then(async function(product) {
+    if (!product.hasOwnProperty('deals') || product.deals == null || product.deals == undefined) product.deals = [];
+    product.deals.push(doc._id);
+
+    Product.findOneAndUpdate({ slug: product.slug}, {$set : { deals: product.deals }}, {new : true}).then(function(error, result) {
+      console.log(error);
+      console.log(result);
+      next();
+    })
+
+  })
+})

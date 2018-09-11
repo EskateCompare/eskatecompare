@@ -22,6 +22,8 @@ shipping  (store level + user's location)
 
 for existing stores, products:
 
+new node express app ONLY for scraping 
+
 new DB, with dealCheck document
 DB is copy of existing DB with added dealCheck
 
@@ -34,5 +36,7 @@ Store
 Product
 url
 document / raw data
-scrape deal (access url, or api)
+
+
+scrape deals (access url, or api)
 
