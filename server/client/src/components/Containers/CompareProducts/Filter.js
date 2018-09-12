@@ -12,6 +12,7 @@ export default class Filter extends Component {
 
     this.handleFilterSelect = this.handleFilterSelect.bind(this);
     this.handleShowAllOptions = this.handleShowAllOptions.bind(this);
+    this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -19,7 +20,7 @@ export default class Filter extends Component {
 
     if (prevProps.filterState !== filterState ) {
       fetchFilter(filterState);
-    } 
+    }
   }
 
   handleFilterSelect(e, value) {
@@ -38,20 +39,31 @@ export default class Filter extends Component {
     );
   }
 
+  handleFieldChange(e) {
+    const { updateField } = this.props;
+    updateField( 'brandSearch', e.target.value );
+  }
+
   renderFilterGroups() {
-    const { filter } = this.props;
+    const { filter, brandSearch } = this.props;
     const { showAllOptions } = this.state;
 
     const filterItems = filter.map((option, index) => {
+      let filteredOptions = option.options;
+      if (option.title === 'brands' && brandSearch != undefined && brandSearch.length > 0) {
+        filteredOptions = filteredOptions.filter(function(checkboxOption) {
+          return checkboxOption.label.toLowerCase().includes(brandSearch.toLowerCase())
+        })
+      }
       return (
         <div key={index}>
           <Form.Group grouped>
             <label><Header as='h4'>{option.displayTitle}</Header></label>
-            { option.title === 'brands' ? <SearchOptions /> : null }
-            { option.formType === 'checkbox' ? option.options.slice(0, 5).map((value) => <Checkboxes option={option} value={value} handleFilterSelect={this.handleFilterSelect}/>) : null }
-            { showAllOptions ? option.options.slice(5, option.options.length).map((value) => <Checkboxes option={option} value={value} handleFilterSelect={this.handleFilterSelect}/>) : null}
-            { option.options.length > 5 && !showAllOptions ? <ShowAllOptionsButton handleShowAllOptions={this.handleShowAllOptions} children={'Show More'}/> : null }
-            { option.options.length > 5 && showAllOptions ? <ShowAllOptionsButton handleShowAllOptions={this.handleShowAllOptions} children={'Show Less'}/> : null }
+            { option.title === 'brands' ? <SearchOptions handleFieldChange={this.handleFieldChange} /> : null }
+            { option.formType === 'checkbox' ? filteredOptions.slice(0, 5).map((value) => <Checkboxes option={option} value={value} handleFilterSelect={this.handleFilterSelect}/>) : null }
+            { showAllOptions ? filteredOptions.slice(5, filteredOptions.length).map((value) => <Checkboxes option={option} value={value} handleFilterSelect={this.handleFilterSelect}/>) : null}
+            { filteredOptions.length > 5 && !showAllOptions ? <ShowAllOptionsButton handleShowAllOptions={this.handleShowAllOptions} children={'Show More'}/> : null }
+            { filteredOptions.length > 5 && showAllOptions ? <ShowAllOptionsButton handleShowAllOptions={this.handleShowAllOptions} children={'Show Less'}/> : null }
           </Form.Group>
           <Divider />
         </div>
@@ -68,7 +80,7 @@ export default class Filter extends Component {
     return (
       <Form>
         {renderedFilterGroups}
-      </Form>   
+      </Form>
     );
   }
 }
@@ -76,9 +88,11 @@ export default class Filter extends Component {
 class SearchOptions extends Component {
   render() {
     return (
-      <Form.Field icon='search' control={Input} type='input' placeholder='Search Brands'/>
+      <Form.Input icon='search' control={Input} placeholder='Search Brands'
+        onChange={this.props.handleFieldChange}
+        value={this.props.brandsSearch} />
     )
-  } 
+  }
 }
 
 class Checkboxes extends Component {
@@ -95,7 +109,7 @@ class Checkboxes extends Component {
         <Label style={hideLabelCountStyle} circular content={value.count}/>
       </Form.Field>
     )
-  } 
+  }
 }
 
 class ShowAllOptionsButton extends Component {

@@ -19,6 +19,10 @@ export default (state = defaultState, action) => {
         searchResults: action.payload,
         fetching: false
     })
+    case 'UPDATE_FIELD':
+      return Object.assign({}, state, {
+        [action.key] : action.value
+      })
     case 'PRODUCT_SELECTED_TEXT_SEARCH':
       return Object.assign({}, state, {
           redirectTo: action.payload,

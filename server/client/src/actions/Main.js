@@ -42,3 +42,10 @@ export function resetRedirect() {
     type: 'REDIRECT'
   }
 }
+export function updateField(key, value) {
+  return {
+    type: 'UPDATE_FIELD',
+    key,
+    value
+  }
+}
