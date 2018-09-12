@@ -13,6 +13,7 @@ export default class Filter extends Component {
     this.handleFilterSelect = this.handleFilterSelect.bind(this);
     this.handleShowAllOptions = this.handleShowAllOptions.bind(this);
     this.handleFieldChange = this.handleFieldChange.bind(this);
+    this.clearField = this.clearField.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -44,6 +45,11 @@ export default class Filter extends Component {
     updateField( 'brandSearch', e.target.value );
   }
 
+  clearField(key) {
+    const { updateField } = this.props;
+    updateField(key, '');
+  }
+
   renderFilterGroups() {
     const { filter, brandSearch } = this.props;
     const { showAllOptions } = this.state;
@@ -59,7 +65,7 @@ export default class Filter extends Component {
         <div key={index}>
           <Form.Group grouped>
             <label><Header as='h4'>{option.displayTitle}</Header></label>
-            { option.title === 'brands' ? <SearchOptions handleFieldChange={this.handleFieldChange} /> : null }
+            { option.title === 'brands' ? <SearchOptions handleFieldChange={this.handleFieldChange} clearField={this.clearField} /> : null }
             { option.formType === 'checkbox' ? filteredOptions.slice(0, 5).map((value) => <Checkboxes option={option} value={value} handleFilterSelect={this.handleFilterSelect}/>) : null }
             { showAllOptions ? filteredOptions.slice(5, filteredOptions.length).map((value) => <Checkboxes option={option} value={value} handleFilterSelect={this.handleFilterSelect}/>) : null}
             { filteredOptions.length > 5 && !showAllOptions ? <ShowAllOptionsButton handleShowAllOptions={this.handleShowAllOptions} children={'Show More'}/> : null }
@@ -86,11 +92,16 @@ export default class Filter extends Component {
 }
 
 class SearchOptions extends Component {
+
+  componentWillUnmount() {
+    this.props.clearField('brandSearch');
+  }
+
   render() {
     return (
       <Form.Input icon='search' control={Input} placeholder='Search Brands'
         onChange={this.props.handleFieldChange}
-        value={this.props.brandsSearch} />
+        value={this.props.brandSearch} />
     )
   }
 }
