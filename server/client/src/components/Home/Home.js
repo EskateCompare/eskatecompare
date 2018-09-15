@@ -100,13 +100,13 @@ class Home extends Component {
                   <img src='https://react.semantic-ui.com/logo.png' />
                 </Menu.Item>
                 <Menu.Item link onClick={this.handleNavClickAllProducts}>
-                  <Link to='/compare'>Electric Boards</Link>
+                  <Link to='/compare/top-electric-skateboards'>Electric Boards</Link>
                 </Menu.Item>
                 <Menu.Item link name='longboard' onClick={this.handleNavClick}>
-                  <Link to='/compare'>Electric Long Boards</Link>
+                  <Link to='/compare/top-electric-longboards'>Electric Long Boards</Link>
                 </Menu.Item>
                 <Menu.Item link name='pennyboard' onClick={this.handleNavClick}>
-                  <Link to='/compare'>Electric Penny Boards</Link>
+                  <Link to='/compare/top-electric-pennyboards'>Electric Penny Boards</Link>
                 </Menu.Item>
                 <Menu.Item position='right'>
                   <Search
