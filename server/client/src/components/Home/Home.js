@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { NavLink, Link, Redirect } from 'react-router-dom'
 import {
   Button,
   Container,
@@ -19,6 +19,7 @@ import {
   Input,
   Search,
 } from 'semantic-ui-react'
+import _ from 'lodash';
 
 import { boardType, terrainType } from '../../constants'
 
@@ -33,7 +34,11 @@ class Home extends Component {
   constructor() {
     super()
     
-    this.state = { link: false, fixed: false }
+    this.state = { 
+      link: false,
+      fixed: false,
+      boardType: 'skateboard',
+    }
 
     this.handleResultSelect = this.handleResultSelect.bind(this);
     this.handleOnBoardTypeSelect = this.handleOnBoardTypeSelect.bind(this);
@@ -96,21 +101,21 @@ class Home extends Component {
               style={{border: 'none'}}
             >
               <Container>
-                <Menu.Item>
-                  <img src='https://react.semantic-ui.com/logo.png' />
+                <Menu.Item as={NavLink} name='home' to='/'>
+                  <img src='https://react.semantic-ui.com/logo.png' alt=''/>
                 </Menu.Item>
-                <Menu.Item link onClick={this.handleNavClickAllProducts}>
-                  <Link to='/compare/top-electric-skateboards'>Electric Boards</Link>
+                <Menu.Item as={NavLink} to='/compare/top-electric-skateboards' name='skateboard' onClick={this.handleNavClickAllProducts}>
+                  Electric Boards
                 </Menu.Item>
-                <Menu.Item link name='longboard' onClick={this.handleNavClick}>
-                  <Link to='/compare/top-electric-longboards'>Electric Long Boards</Link>
+                <Menu.Item as={NavLink} to='/compare/top-electric-longboards' name='longboard' onClick={this.handleNavClick}>
+                  Electric Long Boards
                 </Menu.Item>
-                <Menu.Item link name='pennyboard' onClick={this.handleNavClick}>
-                  <Link to='/compare/top-electric-pennyboards'>Electric Penny Boards</Link>
+                <Menu.Item as={NavLink} to='/compare/top-electric-pennyboards' name='pennyboard' onClick={this.handleNavClick}>
+                  Electric Penny Boards
                 </Menu.Item>
                 <Menu.Item position='right'>
                   <Search
-                    onSearchChange={this.handleOnTextSearchChange}
+                    onSearchChange={_.debounce(this.handleOnTextSearchChange, 250, { leading: false })}
                     onResultSelect={this.handleResultSelect}
                     loading={this.props.fetching}
                     results={this.props.searchResults}
@@ -137,7 +142,7 @@ class Home extends Component {
                 options={boardType}
                 onChange={this.handleOnBoardTypeSelect}
               />{' '}
-              <Link to='/compare'><Button size='big' color='green'>Find</Button></Link>
+              <Link to={`/compare/top-electric-${this.state.boardType}s`}><Button size='big' color='green'>Find</Button></Link>
             </Container>
           </Segment>
         </Visibility>
@@ -148,7 +153,7 @@ class Home extends Component {
               <Grid.Column>
                 <List link>
                   <List.Item as='a'><a href='/'>Boosted</a></List.Item>
-                  <List.Item as='a'>InBoard</List.Item>
+                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards'>InBoard</List.Item>
                   <List.Item as='a'>So Flow</List.Item>
                 </List>
               </Grid.Column>

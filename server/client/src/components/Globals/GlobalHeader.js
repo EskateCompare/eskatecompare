@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Menu, Search } from 'semantic-ui-react';
 import {
@@ -60,19 +60,17 @@ class GlobalHeader extends Component {
       <div style={{marginBottom: '80px'}}>
         <Menu fixed='top' inverted stackable>
           <Container>
-            <Link to="/">
-              <Menu.Item link>
-                <img src='https://react.semantic-ui.com/logo.png' alt=''/>
-              </Menu.Item>
-            </Link>
-            <Menu.Item link onClick={this.handleNavClickAllProducts}>
-              <Link to='/compare'>Electric Boards</Link>
+            <Menu.Item as={NavLink} name='home' to='/'>
+              <img src='https://react.semantic-ui.com/logo.png' alt=''/>
             </Menu.Item>
-            <Menu.Item link name='longboard' onClick={this.handleNavClick}>
-              <Link to='/compare'>Electric Long Boards</Link>
+            <Menu.Item as={NavLink} to='/compare/top-electric-skateboards' name='skateboard' onClick={this.handleNavClickAllProducts}>
+              Electric Boards
             </Menu.Item>
-            <Menu.Item link name='pennyboard' onClick={this.handleNavClick}>
-              <Link to='/compare'>Electric Penny Boards</Link>
+            <Menu.Item as={NavLink} to='/compare/top-electric-longboards' name='longboard' onClick={this.handleNavClick}>
+              Electric Long Boards
+            </Menu.Item>
+            <Menu.Item as={NavLink} to='/compare/top-electric-pennyboards' name='pennyboard' onClick={this.handleNavClick}>
+              Electric Penny Boards
             </Menu.Item>
             <Menu.Item position='right'>
               <Search
