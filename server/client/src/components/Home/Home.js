@@ -32,7 +32,7 @@ const src = "url('https://www.mellowboards.com/out/pictures/zmbwysiwygeditor/Blo
 class Home extends Component {
   constructor() {
     super()
-    
+
     this.state = { link: false, fixed: false }
 
     this.handleResultSelect = this.handleResultSelect.bind(this);
@@ -47,7 +47,7 @@ class Home extends Component {
     this.props.onFilterChange({ style: target.value, checked: true })
     this.setState({boardType: target.value})
   }
-  
+
   hideFixedMenu = () => this.setState({ fixed: false })
   showFixedMenu = () => this.setState({ fixed: true })
 
@@ -145,32 +145,48 @@ class Home extends Component {
           <Container>
           <Header as='h2' content="Explore Electric Skateboards"/>
             <Grid columns={4} container stackable>
+
               <Grid.Column>
+                <br />
                 <List link>
                   <List.Item as='a'><a href='/'>Boosted</a></List.Item>
+                  <List.Item as='a'><a href='/'>Evolve</a></List.Item>
                   <List.Item as='a'>InBoard</List.Item>
+                  <List.Item as='a'><a href='/'>Halo</a></List.Item>
                   <List.Item as='a'>So Flow</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column>
+              <br />
                 <List link>
-                  <List.Item as='a'>Best Electric Boards</List.Item>
-                  <List.Item as='a'>Best Electric Longboards</List.Item>
-                  <List.Item as='a'>Best Electric Pennyboards</List.Item>
+                  <List.Item as='a'>Longboards</List.Item>
+                  <List.Item as='a'>Pennyboards</List.Item>
+                  <br />
+                  <List.Item as='a'>Under 500</List.Item>
+                  <List.Item as='a'>Under 1000</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column>
+              <br />
                 <List link>
-                  <List.Item as='a'>Top Electric Boards</List.Item>
-                  <List.Item as='a'>Top Electric Longboards</List.Item>
-                  <List.Item as='a'>Top Electric Pennyboards</List.Item>
+                  <List.Item as='a'>All Terrain</List.Item>
+                  <List.Item as='a'>Waterproof</List.Item>
+                  <List.Item as='a'>Travel Safe</List.Item>
+                  <br />
+                  <List.Item as='a'>Fastest</List.Item>
+                  <List.Item as='a'>Longest Range</List.Item>
+                  <List.Item as='a'>Newest</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column>
+              <br />
                 <List link>
-                  <List.Item as='a'>Fastest Electric Boards</List.Item>
-                  <List.Item as='a'>Top Travel Friendly Electric Boards</List.Item>
-                  <List.Item as='a'>Best Waterproof Electric Boards</List.Item>
+                  <List.Item as='a'>Bamboo</List.Item>
+                  <List.Item as='a'>Carbon Fiber</List.Item>
+                  <List.Item as='a'>Wood</List.Item>
+                  <br />
+                  <List.Item as='a'>Hub</List.Item>
+                  <List.Item as='a'>Belt</List.Item>
                 </List>
               </Grid.Column>
             </Grid>
