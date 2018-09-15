@@ -130,6 +130,7 @@ export default class Filter extends Component {
     filterStateCopy[filterStateKeyTwo] = [];
     filterStateCopy.sortBy = [];
     filterStateCopy.sortDir = [];
+    filterStateCopy.style = [];
     otherParams = '?' + stringify(filterStateCopy);
     // console.log(filterStateKeyOne, filterStateKeyTwo);
     // console.log(attributeOne, 'attributeOne');

@@ -84,7 +84,7 @@ class Home extends Component {
             as='div'
             inverted
             textAlign='center'
-            style={{ minHeight: 700, padding: '1em 0em', backgroundImage: "url('https://i.pinimg.com/originals/95/17/2c/95172c428ff98f0ec83d3e9679a863d5.jpg')" }}
+            style={{ minHeight: 700, padding: '1em 0em', backgroundSize: 'cover', backgroundImage: "url('https://i.pinimg.com/originals/95/17/2c/95172c428ff98f0ec83d3e9679a863d5.jpg')" }}
             vertical
           >
             <Menu
