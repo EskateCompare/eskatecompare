@@ -28,7 +28,7 @@ import { boardType, terrainType } from '../../constants'
  * such things.
  */
 
-const src = "url('https://www.mellowboards.com/out/pictures/zmbwysiwygeditor/Blog-Posts/mellow-electric-skateboard-what-is-an-electric-skateboard-1.jpg')"
+const src = 'https://www.mellowboards.com/out/pictures/zmbwysiwygeditor/Blog-Posts/mellow-electric-skateboard-what-is-an-electric-skateboard-1.jpg';
 
 class Home extends Component {
   constructor() {
@@ -49,6 +49,10 @@ class Home extends Component {
     this.handleNavClick = this.handleNavClick.bind(this);
     this.handleNavClickAllProducts = this.handleNavClickAllProducts.bind(this);
     this.handleOnTextSearchChange = this.handleOnTextSearchChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchProducts();
   }
 
   handleOnBoardTypeSelect(e, target) {
@@ -77,10 +81,22 @@ class Home extends Component {
     this.props.fetchTextSearch(data.value)
   }
 
+  renderBestDeals() {
+    const { products } = this.props.products;
+
+    const bestDeals = products.map((product, index) =>
+      <Image bordered src={product.image.source} />
+    );
+
+    return bestDeals;
+  }
+
   render() {
     if (this.state.link) {
       return <Redirect push to={`/product/${this.state.link}`} />;
     }
+
+    const renderedBestDeals = this.renderBestDeals();
 
     return (
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
@@ -152,7 +168,7 @@ class Home extends Component {
         </Visibility>
         <Segment style={{ padding: '4em 0em' }} vertical>
           <Container>
-          <Header as='h2' content="Explore Electric Skateboards"/>
+          <Header as='h1' content="Explore Electric Skateboards"/>
             <Grid columns={4} container stackable>
 
               <Grid.Column>
@@ -201,19 +217,14 @@ class Home extends Component {
             </Grid>
           </Container>
         </Segment>
-        <Segment style={{ padding: '2em 0em' }} vertical>
+        <Segment style={{ padding: '2em 0em'}} vertical>
           <Container text>
             <Header as='h3' style={{ fontSize: '2em' }}>
-              Did We Tell You About Our Bananas?
+              Recent Best Deals
             </Header>
-            <p style={{ fontSize: '1.33em' }}>
-              Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but
-              it's really true. It took years of gene splicing and combinatory DNA research, but our
-              bananas can really dance.
-            </p>
-            <Button as='a' size='large'>
-              I'm Still Quite Interested
-            </Button>
+            <Image.Group size='small'>
+              {renderedBestDeals}
+            </Image.Group>
           </Container>
         </Segment>
       </Responsive>

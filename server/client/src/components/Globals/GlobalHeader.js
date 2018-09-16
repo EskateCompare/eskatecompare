@@ -57,7 +57,7 @@ class GlobalHeader extends Component {
 
   render() {
     return (
-      <div style={{marginBottom: '80px'}}>
+      <div style={{marginBottom: '64px'}}>
         <Menu fixed='top' inverted stackable>
           <Container>
             <Menu.Item as={NavLink} name='home' to='/'>
