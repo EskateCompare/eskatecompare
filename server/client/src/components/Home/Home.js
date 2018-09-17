@@ -33,17 +33,16 @@ const src = "url('https://www.mellowboards.com/out/pictures/zmbwysiwygeditor/Blo
 class Home extends Component {
   constructor() {
     super()
-<<<<<<< HEAD
 
     this.state = { link: false, fixed: false }
-=======
+
 
     this.state = {
       link: false,
       fixed: false,
       boardType: 'skateboard',
     }
->>>>>>> 1a142f7cf818664bd02175291ae0d638e1fa5d9e
+
 
     this.handleResultSelect = this.handleResultSelect.bind(this);
     this.handleOnBoardTypeSelect = this.handleOnBoardTypeSelect.bind(this);
