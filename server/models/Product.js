@@ -11,6 +11,7 @@ var ProductSchema = new mongoose.Schema({
   slug: {type: String, lowercase: true, unique: true},  //auto-generated
   image: {type: mongoose.Schema.Types.ObjectId, ref: 'Image'},
   additionalImages: [{type: mongoose.Schema.Types.ObjectId, ref: 'Image'}],
+  thumbnail: {type: mongoose.Schema.Types.ObjectId, ref: 'Image'},
   specs: {
     year: Number,
     msrp: Number,  //us dollars

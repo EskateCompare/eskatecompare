@@ -308,6 +308,16 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
          }
        }
       )
+      pipeline.push(
+        {
+         $lookup: {
+           from: 'images',
+           localField: 'thumbnail',
+           foreignField: '_id',
+           as: 'thumbnail'
+         }
+       }
+      )
       pipeline.push({
         $lookup: {
           from: 'reviews',
@@ -326,6 +336,7 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
       await products.eachAsync(function(prod) {   //iterates through cursor, and final formatting
         prod.brand = prod.brand[0];
         prod.image = prod.image[0];
+        prod.thumbnail = prod.thumbnail[0];
         returnProducts.push(prod)
       })
 
