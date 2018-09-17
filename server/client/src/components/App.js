@@ -15,6 +15,10 @@ const navRoutes = [
     component: CompareProducts
   },
   {
+    path: '/compare/:query',
+    component: CompareProducts
+  },
+  {
     path: '/product/:slug',
     component: Product
   },
@@ -46,6 +50,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/compare' component={CompareProducts} />
+          <Route exact path='/compare/:query' component={CompareProducts} />
           <Route exact path='/product/:slug' component={Product} />
         </Switch>
         <GlobalFooter />

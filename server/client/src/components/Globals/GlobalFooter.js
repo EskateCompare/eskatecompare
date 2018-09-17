@@ -5,35 +5,16 @@ class GlobalFooter extends Component {
   render() {
     return (
       <div style={{marginTop: '80px'}}>
-        <Segment inverted vertical style={{ padding: '5em 0em' }}>
-          <Container>
-            <Grid divided inverted stackable>
-              <Grid.Row>
-                <Grid.Column width={3}>
-                  <Header inverted as='h4' content='About' />
-                  <List link inverted>
-                    <List.Item as='a'>Info</List.Item>
-                    <List.Item as='a'>Sitemap</List.Item>
-                    <List.Item as='a'>Contact Us</List.Item>
-                  </List>
-                </Grid.Column>
-                <Grid.Column width={3}>
-                  <Header inverted as='h4' content='Services' />
-                  <List link inverted>
-                    <List.Item as='a'>Blog</List.Item>
-                    <List.Item as='a'>Terms and Conditions</List.Item>
-                  </List>
-                </Grid.Column>
-                <Grid.Column width={7}>
-                  <Header as='h4' inverted>
-                   <Icon className='heart' size='mini'/> We Love Electric Boards! 
-                  </Header>
-                  <p>
-                    We find and curate all of the best electric boards in the world!
-                  </p>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
+        <Segment inverted vertical>
+        <Container>
+          <List inverted floated='right' horizontal>
+            <List.Item href='#'><Icon className='heart'/> We Love Electric Boards! </List.Item>
+          </List>
+
+          <List inverted horizontal>
+            <List.Item href='#'>About Us</List.Item>
+            <List.Item href='#'>Contact</List.Item>
+          </List>
           </Container>
         </Segment>
       </div>
