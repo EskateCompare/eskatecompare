@@ -84,7 +84,7 @@ class Home extends Component {
   renderBestDeals() {
     const { products } = this.props.products;
 
-    const bestDeals = products.map((product, index) =>
+    const bestDeals = products.slice(0, 4).map((product, index) =>
       <Image bordered src={product.image.source} />
     );
 

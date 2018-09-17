@@ -12,7 +12,7 @@ class GlobalFooter extends Component {
     const { open, dimmer } = this.state
 
     return (
-      <div style={{marginTop: '80px'}}>
+      <div>
         <Segment inverted vertical>
         <Container>
           <List inverted floated='right' horizontal>

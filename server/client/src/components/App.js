@@ -43,8 +43,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 class App extends React.Component {
-
-
   componentDidMount() {
     localStorage.clear();
   }

@@ -27,7 +27,7 @@ export default class Product extends React.Component {
     }
 
     return (
-      <div className="App">
+      <div style={{padding: '80px 0'}}>
         <Grid container columns={2} stackable>
           <Grid.Column width={7}>
             <Header floated='left' as='h1'>

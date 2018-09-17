@@ -17,7 +17,7 @@ export default class CompareProducts extends Component {
     const { filterOptions: filter } = this.props.filter.stats;
 
     return (
-      <div className="App">
+      <div style={{padding: '80px 0'}}>
         <Grid container columns={2} stackable>
           <Grid.Column width={7}>
             <Header floated='left' as='h1'>{totalMatching} best electric boards of {totalProducts}</Header>
