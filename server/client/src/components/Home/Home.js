@@ -23,13 +23,6 @@ import _ from 'lodash';
 
 import { boardType, terrainType } from '../../constants'
 
-/* eslint-disable react/no-multi-comp */
-/* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
- * such things.
- */
-
-const src = 'https://www.mellowboards.com/out/pictures/zmbwysiwygeditor/Blog-Posts/mellow-electric-skateboard-what-is-an-electric-skateboard-1.jpg';
-
 class Home extends Component {
   constructor() {
     super()
@@ -42,7 +35,6 @@ class Home extends Component {
       fixed: false,
       boardType: 'skateboard',
     }
-
 
     this.handleResultSelect = this.handleResultSelect.bind(this);
     this.handleOnBoardTypeSelect = this.handleOnBoardTypeSelect.bind(this);
@@ -175,10 +167,10 @@ class Home extends Component {
                 <br />
                 <List link>
                   <Header as='h5' content='Top Brands'/>
-                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards'><a href='/'>Boosted</a></List.Item>
-                  <List.Item as={Link} to='/compare/top-evolve-electric-skateboards'><a href='/'>Evolve</a></List.Item>
+                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards' onClick={this.handleNavClick}>Boosted</List.Item>
+                  <List.Item as={Link} to='/compare/top-evolve-electric-skateboards'>Evolve</List.Item>
                   <List.Item as={Link} to='/compare/top-inboard-electric-skateboards'>InBoard</List.Item>
-                  <List.Item as={Link} to='/compare/top-halo-electric-skateboards'><a href='/'>Halo</a></List.Item>
+                  <List.Item as={Link} to='/compare/top-halo-electric-skateboards'>Halo</List.Item>
                   <List.Item as={Link} to='/compare/top-soflow-skateboards'>So Flow</List.Item>
                 </List>
               </Grid.Column>
@@ -197,26 +189,26 @@ class Home extends Component {
               <br />
                 <List link>
                   <Header as='h5' content='Top Features'/>
-                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards'>All Terrain</List.Item>
-                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards'>Waterproof</List.Item>
-                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards'>Travel Safe</List.Item>
+                  <List.Item as={Link} to='/compare/top-all-terrain-electric-skateboards'>All Terrain</List.Item>
+                  <List.Item as={Link} to='/compare/top-waterproof-electric-skateboards'>Waterproof</List.Item>
+                  <List.Item as={Link} to='/compare/top-travel-safe-electric-skateboards'>Travel Safe</List.Item>
                   <br />
-                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards'>Fastest</List.Item>
-                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards'>Longest Range</List.Item>
-                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards'>Newest</List.Item>
+                  <List.Item as={Link} to='/compare/top-fastest-electric-skateboards'>Fastest</List.Item>
+                  <List.Item as={Link} to='/compare/top-longest-range-electric-skateboards'>Longest Range</List.Item>
+                  <List.Item as={Link} to='/compare/top-newest-electric-skateboards'>Newest</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column>
               <br />
                 <List link>
                 <Header as='h5' content='Material Type'/>
-                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards'>Bamboo</List.Item>
-                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards'>Carbon Fiber</List.Item>
-                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards'>Wood</List.Item>
+                  <List.Item as={Link} to='/compare/top-bamboo-electric-skateboards'>Bamboo</List.Item>
+                  <List.Item as={Link} to='/compare/top-carbon-fiber-electric-skateboards'>Carbon Fiber</List.Item>
+                  <List.Item as={Link} to='/compare/top-wood-electric-skateboards'>Wood</List.Item>
                   <br />
                   <Header as='h5' content='Motor Type'/>
-                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards'>Hub</List.Item>
-                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards'>Belt</List.Item>
+                  <List.Item as={Link} to='/compare/top-hub-motor-electric-skateboards'>Hub</List.Item>
+                  <List.Item as={Link} to='/compare/top-belt-electric-skateboards'>Belt</List.Item>
                 </List>
               </Grid.Column>
             </Grid>

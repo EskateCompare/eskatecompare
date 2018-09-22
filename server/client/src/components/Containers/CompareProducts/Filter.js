@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Input, Checkbox, Header, Radio, Icon, Divider, Label } from 'semantic-ui-react';
-import { stringify } from 'query-string';
+// import { queryString } from 'query-string';
+const queryString = require('query-string');
 
 export default class Filter extends Component {
   constructor() {
@@ -28,115 +29,127 @@ export default class Filter extends Component {
   handleFilterSelect(e, value) {
     const { checkedItems } = this.state;
     const { title, label, checked } = value;
-    const { fetchProducts, onFilterChange, filterState, fetchFilter } = this.props;
+    const { fetchProducts, onFilterChange, filterState, fetchFilter, history } = this.props;
 
     onFilterChange({ [title]: label, checked: checked });
     fetchFilter(filterState);
     fetchProducts(filterState);
+// 
+    const query = queryString.stringify(filterState)
+    console.log(query);
+    history.push({
+      pathname: `/compare/${query}`,
+      // search: query
+    })
 
-    let boardStyle = '';
-    (filterState.style.length === 1) ? boardStyle = filterState.style[0] + 's' : boardStyle = 'skateboards';
+    // let boardStyle = '';
+    // (filterState.style.length === 1) ? boardStyle = filterState.style[0] + 's' : boardStyle = 'skateboards';
   
-    let attributeOne = '';
-    let attributeTwo = '';
-    let filterStateKeyOne = '';
-    let filterStateKeyTwo = '';
+    // let attributeOne = '';
+    // let attributeTwo = '';
+    // let filterStateKeyOne = '';
+    // let filterStateKeyTwo = '';
 
-    if (filterState.features.indexOf('waterproof') > -1) {
-      attributeOne = '-waterproof';
-      filterStateKeyOne = 'features';
-    }
+    // if (filterState.features.indexOf('waterproof') > -1) {
+    //   attributeOne = '-waterproof';
+    //   filterStateKeyOne = 'features';
+    // }
 
-    if (filterState.deckMaterials.length === 1) {
-      attributeOne = '-' + filterState.deckMaterials[0].replace(/\s+/g, '-').toLowerCase();
-      filterStateKeyOne = 'deckMaterials';
-    }
+    // if (filterState.deckMaterials.length === 1) {
+    //   attributeOne = '-' + filterState.deckMaterials[0].replace(/\s+/g, '-').toLowerCase();
+    //   filterStateKeyOne = 'deckMaterials';
+    // }
 
-    if (filterState.drive.indexOf('hub') > -1) {
-      attributeOne = '-hub-motor';
-      filterStateKeyOne = 'drive';
-    }
+    // if (filterState.drive.indexOf('hub') > -1) {
+    //   attributeOne = '-hub-motor';
+    //   filterStateKeyOne = 'drive';
+    // }
 
-    if (filterState.range.indexOf('24+') > -1) {
-      attributeOne = '-longest-range';
-      filterStateKeyOne = 'range';
-    }
+    // if (filterState.range.indexOf('24+') > -1) {
+    //   attributeOne = '-longest-range';
+    //   filterStateKeyOne = 'range';
+    // }
 
-    if (filterState.terrain.indexOf('all') > -1) {
-      attributeOne = '-all-terrain';
-      filterStateKeyOne = 'terrain';
-    }
+    // if (filterState.terrain.indexOf('all') > -1) {
+    //   attributeOne = '-all-terrain';
+    //   filterStateKeyOne = 'terrain';
+    // }
 
-    if (filterState.price.indexOf('500-1000') > -1) {
-      attributeOne = '-cheap';
-      filterStateKeyOne = 'price';
-    }
+    // if (filterState.price.indexOf('500-1000') > -1) {
+    //   attributeOne = '-cheap';
+    //   filterStateKeyOne = 'price';
+    // }
 
-    if (filterState.speed.indexOf('25+') > -1) {
-      attributeOne = '-fastest';
-      filterStateKeyOne = 'speed';
-    }
+    // if (filterState.speed.indexOf('25+') > -1) {
+    //   attributeOne = '-fastest';
+    //   filterStateKeyOne = 'speed';
+    // }
 
-    // attribute two
+    // // attribute two
 
-    if (filterState.features.indexOf('waterproof') > -1 && !(attributeOne === '-waterproof')) {
-      attributeTwo = '-waterproof';
-      filterStateKeyTwo = 'features';
-    }
+    // if (filterState.features.indexOf('waterproof') > -1 && !(attributeOne === '-waterproof')) {
+    //   attributeTwo = '-waterproof';
+    //   filterStateKeyTwo = 'features';
+    // }
 
-    if (filterState.deckMaterials.length === 1 && !(attributeOne === (attributeTwo = '-' + filterState.deckMaterials[0]))) {
-      attributeTwo = '-' + filterState.deckMaterials[0].replace(/\s+/g, '-').toLowerCase();
-      filterStateKeyTwo = 'deckMaterials';
-    }
+    // if (filterState.deckMaterials.length === 1 && !(attributeOne === (attributeTwo = '-' + filterState.deckMaterials[0]))) {
+    //   attributeTwo = '-' + filterState.deckMaterials[0].replace(/\s+/g, '-').toLowerCase();
+    //   filterStateKeyTwo = 'deckMaterials';
+    // }
 
-    if (filterState.drive.indexOf('hub') > -1 && !(attributeOne === '-hub-motor')) {
-      attributeTwo = '-hub-motor';
-      filterStateKeyTwo = 'drive';
-    }
+    // if (filterState.drive.indexOf('hub') > -1 && !(attributeOne === '-hub-motor')) {
+    //   attributeTwo = '-hub-motor';
+    //   filterStateKeyTwo = 'drive';
+    // }
 
-    if (filterState.range.indexOf('24+') > -1 && !(attributeOne === '-longest-range')) {
-      attributeTwo = '-longest-range';
-      filterStateKeyTwo = 'range';
-    }
+    // if (filterState.range.indexOf('24+') > -1 && !(attributeOne === '-longest-range')) {
+    //   attributeTwo = '-longest-range';
+    //   filterStateKeyTwo = 'range';
+    // }
 
-    if (filterState.terrain.indexOf('all') > -1 && !(attributeOne === '-all-terrain')) {
-      attributeTwo = '-all-terrain';
-      filterStateKeyTwo = 'terrain';
-    }
+    // if (filterState.terrain.indexOf('all') > -1 && !(attributeOne === '-all-terrain')) {
+    //   attributeTwo = '-all-terrain';
+    //   filterStateKeyTwo = 'terrain';
+    // }
 
-    if (filterState.price.indexOf('500-1000') > -1 && !(attributeOne === '-cheap')) {
-      attributeTwo = '-cheap';
-      filterStateKeyTwo = 'price';
-    }
+    // if (filterState.price.indexOf('500-1000') > -1 && !(attributeOne === '-cheap')) {
+    //   attributeTwo = '-cheap';
+    //   filterStateKeyTwo = 'price';
+    // }
 
-    if (filterState.speed.indexOf('25+') > -1 && !(attributeOne === '-fastest')) {
-      attributeTwo = '-fastest';
-      filterStateKeyTwo = 'speed'
-    }
+    // if (filterState.speed.indexOf('25+') > -1 && !(attributeOne === '-fastest')) {
+    //   attributeTwo = '-fastest';
+    //   filterStateKeyTwo = 'speed'
+    // }
 
-    if (filterState.brands.length === 1) {
-      attributeTwo =  '-' + filterState.brands[0].replace(/\s+/g, '-').toLowerCase();
-      filterStateKeyTwo = 'brands';
-    }
+    // if (filterState.brands.length === 1) {
+    //   attributeTwo =  '-' + filterState.brands[0].replace(/\s+/g, '-').toLowerCase();
+    //   filterStateKeyTwo = 'brands';
+    // }
 
-    if (attributeOne === attributeTwo){
-      attributeTwo = '';
-    }
+    // if (attributeOne === attributeTwo){
+    //   attributeTwo = '';
+    // }
 
-    let filterStateCopy = Object.assign({}, filterState)
-    let otherParams = '';
-    let queryState = filterState;
-    filterStateCopy[filterStateKeyOne] = [];
-    filterStateCopy[filterStateKeyTwo] = [];
-    filterStateCopy.sortBy = [];
-    filterStateCopy.sortDir = [];
-    filterStateCopy.style = [];
-    otherParams = '?' + stringify(filterStateCopy);
+    // let filterStateCopy = Object.assign({}, filterState)
+    // let otherParams = '';
+    // let queryState = filterState;
+    // filterStateCopy[filterStateKeyOne] = [];
+    // filterStateCopy[filterStateKeyTwo] = [];
+    // filterStateCopy.sortBy = [];
+    // filterStateCopy.sortDir = [];
+    // filterStateCopy.style = [];
+    // otherParams = '?' + stringify(filterStateCopy);
     // console.log(filterStateKeyOne, filterStateKeyTwo);
     // console.log(attributeOne, 'attributeOne');
     // console.log(attributeTwo, 'attributeTwo');
 
-    this.props.history.replace(`/compare/top${attributeOne}${attributeTwo}-electric-${boardStyle}${otherParams}`)
+    // this.props.history.replace(`/compare/top${attributeOne}${attributeTwo}-electric-${boardStyle}${otherParams}`)
+    // this.props.history.push({
+    //   pathname: `/compare/top${attributeOne}${attributeTwo}-electric-${boardStyle}${otherParams}`,
+    //   seo: `top${attributeOne}${attributeTwo}-electric-${boardStyle}`,
+    //   search: otherParams
+    // })
   }
 
   handleShowAllOptions() {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ProductList from './ProductList';
 import Filter from './Filter';
 import { Header, Icon, Grid, Label } from 'semantic-ui-react';
+import { parse } from 'query-string';
 
 export default class CompareProducts extends Component {
   componentDidMount() {
