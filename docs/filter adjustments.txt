@@ -33,3 +33,9 @@ companion app
 remote control
 
 add feature tags to endpoint, filter-options
+
+
+iteration 2:
+
+wheels material
+tail light

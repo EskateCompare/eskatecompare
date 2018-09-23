@@ -1,0 +1,282 @@
+{
+  "changes": [
+    {
+      "name": "Halo Board 2nd Edition",
+      "changes": [
+        {
+          "specs.batteryWattHours": {
+            "old": "",
+            "new": "210.0"
+          }
+        },
+        {
+          "specs.width": {
+            "old": "",
+            "new": "9.25"
+          }
+        },
+        {
+          "specs.deckMaterials": {
+            "old": [
+              "carbon fiber"
+            ],
+            "new": "Carbon Fiber"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Boosted 2nd Gen Dual Plus XR",
+      "changes": [
+        {
+          "image.source": {
+            "old": "https://s3.amazonaws.com/eskate-compare/product+images/boosted+2nd+gen+dual+plus+XR/main.jpg",
+            "new": "https://s3.amazonaws.com/eskate-compare/product+images/boosted+2nd+gen+dual+plus+XR/main.png"
+          }
+        },
+        {
+          "thumbnail.source": {
+            "old": "https://s3.amazonaws.com/eskate-compare/product+images/boosted+2nd+gen+dual+plus+XR/thumbnail.png",
+            "new": "https://s3.amazonaws.com/eskate-compare/product+images/boosted+2nd+gen+dual+plus+XR/main.png"
+          }
+        },
+        {
+          "specs.deckMaterials": {
+            "old": [
+              "bamboo"
+            ],
+            "new": "Bamboo"
+          }
+        },
+        {
+          "specs.tags": {
+            "old": [
+              "battery removable"
+            ],
+            "new": "Battery Removable"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Evolve Carbon GT Series Street",
+      "changes": [
+        {
+          "specs.width": {
+            "old": "",
+            "new": "12.00"
+          }
+        },
+        {
+          "specs.deckMaterials": {
+            "old": [
+              "carbon fiber",
+              "kevlar"
+            ],
+            "new": "\"Carbon Fiber"
+          }
+        },
+        {
+          "specs.manufacturerWarranty": {
+            "old": 12,
+            "new": "Kevlar\""
+          }
+        },
+        {
+          "specs.tags": {
+            "old": "",
+            "new": "6"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inboard M1",
+      "changes": [
+        {
+          "specs.deckMaterials": {
+            "old": [
+              "wood",
+              "fiberglass"
+            ],
+            "new": "\"Wood"
+          }
+        },
+        {
+          "specs.manufacturerWarranty": {
+            "old": 12,
+            "new": "Fiberglass\""
+          }
+        },
+        {
+          "specs.tags": {
+            "old": [
+              "travel safe",
+              "battery removable",
+              "companion app"
+            ],
+            "new": "12"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Boosted Mini X",
+      "changes": [
+        {
+          "specs.deckMaterials": {
+            "old": [
+              "wood",
+              "fiberglass"
+            ],
+            "new": "\"Wood"
+          }
+        },
+        {
+          "specs.manufacturerWarranty": {
+            "old": 6,
+            "new": "Fiberglass\""
+          }
+        },
+        {
+          "specs.tags": {
+            "old": [
+              "companion app"
+            ],
+            "new": "6"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Boosted Plus",
+      "changes": [
+        {
+          "specs.deckMaterials": {
+            "old": [
+              "wood",
+              "fiberglass"
+            ],
+            "new": "\"Wood"
+          }
+        },
+        {
+          "specs.manufacturerWarranty": {
+            "old": 6,
+            "new": "Fiberglass\""
+          }
+        },
+        {
+          "specs.tags": {
+            "old": [
+              "companion app",
+              "battery removable"
+            ],
+            "new": "6"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Evolve Bamboo GTX Series All Terrain",
+      "changes": [
+        {
+          "specs.msrp": {
+            "old": 1859,
+            "new": "1959.00"
+          }
+        },
+        {
+          "specs.hillGrade": {
+            "old": "25",
+            "new": "25.0"
+          }
+        },
+        {
+          "specs.wheelDiameter": {
+            "old": 97,
+            "new": "175"
+          }
+        },
+        {
+          "specs.deckMaterials": {
+            "old": [
+              "bamboo"
+            ],
+            "new": "\"Bamboo"
+          }
+        },
+        {
+          "specs.manufacturerWarranty": {
+            "old": "",
+            "new": "Wood\""
+          }
+        },
+        {
+          "specs.tags": {
+            "old": "",
+            "new": "6"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Boosted Mini S",
+      "changes": [
+        {
+          "specs.deckMaterials": {
+            "old": [
+              "fiberglass",
+              "wood"
+            ],
+            "new": "\"Fiberglass"
+          }
+        },
+        {
+          "specs.manufacturerWarranty": {
+            "old": 6,
+            "new": "Wood\""
+          }
+        },
+        {
+          "specs.tags": {
+            "old": [
+              "travel safe",
+              "companion app"
+            ],
+            "new": "6"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Boosted Stealth",
+      "changes": [
+        {
+          "specs.deckMaterials": {
+            "old": [
+              "wood",
+              "fiberglass"
+            ],
+            "new": "\"Wood"
+          }
+        },
+        {
+          "specs.manufacturerWarranty": {
+            "old": 6,
+            "new": "Fiberglass\""
+          }
+        },
+        {
+          "specs.tags": {
+            "old": [
+              "companion app",
+              "battery removable"
+            ],
+            "new": "6"
+          }
+        }
+      ]
+    }
+  ]
+}

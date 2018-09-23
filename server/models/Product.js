@@ -24,7 +24,7 @@ var ProductSchema = new mongoose.Schema({
     hillGrade: Number,   //%
     speedModes: Number,  //number of modes
     batteryCapacity: Number,  //mAh
-    batteryPower: Number, //watts
+    batteryPower: Number, //watts, sum of all motors
     batteryWattHours: Number, //Wh
     chargeTime: Number,  //minutes
     width: Number,
@@ -36,7 +36,7 @@ var ProductSchema = new mongoose.Schema({
     style: String,
     deckMaterials: [{ type: String, enum: ['carbon fiber', 'kevlar', 'wood', 'bamboo', 'fiberglass', 'polyurethane'] }],
     manufacturerWarranty: Number,  //months
-    tags: [{ type: String, enum: ['travel safe', 'battery removable', 'companion app', 'water resistant', '']}]
+    tags: [{ type: String, enum: ['travel safe', 'battery removable', 'companion app', 'water resistant', 'remoteless', '']}]
   },
   ratings: {
     external: {
