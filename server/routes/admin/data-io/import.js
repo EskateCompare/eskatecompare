@@ -2,10 +2,132 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 
 var Product = mongoose.model('Product');
+var Image = mongoose.model('Image');
+var Brand = mongoose.model('Brand');
 
 var fs = require('fs');
 var fastCsv = require('fast-csv');
 var dottie = require('dottie');
+
+router.get('/doChanges', async function(req, res, next) {
+  fs.readFile("./csvs/staged_import_changes.json", 'utf8', async function(err, contents) {
+    if (err) return res.json({error: err});
+    var changesObject = JSON.parse(contents);
+
+    var changedProds = [];
+
+    var changePromises = changesObject.changes.map(function(prodChange) {
+      return new Promise(async function(resolve, reject) {
+        let product;
+        product = await Product.findOne({name: prodChange.name}).lean().exec();
+        if (!product) {  //new product
+          if (!prodChange.changes.hasOwnProperty('new')) {
+            console.log("error prod not found:", prodChange.name)
+            resolve()
+            return;
+          console.log('creating new prod:', prodChange.name)
+          } else {
+              await createNewProduct(prodChange.name, prodChange.changes.new);
+              await addProductImages(prodChange.name, prodChange.changes.new);
+              changedProds.push(prodChange)
+              resolve();
+              return;
+          }
+        } else { //existing product
+          let changeObject = {};
+          prodChange.changes.forEach(function(changes) {
+
+            Object.keys(changes).forEach(async function(key) {
+              var newVal = '';
+              if (key == 'image.source' || key == 'thumbnail.source') {
+                  //create new Image, save it after product
+                  let image = new Image();
+                  image.source = changes[key].new;
+                  image.product = product._id;
+                  image.type = key.split('.')[0]
+                  if (image.type == 'image') image.type = 'main';
+                  image.description = product.name + ' ' + image.type + ' image';
+                  image.save().then(function(){})
+              }
+                else  {
+                  newVal = changes[key].new;
+                  product[key] = newVal;
+                  changeObject[key] = newVal;
+                }
+            })
+          })
+
+          Product.findOneAndUpdate({name: product.name}, {$set : changeObject}, {returnOriginal:false}).then(function(error, result) {
+            console.log('error:',error);
+            console.log('result:',result);
+            changedProds.push(product);
+            resolve()
+          })
+        }
+        //product.save().then(function() {
+
+        //}).catch(function(err) {
+        //  console.log("Error: " + err)
+        //  reject(err)
+      //  })
+
+
+      })
+    });
+    Promise.all(changePromises).then(function() {
+      return res.json({changedProds: changedProds})
+    })
+  })
+})
+
+let createNewProduct = async function(name, productBody) {
+  return new Promise(async function(resolve, reject) {
+    let newProduct = new Product();
+    newProduct.name = name;
+    newProduct.specs = productBody.specs;
+    newProduct.ratings = {};
+    newProduct.ratings.compositeScore = null;
+
+
+    if (dottie.get(productBody, 'brand.name') != "" && dottie.get(productBody, 'brand.name') != undefined) {
+      let brandObject = await Brand.findOne({name : dottie.get(productBody, 'brand.name')});
+      if (brandObject) newProduct.brand = brandObject._id;
+    }
+
+    newProduct.save().then(function(newProd) {
+      resolve();
+    }).catch(function(err) {
+      console.log('newProd save error:', err)
+      reject(err);
+    })
+  })
+}
+
+let addProductImages = async function(name, productBody) {
+  return new Promise(async function(resolve, reject) {
+
+
+    if (dottie.get(productBody, 'image.source') != "" && dottie.get(productBody, 'image.source') != undefined) {
+      let newImage = new Image();
+      newImage.source = dottie.get(productBody, 'image.source');
+      let associatedProduct = await Product.findOne({name: name});
+      newImage.product = associatedProduct._id;
+      newImage.type = 'main';
+      newImage.description = name + ' main image';
+      await newImage.save();
+    }
+    if (dottie.get(productBody, 'thumbnail.source') != "" && dottie.get(productBody, 'thumbnail.source') != undefined) {
+      let newImage = new Image();
+      newImage.source = dottie.get(productBody, 'thumbnail.source');
+      let associatedProduct = await Product.findOne({name: name});
+      newImage.product = associatedProduct._id;
+      newImage.type = 'thumbnail';
+      newImage.description = name + ' thumbnail image';
+      await newImage.save();
+    }
+    resolve();
+  })
+}
 
 router.get('/findChanges/:filePath', async function(req, res, next) {
   //Searches for file within filepath of project structure
@@ -25,32 +147,44 @@ router.get('/findChanges/:filePath', async function(req, res, next) {
 
   fs.readFile(req.params.filePath, 'utf8', async function(err, contents) {
     if (err) console.log(err);
-
     csvEntries = contents.split('\n');
-    //return res.json(csvEntries);
-    //slug, name, type, brandSlug, brandEgress, deals
+
     var csvEntriesPromises = csvEntries.map(async function(entry, i) {
       return new Promise(async function(resolve, reject) {
         if (i == 0) { resolve(); return }
         entry = entry.split(',');
+        entry = entry.map(function(field) {
+          field = field.trim();
+          if (field.indexOf('|') != -1)  return field.split('|')
+          else return field
+        })
 
-        //console.log(entry);
         var db_product = await Product.findOne({name: entry[0]}).populate('brand').populate('image').populate('thumbnail').lean().exec();
-        //console.log(db_product);
+
+        let thisObjectChanges = {};
+
         if (db_product == null) {
           //create new product
+          console.log('prod not found:',entry[0])
+          if (entry[7] != 'false') { //is variant, don't add for now
+            resolve();
+            return;
+          }
+          thisObjectChanges['new'] = {}
+          fieldsToCheck.forEach(function(field, i) {
+            dottie.set(thisObjectChanges['new'], field, entry[checkFieldsIndices[i]])
+          })
+          changes.push({name: entry[0], changes : thisObjectChanges})
 
-          resolve();
-          return;
         } else {
-          //console.log("slug found");
+          thisObjectChanges = await getChanges(db_product, entry, fieldsToCheck, checkFieldsIndices);
+
+          if (thisObjectChanges.length > 0) {
+            changes.push({name: db_product.name, changes: thisObjectChanges})
+          }
         }
 
-        let thisObjectChanges = await getChanges(db_product, entry, fieldsToCheck, checkFieldsIndices);
 
-        if (thisObjectChanges.length > 0) {
-          changes.push({name: db_product.name, changes: thisObjectChanges})
-        }
 
         entriesCheckedCount++;
         resolve();
@@ -66,8 +200,6 @@ router.get('/findChanges/:filePath', async function(req, res, next) {
                         changes: changes
                         });
       })
-
-
     })
   })
 })
@@ -76,18 +208,17 @@ getChanges = async function (db_product, entry, fieldsToCheck, checkFieldsIndice
   return new Promise(async function(resolve, reject) {
     //expects JSON object of db_product, not mongoose object
     var changes = [];
-    console.log(db_product.name);
+    //console.log("product:", db_product.name);
 
     var fieldCheckPromises = fieldsToCheck.map(async function(fieldName, i) {
       return new Promise(async function(resolve, reject) {
-        console.log(dbField);
+        //console.log(dbField);
         var csvIndex = checkFieldsIndices[i];
         var dbField = dottie.get(db_product, fieldName) == undefined ? "" : dottie.get(db_product, fieldName);  //the field value from the existing db object
 
         let csvEntry = "";
         if (entry.length > csvIndex){
-          console.log(db_product.name);
-          csvEntry = entry[csvIndex].trim(); //the cell value from the csv file
+          csvEntry = entry[csvIndex];
         }
 
 
@@ -113,7 +244,7 @@ getChanges = async function (db_product, entry, fieldsToCheck, checkFieldsIndice
 
         }*/
           //console.log(dbField + "-" + csvEntry);
-        console.log(dbField + " " + csvEntry)
+        //console.log(dbField + " " + csvEntry)
         var _hasDiff = hasDiff(dbField, csvEntry);
 
 
@@ -125,13 +256,13 @@ getChanges = async function (db_product, entry, fieldsToCheck, checkFieldsIndice
             changeObject[fieldName].newReadable = brand.slug;
           }*/
           changes.push(changeObject);
-          console.log("CHANGED PUSHED");
+          //console.log("CHANGED PUSHED");
         }
         resolve();
       })
     })
       Promise.all(fieldCheckPromises).then(function() {
-        console.log("changes: " + changes);
+        //console.log("changes: " + changes);
         resolve(changes);
       })
   })

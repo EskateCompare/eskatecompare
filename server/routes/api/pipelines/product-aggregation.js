@@ -8,7 +8,7 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
     const sortByDefault = "ratings.compositeScore";
     const sortDirDefault = -1;
     const pageNumDefault = 1;
-    const perPageDefault = 20;
+    const perPageDefault = 100;
 
     var pipeline = []
       //initial match

@@ -37,8 +37,8 @@ if(isProduction){
 //  mongoose.connect(process.env.MONGODB_URI);
 mongoose.connect('mongodb://mvalen:Ma.301934@ds129762.mlab.com:29762/heroku_p0dqrw89')
 } else {
-  //mongoose.connect('mongodb://localhost/skatecompare');
-  mongoose.connect('mongodb://mvalen:Ma.301934@ds129762.mlab.com:29762/heroku_p0dqrw89')
+  mongoose.connect('mongodb://localhost/skatecompare');
+  //mongoose.connect('mongodb://mvalen:Ma.301934@ds129762.mlab.com:29762/heroku_p0dqrw89')
   mongoose.set('debug', true);
 }
 

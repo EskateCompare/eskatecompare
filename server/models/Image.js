@@ -16,11 +16,9 @@ var Image = mongoose.model('Image');
 
 ImageSchema.post('save', async function(doc, next) {
   Product.findOne({_id: doc.product}).lean().exec().then(async function(product) {
-    console.log("here 1");
     let setObject = {};
     switch (doc.type) {
       case 'thumbnail':
-      console.log("here 2");
         setObject['thumbnail'] = doc._id
         break;
       case 'main':
@@ -32,7 +30,6 @@ ImageSchema.post('save', async function(doc, next) {
         break;
 
     }
-    console.log("here 3");
     Product.findOneAndUpdate({ slug: product.slug}, {$set : setObject}, {new : true}).then(function(error, result) {
       console.log("error: " + error);
       console.log("result: " + result);

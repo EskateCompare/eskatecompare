@@ -159,6 +159,7 @@ router.get('/', async function(req, res, next) {
     //pipeline call with full filter to get stats
   products = allFiltersProducts;
 
+    /*
     let internalReviewsCount = _.sumBy(products, function(e) {
       return e.ratings.internal.amount
     })
@@ -182,7 +183,7 @@ router.get('/', async function(req, res, next) {
 
     internalReviewsAvg = weightedMean(internalReviewsScores, internalReviewsAmounts);
     externalReviewsAvg = weightedMean(externalReviewsScores, externalReviewsAmounts);
-
+    */
     let totalProducts = await Product.count({}).exec();
     let lastUpdatedObject = await UpdateStats.findOne({}).exec();  //ToDo update how this works (latest updated product?)
 
@@ -190,12 +191,18 @@ router.get('/', async function(req, res, next) {
 
     stats['totalMatching'] = products.length;
     stats['totalProducts'] = totalProducts;
-
+    /*
     stats['internalReviewsCount'] = internalReviewsCount;
     stats['externalReviewsCount'] = externalReviewsCount;
 
     stats['internalReviewsAverage'] = internalReviewsAvg;
     stats['externalReviewsAverage'] = externalReviewsAvg;
+    */
+    stats['internalReviewsCount'] = 0;
+    stats['externalReviewsCount'] = 0;
+
+    stats['internalReviewsAverage'] = 0;
+    stats['externalReviewsAverage'] = 0;
 
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
 
