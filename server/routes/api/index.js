@@ -1,6 +1,7 @@
 var router = require('express').Router();
 
 router.use('/products', require('./products'));
+router.use('/recommend', require('./recommend'));
 router.use('/filter-options', require('./filter-options'))
 router.use('/text-search', require('./text-search'))
 

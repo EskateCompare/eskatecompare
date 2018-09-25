@@ -87,7 +87,11 @@ let createNewProduct = async function(name, productBody) {
     newProduct.specs = productBody.specs;
     newProduct.ratings = {};
     newProduct.ratings.compositeScore = null;
-
+    newProduct.ratings.recommendations = {
+      'yes' : 0,
+      'maybe' : 0,
+      'no' : 0
+    }
 
     if (dottie.get(productBody, 'brand.name') != "" && dottie.get(productBody, 'brand.name') != undefined) {
       let brandObject = await Brand.findOne({name : dottie.get(productBody, 'brand.name')});
