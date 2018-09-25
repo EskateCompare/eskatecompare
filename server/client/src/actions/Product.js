@@ -31,4 +31,39 @@ export function fetchProduct(payload) {
   }
 }
 
+export function requestPostRecommend() {
+  return {
+    type: 'REQUEST_POST_RECOMMEND',
+  }
+}
+
+export function receivePostRecommend(payload) {
+  return {
+    type: 'RECEIVE_POST_RECOMMEND',
+    payload
+  }
+}
+
+export function fetchPostRecommendError(payload) {
+  return {
+    type: 'FETCH_POST_RECOMMEND_ERROR',
+    payload
+  }
+}
+
+export function fetchPostRecommend(payload) {
+  return dispatch => {
+    dispatch(requestRecommendation())
+    return fetch('/api/recommend', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(json => dispatch(receiveRecommendation(json)))
+    .catch(err => dispatch(fetchRecommendationError(err)))
+  }
+}
 
