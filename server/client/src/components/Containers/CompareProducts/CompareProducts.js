@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ProductList from './ProductList';
 import Filter from './Filter';
 import { Header, Icon, Grid, Label } from 'semantic-ui-react';
+import { parse } from 'query-string';
 
 export default class CompareProducts extends Component {
   componentDidMount() {
@@ -17,7 +18,7 @@ export default class CompareProducts extends Component {
     const { filterOptions: filter } = this.props.filter.stats;
 
     return (
-      <div className="App">
+      <div style={{padding: '80px 0'}}>
         <Grid container columns={2} stackable>
           <Grid.Column width={7}>
             <Header floated='left' as='h1'>{totalMatching} best electric boards of {totalProducts}</Header>

@@ -23,13 +23,6 @@ import _ from 'lodash';
 
 import { boardType, terrainType } from '../../constants'
 
-/* eslint-disable react/no-multi-comp */
-/* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
- * such things.
- */
-
-const src = "url('https://www.mellowboards.com/out/pictures/zmbwysiwygeditor/Blog-Posts/mellow-electric-skateboard-what-is-an-electric-skateboard-1.jpg')"
-
 class Home extends Component {
   constructor() {
     super()
@@ -43,12 +36,15 @@ class Home extends Component {
       boardType: 'skateboard',
     }
 
-
     this.handleResultSelect = this.handleResultSelect.bind(this);
     this.handleOnBoardTypeSelect = this.handleOnBoardTypeSelect.bind(this);
     this.handleNavClick = this.handleNavClick.bind(this);
     this.handleNavClickAllProducts = this.handleNavClickAllProducts.bind(this);
     this.handleOnTextSearchChange = this.handleOnTextSearchChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchProducts();
   }
 
   handleOnBoardTypeSelect(e, target) {
@@ -77,10 +73,22 @@ class Home extends Component {
     this.props.fetchTextSearch(data.value)
   }
 
+  renderBestDeals() {
+    const { products } = this.props.products;
+
+    const bestDeals = products.slice(0, 4).map((product, index) =>
+      <Image bordered style={{width: '220px', height: '200px'}} src={product.image.source} />
+    );
+
+    return bestDeals;
+  }
+
   render() {
     if (this.state.link) {
       return <Redirect push to={`/product/${this.state.link}`} />;
     }
+
+    const renderedBestDeals = this.renderBestDeals();
 
     return (
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
@@ -152,68 +160,68 @@ class Home extends Component {
         </Visibility>
         <Segment style={{ padding: '4em 0em' }} vertical>
           <Container>
-          <Header as='h2' content="Explore Electric Skateboards"/>
+          <Header as='h1' content="Explore Electric Skateboards"/>
             <Grid columns={4} container stackable>
 
               <Grid.Column>
                 <br />
                 <List link>
-                  <List.Item as='a'><a href='/'>Boosted</a></List.Item>
-                  <List.Item as='a'><a href='/'>Evolve</a></List.Item>
-                  <List.Item as='a'>InBoard</List.Item>
-                  <List.Item as='a'><a href='/'>Halo</a></List.Item>
-                  <List.Item as='a'>So Flow</List.Item>
+                  <Header as='h5' content='Top Brands'/>
+                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards' onClick={this.handleNavClick}>Boosted</List.Item>
+                  <List.Item as={Link} to='/compare/top-evolve-electric-skateboards'>Evolve</List.Item>
+                  <List.Item as={Link} to='/compare/top-inboard-electric-skateboards'>InBoard</List.Item>
+                  <List.Item as={Link} to='/compare/top-halo-electric-skateboards'>Halo</List.Item>
+                  <List.Item as={Link} to='/compare/top-soflow-skateboards'>So Flow</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column>
               <br />
                 <List link>
-                  <List.Item as='a'>Longboards</List.Item>
-                  <List.Item as='a'>Pennyboards</List.Item>
+                  <Header as='h5' content='Top Overall'/>
+                  <List.Item as={Link} to='/compare/top-electric-longboards'>Electric Longboards</List.Item>
+                  <List.Item as={Link} to='/compare/top-electric-pennyboards'>Electric Pennyboards</List.Item>
                   <br />
-                  <List.Item as='a'>Under 500</List.Item>
-                  <List.Item as='a'>Under 1000</List.Item>
+                  <List.Item as={Link} to='/compare/top-electric-skateboards-under-500'>Electric Skateboards Under 500</List.Item>
+                  <List.Item as={Link} to='/compare/top-electric-skateboards-under-1000'>Electric Skateboards Under 1000</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column>
               <br />
                 <List link>
-                  <List.Item as='a'>All Terrain</List.Item>
-                  <List.Item as='a'>Waterproof</List.Item>
-                  <List.Item as='a'>Travel Safe</List.Item>
+                  <Header as='h5' content='Top Features'/>
+                  <List.Item as={Link} to='/compare/top-all-terrain-electric-skateboards'>All Terrain</List.Item>
+                  <List.Item as={Link} to='/compare/top-waterproof-electric-skateboards'>Waterproof</List.Item>
+                  <List.Item as={Link} to='/compare/top-travel-safe-electric-skateboards'>Travel Safe</List.Item>
                   <br />
-                  <List.Item as='a'>Fastest</List.Item>
-                  <List.Item as='a'>Longest Range</List.Item>
-                  <List.Item as='a'>Newest</List.Item>
+                  <List.Item as={Link} to='/compare/top-fastest-electric-skateboards'>Fastest</List.Item>
+                  <List.Item as={Link} to='/compare/top-longest-range-electric-skateboards'>Longest Range</List.Item>
+                  <List.Item as={Link} to='/compare/top-newest-electric-skateboards'>Newest</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column>
               <br />
                 <List link>
-                  <List.Item as='a'>Bamboo</List.Item>
-                  <List.Item as='a'>Carbon Fiber</List.Item>
-                  <List.Item as='a'>Wood</List.Item>
+                <Header as='h5' content='Material Type'/>
+                  <List.Item as={Link} to='/compare/top-bamboo-electric-skateboards'>Bamboo</List.Item>
+                  <List.Item as={Link} to='/compare/top-carbon-fiber-electric-skateboards'>Carbon Fiber</List.Item>
+                  <List.Item as={Link} to='/compare/top-wood-electric-skateboards'>Wood</List.Item>
                   <br />
-                  <List.Item as='a'>Hub</List.Item>
-                  <List.Item as='a'>Belt</List.Item>
+                  <Header as='h5' content='Motor Type'/>
+                  <List.Item as={Link} to='/compare/top-hub-motor-electric-skateboards'>Hub</List.Item>
+                  <List.Item as={Link} to='/compare/top-belt-electric-skateboards'>Belt</List.Item>
                 </List>
               </Grid.Column>
             </Grid>
           </Container>
         </Segment>
-        <Segment style={{ padding: '2em 0em' }} vertical>
-          <Container text>
+        <Segment style={{ padding: '2em 0em'}} vertical>
+          <Container>
             <Header as='h3' style={{ fontSize: '2em' }}>
-              Did We Tell You About Our Bananas?
+              Recent Best Deals
             </Header>
-            <p style={{ fontSize: '1.33em' }}>
-              Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but
-              it's really true. It took years of gene splicing and combinatory DNA research, but our
-              bananas can really dance.
-            </p>
-            <Button as='a' size='large'>
-              I'm Still Quite Interested
-            </Button>
+            <Image.Group size='small'>
+              {renderedBestDeals}
+            </Image.Group>
           </Container>
         </Segment>
       </Responsive>

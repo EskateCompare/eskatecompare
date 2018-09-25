@@ -18,7 +18,7 @@ export default class Product extends React.Component {
 
     if (this.props.fetching) {
       return (
-        <Segment style={{padding: '10em 0', border: 'none'}} vertical size='massive'>
+        <Segment style={{padding: '10em 0', border: 'none', margin: '64px 0'}} vertical size='massive'>
           <Dimmer inverted active>
             <Loader size='massive'>Loading</Loader>
           </Dimmer>
@@ -27,7 +27,7 @@ export default class Product extends React.Component {
     }
 
     return (
-      <div className="App">
+      <div style={{padding: '80px 0'}}>
         <Grid container columns={2} stackable>
           <Grid.Column width={7}>
             <Header floated='left' as='h1'>
@@ -37,7 +37,6 @@ export default class Product extends React.Component {
           </Grid.Column>
           <Grid.Column floated='right' width={9}>
             <Header floated='right' as='h6'>
-              <Rating icon='star' defaultRating={4} maxRating={5} />
               <Label color='green'>      
                 {ratings.compositeScore}
               </Label>
