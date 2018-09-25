@@ -39,6 +39,11 @@ var ProductSchema = new mongoose.Schema({
     tags: [{ type: String, enum: ['travel safe', 'battery removable', 'companion app', 'water resistant', 'remoteless', '']}]
   },
   ratings: {
+    recommendations: {
+      yes: Number,
+      maybe: Number,
+      no: Number
+    },
     external: {
       average: Number,
       amount: Number

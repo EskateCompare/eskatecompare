@@ -38,5 +38,6 @@
     "underscore": "1.8.3",
     "fast-csv": "latest",
     "dottie": "latest"
-  }
+  },
+  {}
 }
