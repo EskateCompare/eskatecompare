@@ -54,6 +54,10 @@ var ProductSchema = new mongoose.Schema({
     },
     compositeScore: Number
   },
+  impressions: [
+      { id: { type: mongoose.Schema.Types.ObjectId, ref: 'Impression' },
+        count: Number }
+  ],
   reviews: [
     {type: mongoose.Schema.Types.ObjectId, ref: 'Review'}
   ],

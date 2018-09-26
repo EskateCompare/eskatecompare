@@ -36,7 +36,7 @@ router.post('/', async function(req, res, next) {
       }
     }
     product.save().then(function(prod) {
-      return res.json(prod);
+      return res.json(prod.ratings.recommendations);
     }).catch(next);
   }).catch(next);
 })
