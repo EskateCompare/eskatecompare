@@ -4,34 +4,52 @@ import { Header, Feed, Rating, Divider, Form, Button, Segment, Input, Comment } 
 const image = 'https://react.semantic-ui.com/images/wireframe/square-image.png'
 
 export default class ReviewList extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+
+    let recommend = '';
+    let didUserRecommend = false;
+
+    for (let recommendation of props.user.recommendations){
+      if (recommendation.product === props.slug){
+        recommend = recommendation.recommend
+        didUserRecommend = true
+      }
+    }
 
     this.state = {
-      recommend: ''
+      recommend: recommend,
+      didUserRecommend: didUserRecommend,
+
     }
 
     this.handleRecommend = this.handleRecommend.bind(this);
   }
 
-  // componentDidUpdate() {
-    
-  // }
-
   handleRecommend(event, target) {
     const { recommend } = this.state;
-    const { fetchPostRecommend, slug } = this.props;
+
+    if (target.value === recommend) {
+      return;
+    }
+
+    const { fetchPostRecommend, slug, addUserRecommendation, didUserRecommend } = this.props;
    
     this.setState({ recommend: target.value })
-    // alert(target.value);
+
     const requestObject = {
       product: slug,
       recommendChange: {
-        yes: (target.value === 'yes') ? 1 : 0,
-        maybe: (target.value === 'maybe') ? 1 : 0,
-        no: (target.value === 'no') ? 1 : 0,
+        yes: (target.value === 'yes') ? 1 : (recommend === 'yes') ? -1 : 0,
+        maybe: (target.value === 'maybe') ? 1 : (recommend === 'maybe') ? -1 : 0,
+        no: (target.value === 'no') ? 1 : (recommend === 'no' ) ? -1 : 0,
       }
     }
+
+    addUserRecommendation({
+      slug: slug,
+      recommend: target.value
+    });
 
     fetchPostRecommend(requestObject);
   }

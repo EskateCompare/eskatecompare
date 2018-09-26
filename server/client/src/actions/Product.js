@@ -67,4 +67,3 @@ export function fetchPostRecommend(payload) {
     .catch(err => dispatch(fetchPostRecommendError(err)))
   }
 }
-

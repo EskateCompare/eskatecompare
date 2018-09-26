@@ -50,9 +50,16 @@ export default (state = defaultState, action) => {
     })
     case 'RECEIVE_POST_RECOMMEND':
       return Object.assign({}, state, {
-        ratings: {
-          recommendations: action.payload
-        } 
+        product: {
+          ...state.product,
+          product: {
+            ...state.product.product,
+            ratings: {
+              ...state.product.product.ratings,
+              recommendations: action.payload
+            } 
+          }
+        }
         // fetching: false
     })
     default:

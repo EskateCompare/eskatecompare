@@ -15,7 +15,8 @@ export default class Product extends React.Component {
   render() {
     const { product } = this.props.product;
     const { name, deals, reviews, brand, ratings, slug } = product;
-    const { fetchPostRecommend } = this.props;
+    const { fetchPostRecommend, addUserRecommendation, user } = this.props;
+    console.log(this.props)
 
     if (this.props.fetching) {
       return (
@@ -67,7 +68,14 @@ export default class Product extends React.Component {
               <SpecList specs={product}/>
             </Grid.Column>
             <Grid.Column width={11}>
-              <ReviewList reviews={reviews} ratings={ratings} fetchPostRecommend={fetchPostRecommend} slug={slug}/>
+              <ReviewList
+                user={user}
+                reviews={reviews}
+                ratings={ratings}
+                fetchPostRecommend={fetchPostRecommend}
+                slug={slug}
+                addUserRecommendation={addUserRecommendation}
+              />
             </Grid.Column>
           </Grid.Row>
         </Grid>
