@@ -9,7 +9,7 @@ export default class ReviewList extends Component {
 
     let recommend = '';
     let didUserRecommend = false;
-
+    console.log(props)
     for (let recommendation of props.user.recommendations){
       if (recommendation.product === props.slug){
         recommend = recommendation.recommend
@@ -47,7 +47,7 @@ export default class ReviewList extends Component {
     }
 
     addUserRecommendation({
-      slug: slug,
+      product: slug,
       recommend: target.value
     });
 

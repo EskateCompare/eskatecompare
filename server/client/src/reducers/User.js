@@ -1,21 +1,26 @@
 const defaultState = {
   user: {
-  	recommendations: [
-	  	{
-	  		product: '',
-	  		recommend: ''
-	  	},
-  	],
+  	recommendations: [],
   }
 };
 
 export default (state = defaultState, action) => {
   switch(action.type) {
     case 'ADD_USER_RECOMMENDATION':
-    console.log(action, 'userrrractionnn')
+      let recommendationsArr = [];
+      let filteredArray = state.user.recommendations;
+
+      for(let recommendation of state.user.recommendations) {
+        if (recommendation.product === action.payload.product) {
+          filteredArray = state.user.recommendations.filter(item => item.product !== recommendation.product)
+        }
+      }
+
+      recommendationsArr = [].concat(filteredArray, action.payload)
+
       return Object.assign({}, state, {
         user: {
-        	recommendations: action.payload
+        	recommendations: recommendationsArr
         }
     })
     default:

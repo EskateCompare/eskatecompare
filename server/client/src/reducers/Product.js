@@ -19,6 +19,7 @@ const defaultState = {
   		},
       image: {},
       additionalImages: [],
+      slug: '',
   	}
   },
   fetching: false,
