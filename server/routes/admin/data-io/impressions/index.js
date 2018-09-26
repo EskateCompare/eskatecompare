@@ -1,7 +1,7 @@
 var router = require('express').Router();
 
-router.use('/products', require('./products'));
-router.use('/impressions', require('./impressions'));
+router.use('/import', require('./import'));
+
 
 router.use(function(err, req, res, next) {  //4 args = error handler
   if (err.name === 'ValidationError'){

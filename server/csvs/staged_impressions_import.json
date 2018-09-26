@@ -1,0 +1,104 @@
+{
+  "changes": [
+    {
+      "text": "Great design",
+      "changes": {
+        "new": {
+          "content": "Great design",
+          "connotation": "positive",
+          "CustomId": "1"
+        }
+      }
+    },
+    {
+      "text": "Bad design",
+      "changes": {
+        "new": {
+          "content": "Bad design",
+          "connotation": "negative",
+          "CustomId": "2"
+        }
+      }
+    },
+    {
+      "text": "Durable",
+      "changes": {
+        "new": {
+          "content": "Durable",
+          "connotation": "positive",
+          "CustomId": "3"
+        }
+      }
+    },
+    {
+      "text": "Fragile",
+      "changes": {
+        "new": {
+          "content": "Fragile",
+          "connotation": "negative",
+          "CustomId": "4"
+        }
+      }
+    },
+    {
+      "text": "Poor Value",
+      "changes": {
+        "new": {
+          "content": "Poor Value",
+          "connotation": "negative",
+          "CustomId": "6"
+        }
+      }
+    },
+    {
+      "text": "Great Control",
+      "changes": {
+        "new": {
+          "content": "Great Control",
+          "connotation": "positive",
+          "CustomId": "7"
+        }
+      }
+    },
+    {
+      "text": "Good Value",
+      "changes": {
+        "new": {
+          "content": "Good Value",
+          "connotation": "positive",
+          "CustomId": "5"
+        }
+      }
+    },
+    {
+      "text": "Poor Control",
+      "changes": {
+        "new": {
+          "content": "Poor Control",
+          "connotation": "negative",
+          "CustomId": "8"
+        }
+      }
+    },
+    {
+      "text": "Little Sag",
+      "changes": {
+        "new": {
+          "content": "Little Sag",
+          "connotation": "negative",
+          "CustomId": "10"
+        }
+      }
+    },
+    {
+      "text": "Lots of Sag",
+      "changes": {
+        "new": {
+          "content": "Lots of Sag",
+          "connotation": "positive",
+          "CustomId": "9"
+        }
+      }
+    }
+  ]
+}

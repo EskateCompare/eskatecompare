@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 
 var ImpressionSchema = new mongoose.Schema({
-  text: {type: String, required: true},
+  content: {type: String, unique: true},
+  customId: Number,
   connotation: {type: String, enum: ['positive', 'negative', 'neutral']}
 })
 

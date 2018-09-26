@@ -1,15 +1,3 @@
 {
-  "changes": [
-    {
-      "name": "Atom B10X",
-      "changes": [
-        {
-          "thumbnail.source": {
-            "old": "https://s3.amazonaws.com/eskate-compare/product+images/boosted+2nd+gen+dual+plus+XR/main.png",
-            "new": "https://s3.amazonaws.com/eskate-compare/product+images/atom+b10x/thumbnail.png"
-          }
-        }
-      ]
-    }
-  ]
+  "changes": []
 }
