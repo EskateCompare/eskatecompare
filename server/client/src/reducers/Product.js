@@ -10,7 +10,12 @@ const defaultState = {
       reviews: [],
       specs: {},
   		ratings: {
-  			compositeScore: 0
+  			compositeScore: 0,
+        recommendations: {
+          yes: 0,
+          no: 0,
+          maybe: 0,
+        }
   		},
       image: {},
       additionalImages: [],
@@ -18,11 +23,6 @@ const defaultState = {
   },
   fetching: false,
   error: null,
-  recommend: {
-    yes: 0,
-    no: 0,
-    maybe: 0,
-  }
 };
 
 export default (state = defaultState, action) => {
@@ -42,7 +42,7 @@ export default (state = defaultState, action) => {
     })
     case 'REQUEST_POST_RECOMMEND':
       return Object.assign({}, state, {
-        fetching: true
+        // fetching: true
     })
     case 'FETCH_POST_RECOMMEND_ERROR':
       return Object.assign({}, state, {
@@ -50,8 +50,10 @@ export default (state = defaultState, action) => {
     })
     case 'RECEIVE_POST_RECOMMEND':
       return Object.assign({}, state, {
-        recommend: action.payload,
-        fetching: false
+        ratings: {
+          recommendations: action.payload
+        } 
+        // fetching: false
     })
     default:
       return state;

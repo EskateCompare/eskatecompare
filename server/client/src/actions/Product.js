@@ -52,8 +52,9 @@ export function fetchPostRecommendError(payload) {
 }
 
 export function fetchPostRecommend(payload) {
+  console.log(JSON.stringify(payload));
   return dispatch => {
-    dispatch(requestRecommendation())
+    dispatch(requestPostRecommend())
     return fetch('/api/recommend', {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -62,8 +63,8 @@ export function fetchPostRecommend(payload) {
       }
     })
     .then(response => response.json())
-    .then(json => dispatch(receiveRecommendation(json)))
-    .catch(err => dispatch(fetchRecommendationError(err)))
+    .then(json => dispatch(receivePostRecommend(json)))
+    .catch(err => dispatch(fetchPostRecommendError(err)))
   }
 }
 
