@@ -35,7 +35,8 @@ const navRoutes = [
 ]
 
 const mapStateToProps = state => ({
-  ...state.Main
+  ...state.Main,
+  ...state.User,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -44,8 +45,9 @@ const mapDispatchToProps = dispatch => ({
 
 class App extends React.Component {
   componentDidMount() {
-    // console.log(this.props, 'afeafef')
+    // console.log(this.props, 'appstart')
     localStorage.clear();
+    console.log(localStorage);
   }
 
   render() {

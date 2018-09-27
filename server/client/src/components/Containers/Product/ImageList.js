@@ -6,7 +6,6 @@ export default class ImageList extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props);
     this.state = {
       mainImage: props.images.image.source
     }

@@ -4,6 +4,56 @@ import { Header, Feed, Rating, Divider, Form, Button, Segment, Input, Comment } 
 const image = 'https://react.semantic-ui.com/images/wireframe/square-image.png'
 
 export default class ReviewList extends Component {
+  constructor(props) {
+    super(props)
+
+    let recommend = '';
+    let didUserRecommend = false;
+
+    for (let recommendation of props.user.recommendations){
+      if (recommendation.product === props.slug){
+        recommend = recommendation.recommend
+        didUserRecommend = true
+      }
+    }
+
+    this.state = {
+      recommend: recommend,
+      didUserRecommend: didUserRecommend,
+
+    }
+
+    this.handleRecommend = this.handleRecommend.bind(this);
+  }
+
+  handleRecommend(event, target) {
+    const { recommend } = this.state;
+
+    if (target.value === recommend) {
+      return;
+    }
+
+    const { fetchPostRecommend, slug, addUserRecommendation, didUserRecommend } = this.props;
+   
+    this.setState({ recommend: target.value })
+
+    const requestObject = {
+      product: slug,
+      recommendChange: {
+        yes: (target.value === 'yes') ? 1 : (recommend === 'yes') ? -1 : 0,
+        maybe: (target.value === 'maybe') ? 1 : (recommend === 'maybe') ? -1 : 0,
+        no: (target.value === 'no') ? 1 : (recommend === 'no' ) ? -1 : 0,
+      }
+    }
+
+    addUserRecommendation({
+      slug: slug,
+      recommend: target.value
+    });
+
+    fetchPostRecommend(requestObject);
+  }
+
   renderReviews() {
     const { reviews } = this.props;
 
@@ -26,17 +76,17 @@ export default class ReviewList extends Component {
   }
 
   render() {
+    const { ratings } = this.props;
+    const { recommend } = this.state;
     const renderedReviews = this.renderReviews();
 
     return (
       <div>
         <Segment>
           <Header content="Would you recommend this to a friend?"/>
-            <Button.Group basic size='small'>
-            <Button basic color='green' icon='smile outline' />
-            <Button basic icon='meh outline' />
-            <Button basic color='red' icon='frown outline' />
-          </Button.Group>
+            <Button basic={(recommend === 'yes') ? 0 : 1} color='green' icon='smile outline' content={ratings.recommendations.yes} value='yes' onClick={this.handleRecommend}/>
+            <Button basic={(recommend === 'maybe') ? 0 : 1}  icon='meh outline' content={ratings.recommendations.maybe} value='maybe' onClick={this.handleRecommend}/>
+            <Button basic={(recommend === 'no') ? 0 : 1}  color='red' icon='frown outline' content={ratings.recommendations.no} value='no' onClick={this.handleRecommend}/>
           </Segment>
         <Segment>
         <Header as='h3'>What people are saying!</Header>
