@@ -56,7 +56,10 @@ var ProductSchema = new mongoose.Schema({
   },
   impressions: [
       { impression: { type: mongoose.Schema.Types.ObjectId, ref: 'Impression' },
-        count: Number }
+        votes: {
+          yes: Number,
+          no: Number
+        } }
   ],
   reviews: [
     {type: mongoose.Schema.Types.ObjectId, ref: 'Review'}

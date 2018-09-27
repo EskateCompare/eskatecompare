@@ -4,6 +4,7 @@ router.use('/products', require('./products'));
 router.use('/recommend', require('./recommend'));
 router.use('/filter-options', require('./filter-options'))
 router.use('/text-search', require('./text-search'))
+router.use('/impressions', require('./impressions'))
 
 router.use(function(err, req, res, next) {  //4 args = error handler
   if (err.name === 'ValidationError'){
