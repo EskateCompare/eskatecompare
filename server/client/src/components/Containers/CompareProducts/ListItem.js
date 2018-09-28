@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Label, Table } from 'semantic-ui-react';
+import { Image, Label, Table, Icon } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 
 export default class ListItem extends Component {
@@ -28,6 +28,7 @@ export default class ListItem extends Component {
     if (ratings.compositeScore >= 70 && ratings.compositeScore <= 79) { color = 'yellow' }
     if (ratings.compositeScore >= 60 && ratings.compositeScore <= 69) { color = 'orange' }
     if (ratings.compositeScore < 60) { color = 'red' }
+    console.log('compScore',ratings.compositeScore)
 
     if (this.state.link) {
       return <Redirect push to={`/product/${this.props.product.slug}`} />;
@@ -42,9 +43,16 @@ export default class ListItem extends Component {
         <Table.Cell verticalAlign='middle'>{range} m</Table.Cell>
         <Table.Cell verticalAlign='middle'>${bestPrice}</Table.Cell>
         <Table.Cell verticalAlign='middle'>
+
+          {ratings.compositeScore != null &&
           <Label color={color}>
             {ratings.compositeScore}%
+
           </Label>
+          }
+          {ratings.compositeScore == null &&
+           <Icon name='question circle outline' color='blue' size='large' />
+            }
         </Table.Cell>
       </Table.Row>
     )
