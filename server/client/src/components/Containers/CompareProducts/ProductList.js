@@ -47,10 +47,9 @@ export default class ProductList extends Component {
   }
 
   appendListItems() {
-    const { fetchMoreProducts, incrementPage, filterState } = this.props;
+    const { incrementPage } = this.props;
 
     incrementPage();
-    // fetchMoreProducts(filterState);
   }
 
   renderListItems() {

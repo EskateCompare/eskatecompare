@@ -50,18 +50,15 @@ export default (state = defaultState, action) => {
         error: action.payload
     })
     case 'RECEIVE_PRODUCTS':
-    console.log(state.filterState.page, 'pagenum')
-    if (state.filterState.page > 1) {
-      const appendedArray = state.products.products.concat(action.payload.products)
-      return Object.assign({}, state, {
-        products: {
-          products: appendedArray,
-        },
-        fetching: false
-    })
-    }
-
-            console.log(action.payload, 'receive_prod')
+      if (state.filterState.page > 1) {
+        const appendedArray = state.products.products.concat(action.payload.products)
+        return Object.assign({}, state, {
+          products: {
+            products: appendedArray,
+          },
+          fetching: false
+        })
+      }
       return Object.assign({}, state, {
         products: action.payload,
         fetching: false
@@ -121,7 +118,6 @@ export default (state = defaultState, action) => {
         filterState: sortBy
     })
     case 'INCREMENT_PAGE':
-      console.log(state.filterState.page++);
       return Object.assign({}, state, {
         filterState: {
           ...state.filterState,
