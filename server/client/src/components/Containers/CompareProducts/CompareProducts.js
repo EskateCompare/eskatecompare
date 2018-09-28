@@ -14,7 +14,7 @@ export default class CompareProducts extends Component {
 
   render() {
     const { internalReviewsCount, externalReviewsCount, lastUpdated, totalMatching, totalProducts} = this.props.filter.stats;
-    const { products, filterState, onSortBy, onSortDirection, onFilterChange, fetchProducts, fetchFilter, fetching, updateField, brandSearch, history } = this.props;
+    const { products, filterState, onSortBy, onSortDirection, onFilterChange, fetchProducts, fetchMoreProducts, fetchFilter, fetching, updateField, brandSearch, history, incrementPage, onClearFilter } = this.props;
     const { filterOptions: filter } = this.props.filter.stats;
 
     return (
@@ -45,10 +45,10 @@ export default class CompareProducts extends Component {
         </Grid>
         <Grid container columns={2} stackable>
           <Grid.Column width={4}>
-            <Filter filter={filter} history={history} fetchProducts={fetchProducts} onFilterChange={onFilterChange} filterState={filterState} fetchFilter={fetchFilter} updateField={updateField} brandSearch={brandSearch} />
+            <Filter filter={filter} onClearFilter={onClearFilter} history={history} fetchProducts={fetchProducts} onFilterChange={onFilterChange} filterState={filterState} fetchFilter={fetchFilter} updateField={updateField} brandSearch={brandSearch} />
           </Grid.Column>
           <Grid.Column width={12}>
-            <ProductList fetching={fetching} products={products} fetchProducts={fetchProducts} onSortBy={onSortBy} onSortDirection={onSortDirection} filterState={filterState}/>
+            <ProductList fetching={fetching} products={products} fetchProducts={fetchProducts} fetchMoreProducts={fetchMoreProducts} onFilterChange={onFilterChange} onClearFilter={onClearFilter} onSortBy={onSortBy} onSortDirection={onSortDirection} filterState={filterState} incrementPage={incrementPage}/>
           </Grid.Column>
         </Grid>
       </div>

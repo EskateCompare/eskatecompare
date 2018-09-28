@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ListItem from './ListItem';
-import { Button, Icon, Grid, Dropdown, Table } from 'semantic-ui-react';
+import { Button, Icon, Grid, Dropdown, Table, Segment, Dimmer, Loader } from 'semantic-ui-react';
 import sortingOptions from '../constants'
 
 export default class ProductList extends Component {
@@ -14,6 +14,7 @@ export default class ProductList extends Component {
 
     this.handleSortDirection = this.handleSortDirection.bind(this);
     this.handleSortBy = this.handleSortBy.bind(this);
+    this.appendListItems = this.appendListItems.bind(this);
   }
 
   handleSortDirection(e, target) {
@@ -22,11 +23,11 @@ export default class ProductList extends Component {
 
     if (sortIcon === 'sort amount up') {
       this.setState({ sortIcon: 'sort amount down' });
-      onSortDirection({ sortDir: 'dsc' })
+      onSortDirection({ sortDir: 'dsc', page: 1 })
     }
     if (sortIcon === 'sort amount down') {
       this.setState({ sortIcon: 'sort amount up' });
-      onSortDirection({ sortDir: 'asc' })
+      onSortDirection({ sortDir: 'asc' , page: 1 })
     }
   }
 
@@ -39,10 +40,17 @@ export default class ProductList extends Component {
   }
 
   handleSortBy(e, value) {
-    const { onSortBy } = this.props;
+    const { onSortBy, onClearFilter } = this.props;
 
     this.setState({ filterText: value.text });
-    onSortBy({ sortBy: value.text })
+    onSortBy({ sortBy: value.text, page: 1 })
+  }
+
+  appendListItems() {
+    const { fetchMoreProducts, incrementPage, filterState } = this.props;
+
+    incrementPage();
+    // fetchMoreProducts(filterState);
   }
 
   renderListItems() {
@@ -67,6 +75,16 @@ export default class ProductList extends Component {
     const { sortIcon, filterText } = this.state;
     const renderedListItems = this.renderListItems();
     const renderedDropdownItems = this.renderDropdownItems();
+
+    if (this.props.fetching) {
+      return (
+        <Segment style={{padding: '10em 0', margin: '64px 0'}} vertical size='huge'>
+          <Dimmer inverted active>
+            <Loader size='massive'>Loading</Loader>
+          </Dimmer>
+        </Segment>
+      )
+    }
 
     return (
       <div>
@@ -98,7 +116,9 @@ export default class ProductList extends Component {
           <Table.Body>
             {renderedListItems}
           </Table.Body>
+
         </Table>
+        <Button fluid content='Load More' onClick={this.appendListItems}/>
       </div>
     );
   }

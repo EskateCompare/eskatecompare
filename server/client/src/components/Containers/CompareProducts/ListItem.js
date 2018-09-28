@@ -28,7 +28,6 @@ export default class ListItem extends Component {
     if (ratings.compositeScore >= 70 && ratings.compositeScore <= 79) { color = 'yellow' }
     if (ratings.compositeScore >= 60 && ratings.compositeScore <= 69) { color = 'orange' }
     if (ratings.compositeScore < 60) { color = 'red' }
-    console.log('compScore',ratings.compositeScore)
 
     if (this.state.link) {
       return <Redirect push to={`/product/${this.props.product.slug}`} />;

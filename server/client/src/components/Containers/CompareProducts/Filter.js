@@ -34,7 +34,7 @@ export default class Filter extends Component {
     onFilterChange({ [title]: label, checked: checked });
     fetchFilter(filterState);
     fetchProducts(filterState);
-// 
+
     const query = queryString.stringify(filterState)
     console.log(query);
     history.push({

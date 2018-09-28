@@ -8,6 +8,8 @@ const defaultState = {
     }
   },
   filterState: {
+    perPage: 10,
+    page: 1,
     brands: [],
     year: [],
     price: [],
@@ -48,8 +50,36 @@ export default (state = defaultState, action) => {
         error: action.payload
     })
     case 'RECEIVE_PRODUCTS':
+    console.log(state.filterState.page, 'pagenum')
+    if (state.filterState.page > 1) {
+      const appendedArray = state.products.products.concat(action.payload.products)
+      return Object.assign({}, state, {
+        products: {
+          products: appendedArray,
+        },
+        fetching: false
+    })
+    }
+
+            console.log(action.payload, 'receive_prod')
       return Object.assign({}, state, {
         products: action.payload,
+        fetching: false
+    })
+    case 'REQUEST_MORE_PRODUCTS':
+      return Object.assign({}, state, {
+        fetching: true
+    })
+    case 'FETCH_MORE_PRODUCTS_ERROR':
+      return Object.assign({}, state, {
+        error: action.payload
+    })
+    case 'RECEIVE_MORE_PRODUCTS':
+      const appendedArray = state.products.products.concat(action.payload.products)
+      return Object.assign({}, state, {
+        products: {
+          products: appendedArray,
+        },
         fetching: false
     })
     case 'REQUEST_FILTER':
@@ -66,14 +96,14 @@ export default (state = defaultState, action) => {
         fetching: false
     })
     case 'ON_FILTER_CHANGE':
-      console.log(action.payload, 'on filter change')
       const { payload } = action;
       const { checked } = payload;
       const key = Object.keys(action.payload)[0];
       const arr = state.filterState[key];
       const finalArr = checked ? arr.concat(action.payload[key]) : arr.filter(val => val !== action.payload[key]);
       state.filterState[key] = finalArr;
- 
+      state.filterState['page'] = 1;
+
       return Object.assign({}, state, {
         filterState: state.filterState
     })
@@ -90,9 +120,19 @@ export default (state = defaultState, action) => {
       return Object.assign({}, state, {
         filterState: sortBy
     })
+    case 'INCREMENT_PAGE':
+      console.log(state.filterState.page++);
+      return Object.assign({}, state, {
+        filterState: {
+          ...state.filterState,
+          page: state.filterState.page++
+        }
+    })
     case 'ON_CLEAR_FILTER':
       return Object.assign({}, state, {
         filterState: {
+          perPage: 10,
+          page: 1,
           brands: [],
           year: [],
           price: [],

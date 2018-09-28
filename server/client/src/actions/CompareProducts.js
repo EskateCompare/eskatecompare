@@ -1,4 +1,5 @@
 import fetch from 'cross-fetch'
+const queryString = require('query-string');
 
 export function requestFilter() {
   return {
@@ -62,12 +63,49 @@ export function fetchProducts(payload) {
   }
 }
 
+export function requestMoreProducts() {
+  return {
+    type: 'REQUEST_MORE_PRODUCTS',
+  }
+}
+
+export function receiveMoreProducts(payload) {
+  return {
+    type: 'RECEIVE_MORE_PRODUCTS',
+    payload
+  }
+}
+
+export function fetchMoreProductsError(payload) {
+  return {
+    type: 'FETCH_MORE_PRODUCTS_ERROR',
+    payload
+  }
+}
+
+export function fetchMoreProducts(payload) {
+  const urlParams = (payload) ? serialize(payload) : '';
+  return dispatch => {
+    dispatch(requestMoreProducts())
+    return fetch(`/api/products?${urlParams}`)
+      .then(response => response.json())
+      .then(json => dispatch(receiveMoreProducts(json)))
+      .catch(err => dispatch(fetchMoreProductsError(err)))
+  }
+}
+
+export function incrementPage() {
+  return {
+    type: 'INCREMENT_PAGE'
+  }
+}
+
 function serialize(payload) {
   let obj = {
     perPage: 10,
     page: 1,
     sortDir: 'dsc',
-    sortBy: 'price'
+    sortBy: 'rating'
   }
 
   let merged = {...obj, ...payload}
@@ -75,7 +113,7 @@ function serialize(payload) {
   let str = [];
   for (let p in merged)
     if (merged.hasOwnProperty(p)) {
-      if(!merged[p].length == 0) {
+      if(!merged[p].length == 0 || merged[p] > 0) {
       str.push(encodeURIComponent(p) + "=" + encodeURIComponent(merged[p]));
       }
     }

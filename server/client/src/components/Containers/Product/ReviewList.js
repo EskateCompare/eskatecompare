@@ -135,8 +135,7 @@ export default class ReviewList extends Component {
             </Grid>
             <Divider hidden/>
             <Input
-                action={{ color: 'primary', content: 'Add Review' }}
-                defaultValue='Long Battery Life'
+                action={{ color: 'primary', content: 'Add Impression' }}
               />
           </Segment>
           <Segment>
