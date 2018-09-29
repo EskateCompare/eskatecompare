@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Label, Table, Icon } from 'semantic-ui-react';
+import { Image, Label, Table, Icon, Popup } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 
 export default class ListItem extends Component {
@@ -40,17 +40,19 @@ export default class ListItem extends Component {
         <Table.Cell verticalAlign='middle'>{name}</Table.Cell>
         <Table.Cell verticalAlign='middle'>{speed} mph</Table.Cell>
         <Table.Cell verticalAlign='middle'>{range} m</Table.Cell>
-        <Table.Cell verticalAlign='middle'>${bestPrice}</Table.Cell>
+        <Table.Cell verticalAlign='middle'>{bestPrice != null ? '$' + bestPrice : "-"}</Table.Cell>
         <Table.Cell verticalAlign='middle'>
 
           {ratings.compositeScore != null &&
           <Label color={color}>
             {ratings.compositeScore}%
-
           </Label>
           }
           {ratings.compositeScore == null &&
-           <Icon name='question circle outline' color='blue' size='large' />
+            <Popup trigger = {
+           <Icon name='question circle outline' color='blue' size='large' />}
+           content='No ratings yet!'
+           />
             }
         </Table.Cell>
       </Table.Row>

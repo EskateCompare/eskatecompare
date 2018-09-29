@@ -34,7 +34,7 @@ var ProductSchema = new mongoose.Schema({
     wheelDiameter: Number,  //mm
     terrain: String,
     style: String,
-    deckMaterials: [{ type: String, enum: ['carbon fiber', 'kevlar', 'wood', 'bamboo', 'fiberglass', 'polyurethane'] }],
+    deckMaterials: [{ type: String, enum: ['carbon fiber', 'kevlar', 'wood', 'bamboo', 'fiberglass', 'polyurethane', ''] }],
     manufacturerWarranty: Number,  //months
     tags: [{ type: String, enum: ['travel safe', 'battery removable', 'companion app', 'water resistant', 'remoteless', '']}]
   },
@@ -51,8 +51,7 @@ var ProductSchema = new mongoose.Schema({
     internal: {
       average: Number,
       amount: Number
-    },
-    compositeScore: Number
+    }
   },
   impressions: [
       { impression: { type: mongoose.Schema.Types.ObjectId, ref: 'Impression' },
@@ -84,7 +83,17 @@ ProductSchema.pre('validate', function(next) {
 });
 
 
+ProductSchema.virtual('compositeScore').get(function() {
+  if (this.ratings.toObject().hasOwnProperty('recommendations') && this.ratings.recommendations.length > 0) {
+    let totalDiff = this.ratings.recommendations.yes - this.ratings.recommendations.no;
+    let totalRecommendations = this.ratings.recommendations.yes + this.ratings.recommendations.maybe + this.ratings.recommendations.no;
+    let score = 50 + (( totalDiff / totalRecommendations + 1) * 50)
 
+    return score
+  } else {
+    return null
+  }
+})
 
 //ProductSchema.index({ "name": "text"});
 ProductSchema.index({ "specs.style" : "text"})

@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var pipeline = require('./pipelines/product-aggregation.js');
 
 var Product = mongoose.model('Product')
+let Impression = mongoose.model('Impression');
 
 router.get('/:slug', async function(req, res, next) {
 
@@ -67,10 +68,34 @@ router.get('/:slug', async function(req, res, next) {
     displaySpecObject["value"] = product.specs[dbKey];
 
     displaySpecs.push(displaySpecObject);
-
   }
 
   product["displaySpecs"] = displaySpecs;
+
+  //populate impressions
+
+  let impressions = [];
+  impressions = await Impression.find({});
+  console.log(typeof(impressions));
+  //console.log(impressions);
+
+  Object.keys(impressions).forEach(function(key) {
+    let impression = impressions[key];
+    let impressionFoundInProduct = false;
+    product.impressions.forEach(function(productImpression) {
+      if (productImpression.customId == impression.customId) impressionFoundInProduct = true;
+    })
+    if (!impressionFoundInProduct) {
+      product.impressions.push({
+        impression: impression,
+        votes: {
+          yes: 0,
+          no: 0
+        }
+      })
+    }
+  })
+
 
   return res.json({ product });
 

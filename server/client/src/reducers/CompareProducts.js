@@ -121,7 +121,7 @@ export default (state = defaultState, action) => {
       return Object.assign({}, state, {
         filterState: {
           ...state.filterState,
-          page: state.filterState.page++
+          page: ++state.filterState.page
         }
     })
     case 'ON_CLEAR_FILTER':

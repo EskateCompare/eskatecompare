@@ -186,7 +186,7 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
         {
           $addFields: {
             bestPrice: {
-              $min: "$deals.salesPrice"
+              $min: { $concatArrays: ["$deals.salesPrice", ["$specs.msrp"]] }
             }
           }
         }
@@ -272,7 +272,6 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
       var perPage = perPageDefault;
 
       if (params.hasOwnProperty('page')) {
-        console.log("HERE PER PAGE WOW")
         pageNum = Number(params.page);
       }
       if (params.hasOwnProperty('perPage')) {
@@ -280,9 +279,7 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
       }
 
       var skip = (pageNum * Number(perPage)) - Number(perPage);
-      console.log('pageNum',pageNum);
-      console.log('perPage',perPage);
-      console.log('skip',skip);
+
       pipeline.push({$skip: skip})
 
       //limit
