@@ -97,7 +97,7 @@ let calculateScore = function(doc) {
     let totalDiff = doc.ratings.recommendations.yes - doc.ratings.recommendations.no;
     let totalRecommendations = doc.ratings.recommendations.yes + doc.ratings.recommendations.maybe + doc.ratings.recommendations.no;
     let score = 50 + (( totalDiff / totalRecommendations + 1) * 50)
-
+    
     return score
   } else {
     return null

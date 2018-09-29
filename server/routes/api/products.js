@@ -85,7 +85,7 @@ router.get('/:slug', async function(req, res, next) {
     let impression = impressions[key];
     let impressionFoundInProduct = false;
     product.impressions.forEach(function(productImpression) {
-      if (productImpression.customId == impression.customId) impressionFoundInProduct = true;
+      if (productImpression.impression.customId == impression.customId) impressionFoundInProduct = true;
     })
     if (!impressionFoundInProduct) {
       product.impressions.push({
