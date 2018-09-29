@@ -74,6 +74,8 @@ router.get('/:slug', async function(req, res, next) {
 
   //populate impressions
 
+
+
   let impressions = [];
   impressions = await Impression.find({});
   console.log(typeof(impressions));

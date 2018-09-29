@@ -61,7 +61,7 @@ router.post('/', async function(req, res, next) {
       })
     }
     product.save().then(function(_product) {
-      return res.json(_product);
+      return res.json(impressionSearch[0]);
     })
 
 

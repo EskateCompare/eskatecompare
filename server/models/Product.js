@@ -82,18 +82,27 @@ ProductSchema.pre('validate', function(next) {
   next();
 });
 
+ProductSchema.post('save', async function(doc, next) {
+  //this.ratings.compositeScore = calculateScore(doc);
+  //this.save();
+})
 
-ProductSchema.virtual('compositeScore').get(function() {
-  if (this.ratings.toObject().hasOwnProperty('recommendations') && this.ratings.recommendations.length > 0) {
-    let totalDiff = this.ratings.recommendations.yes - this.ratings.recommendations.no;
-    let totalRecommendations = this.ratings.recommendations.yes + this.ratings.recommendations.maybe + this.ratings.recommendations.no;
+ProductSchema.post('update', async function(doc, next) {
+  //this.ratings.compositeScore = calculateScore(doc);
+  //this.save();
+})
+
+let calculateScore = function(doc) {
+  if (doc.ratings.toObject().hasOwnProperty('recommendations') && doc.ratings.recommendations.length > 0) {
+    let totalDiff = doc.ratings.recommendations.yes - doc.ratings.recommendations.no;
+    let totalRecommendations = doc.ratings.recommendations.yes + doc.ratings.recommendations.maybe + doc.ratings.recommendations.no;
     let score = 50 + (( totalDiff / totalRecommendations + 1) * 50)
 
     return score
   } else {
     return null
   }
-})
+}
 
 //ProductSchema.index({ "name": "text"});
 ProductSchema.index({ "specs.style" : "text"})
