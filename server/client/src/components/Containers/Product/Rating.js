@@ -10,12 +10,13 @@ export default class Rating extends React.Component {
     let recommendations = ratings.recommendations;
     if (rating == null) {
       return (
+        <div style={{'float': 'left'}}>
         <Popup trigger = {
-
           <Icon name='question circle outline' size={size}/>
           }
             content='No ratings yet!'
        />
+       </div>
       )
     }
 

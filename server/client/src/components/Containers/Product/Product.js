@@ -4,7 +4,7 @@ import DealList from './DealList';
 import SpecList from './SpecList';
 import ReviewList from './ReviewList';
 import Rating from './Rating';
-import { Dimmer, Header, Icon, Grid, Image, Divider, Label, Loader, Segment } from 'semantic-ui-react';
+import { Dimmer, Header, Icon, Grid, Image, Divider, Label,  Loader, Segment } from 'semantic-ui-react';
 
 export default class Product extends React.Component {
   componentDidMount() {
