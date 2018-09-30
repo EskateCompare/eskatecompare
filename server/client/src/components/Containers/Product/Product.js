@@ -3,12 +3,13 @@ import ImageList from './ImageList';
 import DealList from './DealList';
 import SpecList from './SpecList';
 import ReviewList from './ReviewList';
-import { Dimmer, Header, Icon, Grid, Image, Divider, Label, Rating, Loader, Segment } from 'semantic-ui-react';
+import Rating from './Rating';
+import { Dimmer, Header, Icon, Grid, Image, Divider, Label, Loader, Segment } from 'semantic-ui-react';
 
 export default class Product extends React.Component {
   componentDidMount() {
     const { fetchProduct, match, fetchImpressions } = this.props;
-    
+
     fetchProduct(match.params.slug);
     fetchImpressions();
   }
@@ -39,9 +40,7 @@ export default class Product extends React.Component {
           </Grid.Column>
           <Grid.Column floated='right' width={9}>
             <Header floated='right' as='h6'>
-              <Label color='green'>      
-                {ratings.compositeScore}
-              </Label>
+              <Rating ratings={ratings} size='large' />
               <Label>
                 <Icon name='checkmark' />
                 Last Updated
@@ -53,7 +52,7 @@ export default class Product extends React.Component {
 
         <Grid container columns={2} stackable>
           <Grid.Row>
-            <Grid.Column width={8}> 
+            <Grid.Column width={8}>
               <ImageList images={product}/>
               </Grid.Column>
             <Grid.Column width={8}>
@@ -62,7 +61,7 @@ export default class Product extends React.Component {
           </Grid.Row>
 
           <Divider />
-          
+
           <Grid.Row divided>
             <Grid.Column width={5}>
               <SpecList specs={product}/>
@@ -85,7 +84,3 @@ export default class Product extends React.Component {
     )
   }
 }
-
-
-
-

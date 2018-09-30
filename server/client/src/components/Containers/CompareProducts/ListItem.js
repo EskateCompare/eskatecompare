@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Label, Table, Icon, Popup } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
+import Rating from '../Product/Rating';
 
 export default class ListItem extends Component {
   constructor(props){
@@ -43,17 +44,7 @@ export default class ListItem extends Component {
         <Table.Cell verticalAlign='middle'>{bestPrice != null ? '$' + bestPrice : "-"}</Table.Cell>
         <Table.Cell verticalAlign='middle'>
 
-          {ratings.compositeScore != null &&
-          <Label color={color}>
-            {ratings.compositeScore}%
-          </Label>
-          }
-          {ratings.compositeScore == null &&
-            <Popup trigger = {
-           <Icon name='question circle outline' color='blue' size='large' />}
-           content='No ratings yet!'
-           />
-            }
+        <Rating ratings={ratings} size='large' />
         </Table.Cell>
       </Table.Row>
     )
