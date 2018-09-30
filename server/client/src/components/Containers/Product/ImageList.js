@@ -56,7 +56,7 @@ export default class ImageList extends Component {
             largeImage: {
                 src: mainImage,
                 width: 1200,
-                height: 1800,
+                height: 1200,
             },
             isHintEnabled: true,
             lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' },
@@ -67,4 +67,3 @@ export default class ImageList extends Component {
     );
   }
 }
-

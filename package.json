@@ -21,7 +21,8 @@
   "author": "Michael Valentine & Warren Phen",
   "license": "MIT",
   "devDependencies": {
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "react-ga": "^2.5.3"
   },
   "dependencies": {}
 }

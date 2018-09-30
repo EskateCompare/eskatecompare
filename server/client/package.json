@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "gulp-cli": "^2.0.1",
+    "react-ga": "^2.5.3",
     "react-scripts": "0.6.1"
   },
   "devDependenciesComment": {
