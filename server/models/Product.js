@@ -87,6 +87,7 @@ let calculateScore = function(doc) {
   if (doc.toObject().ratings.hasOwnProperty('recommendations')) {
     let totalDiff = doc.ratings.recommendations.yes - doc.ratings.recommendations.no;
     let totalRecommendations = doc.ratings.recommendations.yes + doc.ratings.recommendations.maybe + doc.ratings.recommendations.no;
+    if (totalRecommendations < 1) return null
     let score = 50 + (( totalDiff / (totalRecommendations + 1)) * 50)
 
     return score

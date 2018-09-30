@@ -92,11 +92,14 @@ let createNewProduct = async function(name, productBody) {
       'maybe' : 0,
       'no' : 0
     }
+    newProduct.impressions = [];
 
     if (dottie.get(productBody, 'brand.name') != "" && dottie.get(productBody, 'brand.name') != undefined) {
       let brandObject = await Brand.findOne({name : dottie.get(productBody, 'brand.name')});
       if (brandObject) newProduct.brand = brandObject._id;
     }
+
+
 
     newProduct.save().then(function(newProd) {
       resolve();
