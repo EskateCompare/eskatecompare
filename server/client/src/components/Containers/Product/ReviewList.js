@@ -63,14 +63,14 @@ export default class ReviewList extends Component {
 
   handleImpression(event, target) {
     const { fetchPostImpressions, slug } = this.props;
-
+    console.log(event, target, 'target');
     const requestObject =
       {
         'product' : slug,
         'impression' : target.customId,
         'change' : {
-          'yes' : 1,
-          'no' : 0
+          'yes' : target.value === 'yes' ? 1 : 0,
+          'no' : target.value === 'no' ? 1 : 0,
         }
       }
 
@@ -78,30 +78,31 @@ export default class ReviewList extends Component {
   }
 
   renderImpressions() {
-    // if (!this.props.impressions) {
-    //   return
-    // }
+    if (!this.props.impressions) {
+      return
+    }
 
     const { impressions } = this.props;
 
-
-
     const renderImpressions = impressions.map((impression, index) => {
       return (
-        <Grid.Column> 
-          <Button fluid customId={impression.impression.customId} onClick={this.handleImpression}>
-            <Feed>        
-             <Feed.Event compact>
-                <Statistic size='mini'>
-                  <Statistic.Value>
-                    <Icon name='angle up' size='large' onMouseEnter={this.toggleVisibility} onMouseLeave={this.toggleVisibility}/>     
-                    </Statistic.Value>
-                  <Statistic.Label>{impression.votes.yes - impression.votes.no}</Statistic.Label>
-                </Statistic>
-                <Feed.Content style={{padding: '15px'}} content={impression.impression.content} />
-              </Feed.Event>
-            </Feed>
-          </Button>
+        <Grid.Column>
+
+          <Grid style={{ background: '#f8f8f9', borderRadius: '.28571429rem'}} columns={3} celled>
+              <Grid.Column width={3} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                {impression.votes.yes - impression.votes.no}
+              </Grid.Column>
+              <Grid.Column width={10} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                {impression.impression.content}
+              </Grid.Column>
+              <Grid.Column width={3} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0'}}>
+                <Button.Group icon vertical>
+                  <Button basic icon='angle up' onClick={this.handleImpression} customId={impression.impression.customId} value='yes'></Button>
+                  <Button basic icon='angle down' onClick={this.handleImpression} customId={impression.impression.customId} value='no'></Button>
+                </Button.Group>
+              </Grid.Column>
+          </Grid>
+
         </Grid.Column>
         )
       }
