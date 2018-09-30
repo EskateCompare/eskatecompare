@@ -52,7 +52,6 @@ export function fetchPostRecommendError(payload) {
 }
 
 export function fetchPostRecommend(payload) {
-  console.log(JSON.stringify(payload));
   return dispatch => {
     dispatch(requestPostRecommend())
     return fetch('/api/recommend', {
@@ -65,5 +64,71 @@ export function fetchPostRecommend(payload) {
     .then(response => response.json())
     .then(json => dispatch(receivePostRecommend(json)))
     .catch(err => dispatch(fetchPostRecommendError(err)))
+  }
+}
+
+export function requestImpressions() {
+  return {
+    type: 'REQUEST_IMPRESSIONS',
+  }
+}
+
+export function receiveImpressions(payload) {
+  return {
+    type: 'RECEIVE_IMPRESSIONS',
+    payload
+  }
+}
+
+export function fetchImpressionsError(payload) {
+  return {
+    type: 'FETCH_IMPRESSIONS_ERROR',
+    payload
+  }
+}
+
+export function fetchImpressions() {
+  return dispatch => {
+    dispatch(requestImpressions())
+    return fetch(`/api/impressions/`)
+      .then(response => response.json())
+      .then(json => dispatch(receiveImpressions(json)))
+      .catch(err => dispatch(fetchImpressionsError(err)))
+  }
+}
+
+export function requestPostImpressions() {
+  return {
+    type: 'REQUEST_POST_IMPRESSIONS',
+  }
+}
+
+export function receivePostImpressions(payload) {
+  return {
+    type: 'RECEIVE_POST_IMPRESSIONS',
+    payload
+  }
+}
+
+export function fetchPostImpressionsError(payload) {
+  return {
+    type: 'FETCH_POST_IMPRESSIONS_ERROR',
+    payload
+  }
+}
+
+export function fetchPostImpressions(payload) {
+  return dispatch => {
+    dispatch(requestPostImpressions())
+    return fetch('/api/impressions/', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(json => dispatch(receivePostImpressions(json)))
+    .catch(err => dispatch(fetchPostImpressionsError(err)))
   }
 }
