@@ -35,7 +35,7 @@ export default class Filter extends Component {
     fetchProducts(filterState);
 
     const query = queryString.stringify(filterState)
-    console.log(query);
+
     history.push({
       pathname: `/compare/${query}`,
     })

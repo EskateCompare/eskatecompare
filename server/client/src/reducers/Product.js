@@ -20,6 +20,7 @@ const defaultState = {
       image: {},
       additionalImages: [],
       slug: '',
+      impressions: [],
   	}
   },
   fetching: false,
@@ -59,6 +60,50 @@ export default (state = defaultState, action) => {
               ...state.product.product.ratings,
               recommendations: action.payload
             } 
+          }
+        }
+        // fetching: false
+    })
+    case 'REQUEST_IMPRESSIONS':
+      return Object.assign({}, state, {
+        // fetching: true
+    })
+    case 'FETCH_IMPRESSIONS_ERROR':
+      return Object.assign({}, state, {
+        error: action.payload
+    })
+    case 'RECEIVE_IMPRESSIONS':
+      return Object.assign({}, state, {
+        product: {
+          ...state.product,
+          product: {
+            ...state.product.product,
+            impressions: action.payload
+          }
+        }
+        // fetching: false
+    })
+    case 'REQUEST_POST_IMPRESSIONS':
+      return Object.assign({}, state, {
+        // fetching: true
+    })
+    case 'FETCH_POST_IMPRESSIONS_ERROR':
+      return Object.assign({}, state, {
+        error: action.payload
+    })
+    case 'RECEIVE_POST_IMPRESSIONS':
+      for (let i in state.product.product.impressions) {
+        if (state.product.product.impressions[i].impression.customId === action.payload.impression.customId) {
+          state.product.product.impressions[i] = action.payload
+        }
+      }
+
+      return Object.assign({}, state, {
+        product: {
+          ...state.product,
+          product: {
+            ...state.product.product,
+            impressions: state.product.product.impressions
           }
         }
         // fetching: false

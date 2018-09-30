@@ -7,16 +7,16 @@ import { Dimmer, Header, Icon, Grid, Image, Divider, Label, Rating, Loader, Segm
 
 export default class Product extends React.Component {
   componentDidMount() {
-    const { fetchProduct, match } = this.props;
+    const { fetchProduct, match, fetchImpressions } = this.props;
     
     fetchProduct(match.params.slug);
+    fetchImpressions();
   }
 
   render() {
     const { product } = this.props.product;
-    const { name, deals, reviews, brand, ratings, slug } = product;
-    const { fetchPostRecommend, addUserRecommendation, user } = this.props;
-    console.log(this.props)
+    const { name, deals, reviews, brand, ratings, slug, impressions } = product;
+    const { fetchPostRecommend, addUserRecommendation, user, fetchPostImpressions } = this.props;
 
     if (this.props.fetching) {
       return (
@@ -73,6 +73,8 @@ export default class Product extends React.Component {
                 reviews={reviews}
                 ratings={ratings}
                 fetchPostRecommend={fetchPostRecommend}
+                impressions={impressions}
+                fetchPostImpressions={fetchPostImpressions}
                 slug={slug}
                 addUserRecommendation={addUserRecommendation}
               />
