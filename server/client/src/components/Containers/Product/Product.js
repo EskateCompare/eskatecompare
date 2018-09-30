@@ -40,7 +40,9 @@ export default class Product extends React.Component {
           </Grid.Column>
           <Grid.Column floated='right' width={9}>
             <Header floated='right' as='h6'>
+            <div style={{'float': 'left'}}>
               <Rating ratings={ratings} size='large' />
+              </div>
               <Label>
                 <Icon name='checkmark' />
                 Last Updated
