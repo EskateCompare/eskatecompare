@@ -37,7 +37,9 @@ router.put('/normalizeRecommendations', async function(req, res, next) {
 router.put('/normalizeImpressions', async function(req, res, next) {
   Product.find({}).then(function(products) {
     products.forEach(async function(product) {
-      if (!product.toObject().hasOwnProperty('impressions') || product.impressions == null) {
+      console.log("ding");
+      if (!product.hasOwnProperty('impressions') || product.impressions == null) {
+        console.log("dong");
         product['impressions'] = [];
         product.save().then(function(prod) {
           console.log('saved', prod.name)

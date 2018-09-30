@@ -51,7 +51,8 @@ var ProductSchema = new mongoose.Schema({
     internal: {
       average: Number,
       amount: Number
-    }
+    },
+    compositeScore: Number
   },
   impressions: [
       { impression: { type: mongoose.Schema.Types.ObjectId, ref: 'Impression' },
@@ -82,27 +83,32 @@ ProductSchema.pre('validate', function(next) {
   next();
 });
 
-ProductSchema.post('save', async function(doc, next) {
-  //this.ratings.compositeScore = calculateScore(doc);
-  //this.save();
-})
-
-ProductSchema.post('update', async function(doc, next) {
-  //this.ratings.compositeScore = calculateScore(doc);
-  //this.save();
-})
-
 let calculateScore = function(doc) {
-  if (doc.ratings.toObject().hasOwnProperty('recommendations') && doc.ratings.recommendations.length > 0) {
+  if (doc.toObject().ratings.hasOwnProperty('recommendations')) {
     let totalDiff = doc.ratings.recommendations.yes - doc.ratings.recommendations.no;
     let totalRecommendations = doc.ratings.recommendations.yes + doc.ratings.recommendations.maybe + doc.ratings.recommendations.no;
-    let score = 50 + (( totalDiff / totalRecommendations + 1) * 50)
-    
+    let score = 50 + (( totalDiff / (totalRecommendations + 1)) * 50)
+
     return score
   } else {
     return null
   }
 }
+
+ProductSchema.pre('save', async function(next) {
+  console.log("HERE");
+  this.ratings.compositeScore = calculateScore(this);
+  console.log(this.ratings.compositeScore);
+  console.log("WHOO");
+  next();
+})
+
+/*ProductSchema.post('update', async function(next) {
+  this.ratings.compositeScore = calculateScore(this);
+  next();
+})*/
+
+
 
 //ProductSchema.index({ "name": "text"});
 ProductSchema.index({ "specs.style" : "text"})
