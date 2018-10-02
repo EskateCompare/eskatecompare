@@ -6,7 +6,7 @@ var fastCsv = require('fast-csv');
 
 var Impression = mongoose.model('Impression');
 
-router.get('/doChanges', async function(req, res, next) {
+router.put('/doChanges', async function(req, res, next) {
   fs.readFile("./csvs/staged_impressions_import.json", 'utf8', async function(err, contents) {
     if (err) return res.json({error: err})
     var changesObject = JSON.parse(contents);
@@ -15,7 +15,7 @@ router.get('/doChanges', async function(req, res, next) {
     var changePromises = changesObject.changes.map(function(impChanges) {
       return new Promise(async function(resolve, reject) {
         let impression;
-        impression = await Impression.findOne({customId: impChanges.CustomId}).lean().exec();
+        impression = await Impression.findOne({customId: impChanges.customId}).lean().exec();
         if (!impression) {
           if (!impChanges.changes.hasOwnProperty('new')) {
             console.log("error impression not found:", impChanges.text)
@@ -103,12 +103,14 @@ router.get('/findChanges/:filePath', async function(req, res, next) {
             dottie.set(thisObjectChanges['new'], field, entry[checkFieldsIndices[i]])
           })
           dottie.set(thisObjectChanges['new'], 'CustomId', entry[1])
-          changes.push({text: entry[0], changes : thisObjectChanges})
+          if (entry[0] != ""){
+            changes.push({text: entry[0], changes : thisObjectChanges})
+          }
         } else {
           thisObjectChanges = await getChanges(db_impression, entry, fieldsToCheck, checkFieldsIndices);
 
           if (thisObjectChanges.length > 0) {
-            changes.push({name: db_product.name, changes: thisObjectChanges})
+            changes.push({customId: db_impression.customId, changes: thisObjectChanges})
           }
         }
 

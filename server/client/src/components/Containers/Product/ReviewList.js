@@ -41,7 +41,7 @@ export default class ReviewList extends Component {
     }
 
     const { fetchPostRecommend, slug, addUserRecommendation, didUserRecommend } = this.props;
-   
+
     this.setState({ recommend: target.value })
 
     const requestObject = {
@@ -83,14 +83,16 @@ export default class ReviewList extends Component {
     }
 
     const { impressions } = this.props;
-
     const renderImpressions = impressions.map((impression, index) => {
+      let yesVotes = impression.votes && impression.votes.yes ? impression.votes.yes : 0;
+      let noVotes = impression.votes && impression.votes.no ? impression.votes.no : 0;
       return (
         <Grid.Column>
 
           <Grid style={{ background: '#f8f8f9', borderRadius: '.28571429rem'}} columns={3} celled>
               <Grid.Column width={3} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                {impression.votes.yes - impression.votes.no}
+
+                {yesVotes - noVotes}
               </Grid.Column>
               <Grid.Column width={10} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 {impression.impression.content}
@@ -132,7 +134,7 @@ export default class ReviewList extends Component {
             </Grid>
             <Divider hidden/>
           </Segment>
-          
+
         </div>
     );
   }

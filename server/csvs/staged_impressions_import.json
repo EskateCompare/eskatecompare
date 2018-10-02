@@ -1,12 +1,97 @@
 {
   "changes": [
     {
-      "text": "Little Sag",
+      "customId": 1,
+      "changes": [
+        {
+          "content": {
+            "old": "Great design",
+            "new": "Design"
+          }
+        }
+      ]
+    },
+    {
+      "customId": 7,
+      "changes": [
+        {
+          "content": {
+            "old": "Great Control",
+            "new": "Control"
+          }
+        }
+      ]
+    },
+    {
+      "customId": 3,
+      "changes": [
+        {
+          "content": {
+            "old": "Durable",
+            "new": "Build Quality"
+          }
+        }
+      ]
+    },
+    {
+      "customId": 5,
+      "changes": [
+        {
+          "content": {
+            "old": "Good Value",
+            "new": "Value"
+          }
+        }
+      ]
+    },
+    {
+      "text": "Customer Support",
       "changes": {
         "new": {
-          "content": "Little Sag",
+          "content": "Customer Support",
           "connotation": "positive",
-          "CustomId": "10"
+          "CustomId": "11"
+        }
+      }
+    },
+    {
+      "text": "Feel",
+      "changes": {
+        "new": {
+          "content": "Feel",
+          "connotation": "positive",
+          "CustomId": "14"
+        }
+      }
+    },
+    {
+      "customId": 10,
+      "changes": [
+        {
+          "content": {
+            "old": "Little Sag",
+            "new": "Low Battery Performance / Sag"
+          }
+        }
+      ]
+    },
+    {
+      "text": "Hill Climb",
+      "changes": {
+        "new": {
+          "content": "Hill Climb",
+          "connotation": "positive",
+          "CustomId": "12"
+        }
+      }
+    },
+    {
+      "text": "Accurate Manufacturer Specs",
+      "changes": {
+        "new": {
+          "content": "Accurate Manufacturer Specs",
+          "connotation": "positive",
+          "CustomId": "13"
         }
       }
     }
