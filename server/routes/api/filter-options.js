@@ -14,20 +14,23 @@ router.get('/', async function(req, res, next) {
   const referenceFilter = [
     { "title" : "brands", "type" : "discrete", "attribute" : "brand.name", "displayTitle" : "Brand", "formType" : "checkbox"},
     { "title" : "style", "type" : "discrete", "attribute" : "specs.style", "displayTitle" : "Style", "formType" : "checkbox" },
+    { "title" : "drive", "type" : "discrete", "attribute" : "specs.drive", "displayTitle" : "Drive", "formType" : "checkbox" },
+    { "title" : "terrain", "type" : "discrete", "attribute" : "specs.terrain", "displayTitle" : "Terrain", "formType" : "checkbox" },
     { "title" : "deckMaterials", "type" : "discrete", "attribute" : "specs.deckMaterials", "displayTitle" : "Deck Material", "formType" : "checkbox" },
     { "title" : "range", "type" : "ranges", "attribute" : "specs.range", "displayTitle" : "Range  (miles)", "formType" : "checkbox",
       "ranges" : [[0, 10], [10, 17], [17, 24], [24]] },
-    { "title" : "drive", "type" : "discrete", "attribute" : "specs.drive", "displayTitle" : "Drive", "formType" : "checkbox" },
+
     /*{ "title" : "batteryCapacity", "type" : "ranges", "attribute" : "specs.batteryCapacity",  "displayTitle" : "Battery Capacity (mAh)", "formType" : "checkbox",
       "ranges": [[0, 3000], [3000, 6000], [6000, 10000], [10000]] },*/
 
     { "title" : "speed", "type" : "ranges", "attribute" : "specs.speed",  "displayTitle" : "Speed (mph)", "formType" : "checkbox",
       "ranges" : [[0, 15], [15, 20], [20, 25], [25]] },
-    { "title" : "terrain", "type" : "discrete", "attribute" : "specs.terrain", "displayTitle" : "Terrain", "formType" : "checkbox" },
     { "title" : "features", "type" : "discrete", "attribute" : "specs.tags", "displayTitle" : "Features", "formType" : "checkbox", "logicType" : "and" },
-    { "title" : "year", "type" : "discrete", "attribute" : "specs.year", "displayTitle" : "Year", "formType" : "checkbox" },
     { "title" : "price", "type" : "ranges", "attribute" : "bestPrice", "formType" : "checkbox", "displayTitle" : "Price",
       "ranges" : [[0, 250], [250, 500], [500, 1000], [1000, 1500], [1500]] },
+
+    { "title" : "year", "type" : "discrete", "attribute" : "specs.year", "displayTitle" : "Year", "formType" : "checkbox" },
+
 
     { "title" : "weight", "type" : "ranges", "attribute" : "specs.weight",  "displayTitle" : "Weight (pounds)", "formType" : "checkbox",
       "ranges" : [[0, 12], [12, 15], [15, 18], [18]] },
@@ -35,7 +38,7 @@ router.get('/', async function(req, res, next) {
       "ranges" : [[0, 200], [200, 250], [250, 300], [300]] },
 
     { "title" : "width", "type" : "ranges", "attribute" : "specs.width" ,  "displayTitle" : "Board Width (inches)", "formType" : "checkbox",
-      "ranges" : [[0, 5], [5, 6], [6, 7], [7]] },
+      "ranges" : [[0, 8], [8, 10], [10, 12], [12]] },
     /*{ "title" : "trucksWidth", "type" : "ranges", "attribute" : "specs.trucksWidth",  "displayTitle" : "Trucks Width (inches)", "formType" : "checkbox",
       "ranges": [[0, 10], [10, 12], [12, 15], [15]] },*/
     { "title" : "length", "type" : "ranges", "attribute" : "specs.length" ,  "displayTitle" : "Board Length (inches)", "formType" : "checkbox",
@@ -58,7 +61,7 @@ router.get('/', async function(req, res, next) {
     { "title" : "manufacturerWarranty", "type" : "ranges", "attribute" : "specs.manufacturerWarranty",  "displayTitle" : "Manufacturer Warranty (months)", "formType" : "checkbox",
       "ranges": [[0, 6], [6, 12], [12, 24], [24]] },
     { "title" : "rating", "type" : "range", "attribute" : "ratings.compositeScore", "displayTitle" : "Rating", "formType" : "checkbox",
-      "ranges" : [[0, 60], [60, 70], [70, 80], [80, 90], [90]] }
+      "ranges" : [[0, 50], [50, 60], [60, 70], [70, 80], [80, 90], [90]] }
   ]
 
   let stats = {};
