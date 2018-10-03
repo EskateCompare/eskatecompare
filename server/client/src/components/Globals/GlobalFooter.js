@@ -23,6 +23,7 @@ class GlobalFooter extends Component {
     this.close = this.close.bind(this);
     this.handleEmailOnChange = this.handleEmailOnChange.bind(this);
     this.handleFeedbackOnChange = this.handleFeedbackOnChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   show(){
@@ -38,6 +39,10 @@ class GlobalFooter extends Component {
   }
 
   close() {
+    this.setState({ open: false })
+  }
+
+  handleSubmit(event, target) {
     const { fetchPostFeedback } = this.props;
     const { email, content } = this.state;
 
@@ -47,9 +52,12 @@ class GlobalFooter extends Component {
         content: content
       }
     }
+    
+    if (email || content) {
+     fetchPostFeedback(requestObject)
+    }
 
-    fetchPostFeedback(requestObject)
-    this.setState({ open: false })
+    this.close();
   }
 
   render() {
@@ -69,7 +77,7 @@ class GlobalFooter extends Component {
           </List>
           </Container>
         </Segment>
-        <Modal style={{height: '320px'}} className='scrolling' dimmer='inverted' open={open} onClose={open}>
+        <Modal style={{height: '320px'}} className='scrolling' dimmer='inverted' open={open} onClose={this.close}>
           <Modal.Header>Submit Feedback</Modal.Header>
           <Modal.Content>
             <Form>
@@ -83,7 +91,7 @@ class GlobalFooter extends Component {
               primary
               fluid
               content='Submit'
-              onClick={this.close}
+              onClick={this.handleSubmit}
             />
           </Modal.Actions>
         </Modal>

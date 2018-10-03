@@ -27,12 +27,7 @@ export default class CompareProducts extends Component {
               <Label>
                 <Icon name='user circle' />
                 {internalReviewsCount}
-                <Label.Detail>User Reviews</Label.Detail>
-              </Label>
-              <Label>
-                <Icon name='external' />
-                {externalReviewsCount}
-                <Label.Detail>External Reviews</Label.Detail>
+                <Label.Detail>User Recommendations</Label.Detail>
               </Label>
               <Label>
                 <Icon name='checkmark' />
