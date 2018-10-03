@@ -86,6 +86,7 @@ export default class ReviewList extends Component {
     const renderImpressions = impressions.map((impression, index) => {
       let yesVotes = impression.votes && impression.votes.yes ? impression.votes.yes : 0;
       let noVotes = impression.votes && impression.votes.no ? impression.votes.no : 0;
+      let content = impression.impression.content ? impression.impression.content : "";
       return (
         <Grid.Column>
 
@@ -95,7 +96,7 @@ export default class ReviewList extends Component {
                 {yesVotes - noVotes}
               </Grid.Column>
               <Grid.Column width={10} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                {impression.impression.content}
+                {content}
               </Grid.Column>
               <Grid.Column width={3} style={{display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0'}}>
                 <Button.Group icon vertical>

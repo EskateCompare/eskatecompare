@@ -32,3 +32,10 @@ DealSchema.post('save', async function(doc, next) {
 
   })
 })
+
+DealSchema.pre('remove', async function(doc, next) {
+  console.log("HERE");
+  console.log('doc',doc);
+  //remove deal from associated product
+  
+})
