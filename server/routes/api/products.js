@@ -50,9 +50,9 @@ router.get('/:slug', async function(req, res, next) {
   //front-end mapping
 
   const frontEndMap = {
-    "dbKey" :        ["year", "range", "speed", "weight", "drive", "batteryCapacity", "batteryRemovable", "width", "length", "waterproof", "terrain", "style", "deckMaterials", "travelSafe"],
-    "displayName" :  ["Year", "Range", "Speed", "Weight", "Drive", "Battery Capacity", "Battery Removable", "Width", "Length", "Waterproof", "Terrain", "Style", "Deck Material", "Travel Safe"],
-    "semanticIcon" : ["calendar check outline", "map marker alternate", "dashboard", "balance scale", "power off", "battery three quarters", "plug", "arrows alternate horizontal", "arrows alternate vertical", "tint", "road", "adjust", "diamond", "plane"]
+    "dbKey" :        ["year",                   "range",                  "speed",  "weight",       "maxWeight", "drive",    "batteryPower",               "hillGrade",                "speedModes",       "batteryCapacity",          "batteryWattHours",        "batteryRemovable",   "chargeTime",            "width",                       "length",                   "wheelDiameter", "terrain", "style",  "deckMaterials", "manufacturerWarranty",   "tags"],
+    "displayName" :  ["Year",                   "Range",                  "Speed",  "Weight",       "Max Load", "Motor",     "Wattage",                   "Hill Grade",                "Speed Modes",      "Battery Capacity",         "Battery WattHours" ,     "Battery Removable",   "Charge Time",          "Width",                       "Length",                    "Wheel Diameter", "Terrain", "Style",  "Deck Material", "Manufacturer Warranty",  "Features"],
+    "semanticIcon" : ["calendar check outline", "map marker alternate", "dashboard", "balance scale", "weight", "power off", "lightning",    "external square alternate",             "numbered list",    "battery three quarters",   "battery three quarters",               "plug",               "time",                 "arrows alternate horizontal", "arrows alternate vertical", "dot circle",       "road",    "adjust", "diamond",        "tty",                 "tags"]
   }
 
   var displaySpecs = [];
