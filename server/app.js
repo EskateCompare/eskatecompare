@@ -54,6 +54,7 @@ require('./models/Review');
 require ('./models/Store');
 require ('./models/Deal');
 require ('./models/UpdateStats');
+require ('./models/Feedback');
 
 
 app.use(require('./routes'));

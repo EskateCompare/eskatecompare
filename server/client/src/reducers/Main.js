@@ -1,7 +1,7 @@
 const defaultState = {
   searchResults: [],
   fetching: false,
-  error: null
+  error: null,
 };
 
 export default (state = defaultState, action) => {
@@ -31,6 +31,18 @@ export default (state = defaultState, action) => {
     case 'REDIRECT':
       return Object.assign({}, state, {
           redirectTo: null
+    })
+    case 'REQUEST_POST_FEEDBACK':
+      return Object.assign({}, state, {
+        // fetching: true
+    })
+    case 'FETCH_POST_FEEDBACK_ERROR':
+      return Object.assign({}, state, {
+        error: action.payload
+    })
+    case 'RECEIVE_POST_FEEDBACK':
+      return Object.assign({}, state, {
+        // fetching: false
     })
     default:
       return state;

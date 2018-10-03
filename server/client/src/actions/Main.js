@@ -30,6 +30,42 @@ export function fetchTextSearch(payload) {
   }
 }
 
+export function requestPostFeedback() {
+  return {
+    type: 'REQUEST_POST_FEEDBACK',
+  }
+}
+
+export function receivePostFeedback(payload) {
+  return {
+    type: 'RECEIVE_POST_FEEDBACK',
+    payload
+  }
+}
+
+export function fetchPostFeedbackError(payload) {
+  return {
+    type: 'FETCH_POST_FEEDBACK_ERROR',
+    payload
+  }
+}
+
+export function fetchPostFeedback(payload) {
+  return dispatch => {
+    dispatch(requestPostFeedback())
+    return fetch('/api/feedback', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(json => dispatch(receivePostFeedback(json)))
+    .catch(err => dispatch(fetchPostFeedbackError(err)))
+  }
+}
+
 export function redirectToSelectedProduct(payload) {
   return {
     type: 'PRODUCT_SELECTED_TEXT_SEARCH',

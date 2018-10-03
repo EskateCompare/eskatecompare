@@ -1,15 +1,59 @@
 import React, { Component } from 'react';
-import { Container, List, Segment, Grid, Header, Icon, Modal, Button, Image, Form, TextArea } from 'semantic-ui-react';
+import { Container, List, Segment, Grid, Header, Icon, Modal, Button, Image, Form, TextArea, Input, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { fetchPostFeedback } from '../../actions/Main';
+
+const mapStateToProps = state => ({
+  ...state.Main
+})
+
+const mapDispatchToProps = dispatch => ({
+  fetchPostFeedback: (payload) => dispatch(fetchPostFeedback(payload)),
+})
 
 class GlobalFooter extends Component {
-  state = { open: false }
+  constructor() {
+    super()
 
-  show = dimmer => () => this.setState({ dimmer, open: true })
-  close = () => this.setState({ open: false })
+    this.state = { open: false, email: '', content: '' }
+
+    this.show = this.show.bind(this);
+    this.close = this.close.bind(this);
+    this.handleEmailOnChange = this.handleEmailOnChange.bind(this);
+    this.handleFeedbackOnChange = this.handleFeedbackOnChange.bind(this);
+  }
+
+  show(){
+    this.setState({ open: true })
+  }
+
+  handleFeedbackOnChange(event, target){
+    this.setState({ content: target.value})
+  }
+
+  handleEmailOnChange(event, target){
+    this.setState({ email: target.value })
+  }
+
+  close() {
+    const { fetchPostFeedback } = this.props;
+    const { email, content } = this.state;
+
+    const requestObject = {
+      feedback: {
+        email: email,
+        content: content
+      }
+    }
+
+    fetchPostFeedback(requestObject)
+    this.setState({ open: false })
+  }
 
   render() {
-    const { open, dimmer } = this.state
+    const { open } = this.state
 
     return (
       <div>
@@ -21,23 +65,23 @@ class GlobalFooter extends Component {
 
           <List inverted horizontal>
             <List.Item as={Link} to='/about'>About</List.Item>
-            <List.Item onClick={this.show('inverted')}>Feedback</List.Item>
+            <List.Item onClick={this.show}>Feedback</List.Item>
           </List>
           </Container>
         </Segment>
-        <Modal style={{height: '250px'}} className='scrolling' dimmer={dimmer} open={open} onClose={this.close}>
+        <Modal style={{height: '320px'}} className='scrolling' dimmer='inverted' open={open} onClose={open}>
           <Modal.Header>Submit Feedback</Modal.Header>
           <Modal.Content>
             <Form>
-              <TextArea autoHeight placeholder='We love hearing from you!' />
+              <Input onChange={this.handleEmailOnChange} fluid icon='at' placeholder='Email' />
+              <Divider hidden/>
+              <TextArea onChange={this.handleFeedbackOnChange} autoHeight placeholder='We love hearing from you!' />
             </Form>
           </Modal.Content>
           <Modal.Actions>
             <Button
               primary
               fluid
-              icon='checkmark'
-              labelPosition='right'
               content='Submit'
               onClick={this.close}
             />
@@ -48,7 +92,7 @@ class GlobalFooter extends Component {
   }
 }
 
-export default GlobalFooter;
+export default connect(mapStateToProps, mapDispatchToProps)(GlobalFooter);
 
 
   
