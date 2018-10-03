@@ -88,7 +88,7 @@ class Home extends Component {
       return <Redirect push to={`/product/${this.state.link}`} />;
     }
 
-    const renderedBestDeals = this.renderBestDeals();
+    // const renderedBestDeals = this.renderBestDeals();
 
     return (
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
@@ -214,19 +214,22 @@ class Home extends Component {
             </Grid>
           </Container>
         </Segment>
-        <Segment style={{ padding: '2em 0em'}} vertical>
-          <Container>
-            <Header as='h3' style={{ fontSize: '2em' }}>
-              Recent Best Deals
-            </Header>
-            <Image.Group size='small'>
-              {renderedBestDeals}
-            </Image.Group>
-          </Container>
-        </Segment>
+       
       </Responsive>
     )
   }
 }
 
 export default Home;
+
+
+ // <Segment style={{ padding: '2em 0em'}} vertical>
+        //   <Container>
+        //     <Header as='h3' style={{ fontSize: '2em' }}>
+        //       Recent Best Deals
+        //     </Header>
+        //     <Image.Group size='small'>
+        //       {renderedBestDeals}
+        //     </Image.Group>
+        //   </Container>
+        // </Segment>
