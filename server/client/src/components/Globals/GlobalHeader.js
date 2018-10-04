@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Container, Menu, Search } from 'semantic-ui-react';
+import { Container, Menu, Search, Image } from 'semantic-ui-react';
 import {
   onFilterChange,
   fetchProducts,
@@ -60,10 +60,10 @@ class GlobalHeader extends Component {
       <div>
         <Menu fixed='top' inverted stackable>
           <Container>
-            <Menu.Item as={NavLink} name='home' to='/'>
-              <img src='https://react.semantic-ui.com/logo.png' alt=''/>
-            </Menu.Item>
-            <Menu.Item as={NavLink} to='/compare/top-electric-skateboards' name='skateboard' onClick={this.handleNavClickAllProducts}>
+            <Link to='/'>
+              <Image src='https://s3.amazonaws.com/eskate-compare/product+images/branding/logos/header-logo-white-final.png' verticalAlign='middle' fluid='false' size='small' style={{'margin-top': '16px'}} />
+            </Link>
+            <Menu.Item as={NavLink} to='/compare/top-electric-skateboards' name='skateboard' onClick={this.handleNavClickAllProducts} style={{'margin-left' : '45px'}}>
               Electric Boards
             </Menu.Item>
             <Menu.Item as={NavLink} to='/compare/top-electric-longboards' name='longboard' onClick={this.handleNavClick}>

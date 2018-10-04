@@ -17,7 +17,7 @@ import {
   Sidebar,
   Visibility,
   Input,
-  Search,
+  Search
 } from 'semantic-ui-react'
 import _ from 'lodash';
 
@@ -89,7 +89,7 @@ class Home extends Component {
     }
 
     const renderedBestDeals = this.renderBestDeals();
-
+    const menuLinkStyle = {'align-self' : 'center'}
     return (
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
         <Visibility
@@ -101,7 +101,7 @@ class Home extends Component {
             as='div'
             inverted
             textAlign='center'
-            style={{ minHeight: 700, padding: '1em 0em', backgroundSize: 'cover', backgroundImage: "url('https://i.pinimg.com/originals/95/17/2c/95172c428ff98f0ec83d3e9679a863d5.jpg')" }}
+            style={{ minHeight: 700, padding: '0em 0em', backgroundSize: 'cover', backgroundImage: "url('https://i.pinimg.com/originals/95/17/2c/95172c428ff98f0ec83d3e9679a863d5.jpg')" }}
             vertical
           >
             <Menu
@@ -113,16 +113,16 @@ class Home extends Component {
               style={{border: 'none'}}
             >
               <Container>
-                <Menu.Item as={NavLink} name='home' to='/'>
-                  <img src='https://react.semantic-ui.com/logo.png' alt=''/>
-                </Menu.Item>
-                <Menu.Item as={NavLink} to='/compare/top-electric-skateboards' name='skateboard' onClick={this.handleNavClickAllProducts}>
+                <Link to='/'>
+                  <Image src='https://s3.amazonaws.com/eskate-compare/product+images/branding/logos/header-logo-black-final.png' verticalAlign='middle' fluid='false' size='small' style={{'margin-top': '16px', 'margin-right' : '45px'}} />
+                </Link>
+                <Menu.Item as={NavLink} to='/compare/top-electric-skateboards' name='skateboard' onClick={this.handleNavClickAllProducts} style={menuLinkStyle}>
                   Electric Boards
                 </Menu.Item>
-                <Menu.Item as={NavLink} to='/compare/top-electric-longboards' name='longboard' onClick={this.handleNavClick}>
+                <Menu.Item as={NavLink} to='/compare/top-electric-longboards' name='longboard' onClick={this.handleNavClick} style={menuLinkStyle}>
                   Electric Long Boards
                 </Menu.Item>
-                <Menu.Item as={NavLink} to='/compare/top-electric-pennyboards' name='pennyboard' onClick={this.handleNavClick}>
+                <Menu.Item as={NavLink} to='/compare/top-electric-pennyboards' name='pennyboard' onClick={this.handleNavClick} style={menuLinkStyle}>
                   Electric Penny Boards
                 </Menu.Item>
                 <Menu.Item position='right'>
