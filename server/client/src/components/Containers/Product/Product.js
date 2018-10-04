@@ -8,10 +8,18 @@ import { Dimmer, Header, Icon, Grid, Image, Divider, Label,  Loader, Segment } f
 
 export default class Product extends React.Component {
   componentDidMount() {
-    const { fetchProduct, match, fetchImpressions } = this.props;
-
+    const { fetchProduct, match, fetchImpressions, product } = this.props;
+    
     fetchProduct(match.params.slug);
     fetchImpressions();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { product } = this.props;
+
+    if (prevProps.product !== product) {
+      document.title = `eboardist | ${product.product.name}`
+    } 
   }
 
   render() {
