@@ -44,7 +44,7 @@ class About extends Component {
 					        <Item.Header>Warren EP</Item.Header>
 					        <Item.Meta content='Software Engineer' />
 					        <Item.Description>
-					        	Warren created all the frontend layouts and design.  Give him some feedback at the bottom of the page!
+					        	Warren created the frontend layouts and design.  Give him some feedback at the bottom of the page! 
 					        	He's super into strength training, loves to travel and is looking for his next big adventure!
 					        </Item.Description>
 					        <Item.Extra>

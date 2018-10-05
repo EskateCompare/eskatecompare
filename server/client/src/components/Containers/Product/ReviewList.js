@@ -63,8 +63,8 @@ export default class ReviewList extends Component {
 
   handleImpression(event, target) {
     const { fetchPostImpressions, slug } = this.props;
-    console.log(event, target, 'target');
-    const requestObject =
+
+    let requestObject =
       {
         'product' : slug,
         'impression' : target.customId,
@@ -89,10 +89,8 @@ export default class ReviewList extends Component {
       let content = impression.impression && impression.impression.content ? impression.impression.content : "";
       return (
         <Grid.Column>
-
           <Grid style={{ background: '#f8f8f9', borderRadius: '.28571429rem'}} columns={3} celled>
               <Grid.Column width={3} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-
                 {yesVotes - noVotes}
               </Grid.Column>
               <Grid.Column width={10} style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
