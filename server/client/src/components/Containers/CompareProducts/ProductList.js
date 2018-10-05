@@ -17,6 +17,14 @@ export default class ProductList extends Component {
     this.appendListItems = this.appendListItems.bind(this);
   }
 
+  componentDidMount(){
+    this.props.onSortDirection({ page: 1 })
+  }
+
+  componentWillUnMount(){
+    this.props.onSortDirection({ page: 1 })
+  }
+
   handleSortDirection(e, target) {
     const { onSortDirection } = this.props;
     const { sortIcon } = this.state;
@@ -40,7 +48,7 @@ export default class ProductList extends Component {
   }
 
   handleSortBy(e, value) {
-    const { onSortBy, onClearFilter } = this.props;
+    const { onSortBy } = this.props;
 
     this.setState({ filterText: value.text });
     onSortBy({ sortBy: value.text, page: 1 })
