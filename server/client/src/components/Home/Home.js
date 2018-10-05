@@ -126,29 +126,19 @@ class Home extends Component {
                   Electric Long Boards
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/compare/top-electric-pennyboards' name='pennyboard' onClick={this.handleNavClick} style={menuLinkStyle}>
-=======
-                <Menu.Item as={NavLink} name='home' to='/'>
-                  <img src='https://react.semantic-ui.com/logo.png' alt=''/>
+                Electric Penny Boards
                 </Menu.Item>
-                <Menu.Item as={NavLink} to='/compare/top-electric-skateboards' type='style' name='skateboard' onClick={this.handleNavClickAllProducts}>
-                  Electric Boards
-                </Menu.Item>
-                <Menu.Item as={NavLink} to='/compare/top-electric-longboards' type='style' name='longboard' onClick={this.handleNavClick}>
-                  Electric Long Boards
-                </Menu.Item>
-                <Menu.Item as={NavLink} to='/compare/top-electric-pennyboards' type='style' name='pennyboard' onClick={this.handleNavClick}>
 
-                  Electric Penny Boards
-                </Menu.Item>
+
+
                 <Menu.Item position='right'>
                   <Search
                     onSearchChange={_.debounce(this.handleOnTextSearchChange, 250, { leading: false })}
                     onResultSelect={this.handleResultSelect}
                     loading={this.props.fetching}
                     results={this.props.searchResults}
-                    placeholder='Search...'
-                  />
-                </Menu.Item>
+                    placeholder='Search...' />
+                  </Menu.Item>
               </Container>
             </Menu>
             <Container text>
