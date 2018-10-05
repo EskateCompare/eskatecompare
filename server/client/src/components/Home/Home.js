@@ -44,7 +44,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchProducts();
+    document.title = 'eboardist'
   }
 
   handleOnBoardTypeSelect(e, target) {
@@ -62,7 +62,7 @@ class Home extends Component {
 
   handleNavClick(event, data) {
     this.props.onClearFilter();
-    this.props.onFilterChange({ style: data.name, checked: true });
+    this.props.onFilterChange({ [data.type]: data.name, checked: true });
   }
 
   handleNavClickAllProducts(event, data) {
@@ -88,8 +88,10 @@ class Home extends Component {
       return <Redirect push to={`/product/${this.state.link}`} />;
     }
 
-    const renderedBestDeals = this.renderBestDeals();
+
+    //const renderedBestDeals = this.renderBestDeals();
     const menuLinkStyle = {'align-self' : 'center'}
+
     return (
       <Responsive minWidth={Responsive.onlyTablet.minWidth}>
         <Visibility
@@ -113,6 +115,7 @@ class Home extends Component {
               style={{border: 'none'}}
             >
               <Container>
+
                 <Link to='/'>
                   <Image src='https://s3.amazonaws.com/eskate-compare/product+images/branding/logos/header-logo-black-final.png' verticalAlign='middle' fluid='false' size='small' style={{'margin-top': '16px', 'margin-right' : '45px'}} />
                 </Link>
@@ -123,6 +126,18 @@ class Home extends Component {
                   Electric Long Boards
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/compare/top-electric-pennyboards' name='pennyboard' onClick={this.handleNavClick} style={menuLinkStyle}>
+=======
+                <Menu.Item as={NavLink} name='home' to='/'>
+                  <img src='https://react.semantic-ui.com/logo.png' alt=''/>
+                </Menu.Item>
+                <Menu.Item as={NavLink} to='/compare/top-electric-skateboards' type='style' name='skateboard' onClick={this.handleNavClickAllProducts}>
+                  Electric Boards
+                </Menu.Item>
+                <Menu.Item as={NavLink} to='/compare/top-electric-longboards' type='style' name='longboard' onClick={this.handleNavClick}>
+                  Electric Long Boards
+                </Menu.Item>
+                <Menu.Item as={NavLink} to='/compare/top-electric-pennyboards' type='style' name='pennyboard' onClick={this.handleNavClick}>
+
                   Electric Penny Boards
                 </Menu.Item>
                 <Menu.Item position='right'>
@@ -167,66 +182,69 @@ class Home extends Component {
                 <br />
                 <List link>
                   <Header as='h5' content='Top Brands'/>
-                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards' onClick={this.handleNavClick}>Boosted</List.Item>
-                  <List.Item as={Link} to='/compare/top-evolve-electric-skateboards'>Evolve</List.Item>
-                  <List.Item as={Link} to='/compare/top-inboard-electric-skateboards'>InBoard</List.Item>
-                  <List.Item as={Link} to='/compare/top-halo-electric-skateboards'>Halo</List.Item>
-                  <List.Item as={Link} to='/compare/top-soflow-skateboards'>So Flow</List.Item>
+                  <List.Item as={Link} to='/compare/top-boosted-electric-skateboards' name='Boosted' type='brands' onClick={this.handleNavClick}>Boosted</List.Item>
+                  <List.Item as={Link} to='/compare/top-evolve-electric-skateboards' name='Evolve' type='brands' onClick={this.handleNavClick}>Evolve</List.Item>
+                  <List.Item as={Link} to='/compare/top-inboard-electric-skateboards' name='Inboard' type='brands' onClick={this.handleNavClick}>InBoard</List.Item>
+                  <List.Item as={Link} to='/compare/top-halo-electric-skateboards' name='Halo' type='brands' onClick={this.handleNavClick}>Halo</List.Item>
+                  <List.Item as={Link} to='/compare/top-soflow-skateboards' name='SoFlow' type='brands' onClick={this.handleNavClick}>SoFlow</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column>
               <br />
                 <List link>
                   <Header as='h5' content='Top Overall'/>
-                  <List.Item as={Link} to='/compare/top-electric-longboards'>Electric Longboards</List.Item>
-                  <List.Item as={Link} to='/compare/top-electric-pennyboards'>Electric Pennyboards</List.Item>
+                  <List.Item as={Link} to='/compare/top-electric-longboards' name='longboard' type='style' onClick={this.handleNavClick}>Electric Longboards</List.Item>
+                  <List.Item as={Link} to='/compare/top-electric-pennyboards' name='pennyboard' type='style' onClick={this.handleNavClick}>Electric Pennyboards</List.Item>
                   <br />
-                  <List.Item as={Link} to='/compare/top-electric-skateboards-under-500'>Electric Skateboards Under 500</List.Item>
-                  <List.Item as={Link} to='/compare/top-electric-skateboards-under-1000'>Electric Skateboards Under 1000</List.Item>
+                  <List.Item as={Link} to='/compare/top-electric-skateboards-under-500' name={['0-250', '250-500']} type='price' onClick={this.handleNavClick}>Electric Skateboards Under 500</List.Item>
+                  <List.Item as={Link} to='/compare/top-electric-skateboards-under-1000' name={['0-250', '250-500', '500-1000']} type='price' onClick={this.handleNavClick}>Electric Skateboards Under 1000</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column>
               <br />
                 <List link>
                   <Header as='h5' content='Top Features'/>
-                  <List.Item as={Link} to='/compare/top-all-terrain-electric-skateboards'>All Terrain</List.Item>
-                  <List.Item as={Link} to='/compare/top-waterproof-electric-skateboards'>Waterproof</List.Item>
-                  <List.Item as={Link} to='/compare/top-travel-safe-electric-skateboards'>Travel Safe</List.Item>
+                  <List.Item as={Link} to='/compare/top-all-terrain-electric-skateboards' name='all' type='terrain' onClick={this.handleNavClick}>All Terrain</List.Item>
+                  <List.Item as={Link} to='/compare/top-waterproof-electric-skateboards' name='water resistant' type='features' onClick={this.handleNavClick}>Waterproof</List.Item>
+                  <List.Item as={Link} to='/compare/top-travel-safe-electric-skateboards' name='travel safe' type='features' onClick={this.handleNavClick}>Travel Safe</List.Item>
                   <br />
-                  <List.Item as={Link} to='/compare/top-fastest-electric-skateboards'>Fastest</List.Item>
-                  <List.Item as={Link} to='/compare/top-longest-range-electric-skateboards'>Longest Range</List.Item>
-                  <List.Item as={Link} to='/compare/top-newest-electric-skateboards'>Newest</List.Item>
+                  <List.Item as={Link} to='/compare/top-fastest-electric-skateboards' name='25+' type='speed' onClick={this.handleNavClick}>Fastest</List.Item>
+                  <List.Item as={Link} to='/compare/top-longest-range-electric-skateboards' name='24+' type='range' onClick={this.handleNavClick}>Longest Range</List.Item>
+                  <List.Item as={Link} to='/compare/top-newest-electric-skateboards' name='2018' type='year' onClick={this.handleNavClick}>Newest</List.Item>
                 </List>
               </Grid.Column>
               <Grid.Column>
               <br />
                 <List link>
                 <Header as='h5' content='Material Type'/>
-                  <List.Item as={Link} to='/compare/top-bamboo-electric-skateboards'>Bamboo</List.Item>
-                  <List.Item as={Link} to='/compare/top-carbon-fiber-electric-skateboards'>Carbon Fiber</List.Item>
-                  <List.Item as={Link} to='/compare/top-wood-electric-skateboards'>Wood</List.Item>
+                  <List.Item as={Link} to='/compare/top-bamboo-electric-skateboards' name='bamboo' type='deckMaterials' onClick={this.handleNavClick}>Bamboo</List.Item>
+                  <List.Item as={Link} to='/compare/top-carbon-fiber-electric-skateboards' name='carbon fiber' type='deckMaterials' onClick={this.handleNavClick}>Carbon Fiber</List.Item>
+                  <List.Item as={Link} to='/compare/top-wood-electric-skateboards' name='wood' type='deckMaterials' onClick={this.handleNavClick}>Wood</List.Item>
                   <br />
                   <Header as='h5' content='Motor Type'/>
-                  <List.Item as={Link} to='/compare/top-hub-motor-electric-skateboards'>Hub</List.Item>
-                  <List.Item as={Link} to='/compare/top-belt-electric-skateboards'>Belt</List.Item>
+                  <List.Item as={Link} to='/compare/top-hub-motor-electric-skateboards' name='hub motor' type='drive' onClick={this.handleNavClick}>Hub</List.Item>
+                  <List.Item as={Link} to='/compare/top-belt-electric-skateboards' name='belt' type='drive' onClick={this.handleNavClick}>Belt</List.Item>
                 </List>
               </Grid.Column>
             </Grid>
           </Container>
         </Segment>
-        <Segment style={{ padding: '2em 0em'}} vertical>
-          <Container>
-            <Header as='h3' style={{ fontSize: '2em' }}>
-              Recent Best Deals
-            </Header>
-            <Image.Group size='small'>
-              {renderedBestDeals}
-            </Image.Group>
-          </Container>
-        </Segment>
+
       </Responsive>
     )
   }
 }
 
 export default Home;
+
+
+ // <Segment style={{ padding: '2em 0em'}} vertical>
+        //   <Container>
+        //     <Header as='h3' style={{ fontSize: '2em' }}>
+        //       Recent Best Deals
+        //     </Header>
+        //     <Image.Group size='small'>
+        //       {renderedBestDeals}
+        //     </Image.Group>
+        //   </Container>
+        // </Segment>

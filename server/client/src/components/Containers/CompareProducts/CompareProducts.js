@@ -6,6 +6,7 @@ import { Header, Icon, Grid, Label } from 'semantic-ui-react';
 export default class CompareProducts extends Component {
   componentDidMount() {
     const { fetchFilter, fetchProducts, filterState } = this.props;
+    document.title = "eboardist | Compare Electric Skateboards"
 
     fetchProducts(filterState);
     fetchFilter(filterState);
