@@ -32,7 +32,7 @@ router.post('/', async function(req, res, next) {
       productHasImpression = false;
       let impressionObject = {};
       let impression = await Impression.findOne({ customId: req.body.impression}).exec();
-      impressionObject.impression = impression._id;
+      impressionObject.impression = impression
       impressionObject.votes = {
         yes : 0,
         no : 0

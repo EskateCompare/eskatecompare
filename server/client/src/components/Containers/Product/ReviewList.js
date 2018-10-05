@@ -86,7 +86,7 @@ export default class ReviewList extends Component {
     const renderImpressions = impressions.map((impression, index) => {
       let yesVotes = impression.votes && impression.votes.yes ? impression.votes.yes : 0;
       let noVotes = impression.votes && impression.votes.no ? impression.votes.no : 0;
-      let content = impression.impression.content ? impression.impression.content : "";
+      let content = impression.impression && impression.impression.content ? impression.impression.content : "";
       return (
         <Grid.Column>
 
