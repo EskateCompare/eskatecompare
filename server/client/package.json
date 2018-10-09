@@ -27,7 +27,7 @@
     "react-redux": "latest",
     "react-router": "latest",
     "react-router-dom": "latest",
-    "react-scripts": "1.0.13",
+    "react-scripts": "latest",
     "redux": "latest",
     "redux-devtools": "^3.4.1",
     "redux-devtools-dock-monitor": "^1.1.3",
