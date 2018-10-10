@@ -73,7 +73,7 @@ class GlobalFooter extends Component {
 
           <List inverted horizontal>
             <List.Item as={Link} to='/about'>About</List.Item>
-            <List.Item onClick={this.show}>Feedback</List.Item>
+            <List.Item as='a' onClick={this.show}>Feedback</List.Item>
           </List>
           </Container>
         </Segment>

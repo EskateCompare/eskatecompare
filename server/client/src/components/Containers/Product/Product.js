@@ -11,7 +11,6 @@ export default class Product extends React.Component {
     const { fetchProduct, match, fetchImpressions, product } = this.props;
     
     fetchProduct(match.params.slug);
-    fetchImpressions();
   }
 
   componentDidUpdate(prevProps) {
