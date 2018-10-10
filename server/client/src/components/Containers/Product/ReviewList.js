@@ -78,11 +78,12 @@ export default class ReviewList extends Component {
   }
 
   renderImpressions() {
-    if (!this.props.impressions) {
+    const { impressions } = this.props;
+
+    if (impressions.length === 0) {
       return
     }
-
-    const { impressions } = this.props;
+    
     const renderImpressions = impressions.map((impression, index) => {
       let yesVotes = impression.votes && impression.votes.yes ? impression.votes.yes : 0;
       let noVotes = impression.votes && impression.votes.no ? impression.votes.no : 0;

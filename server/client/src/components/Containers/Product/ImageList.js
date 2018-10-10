@@ -17,35 +17,30 @@ export default class ImageList extends Component {
     this.setState({ mainImage:  target.children.props.src })
   }
 
-  renderImages() {
-    const { image, additionalImages } = this.props.images;
+  // renderImages() {
+  //   const { image, additionalImages } = this.props.images;
 
-    const renderImages = additionalImages.map((image, index) => {
-      return (
-        <List.Item onClick={this.handleImageClick}>
-          <Image src={image.source} />
-        </List.Item>
-        )
-      }
-    );
+  //   const renderImages = additionalImages.map((image, index) => {
+  //     return (
+  //       <List.Item onClick={this.handleImageClick}>
+  //         <Image src={image.source} />
+  //       </List.Item>
+  //       )
+  //     }
+  //   );
 
-    return renderImages;
-  }
+  //   return renderImages;
+  // }
 
   render() {
     const { image } = this.props.images;
     const { mainImage } = this.state;
 
-    this.renderedImages = this.renderImages();
+    // this.renderedImages = this.renderImages();
 
     return (
-      <Grid columns={2}>
-        <Grid.Column width={3}>
-          <List>
-            {this.renderedImages}
-          </List>
-        </Grid.Column>
-        <Grid.Column width={13}>
+      <Grid columns={1}>
+        <Grid.Column width={16}>
           <ReactImageMagnify {...{
             smallImage: {
                 alt: '',
