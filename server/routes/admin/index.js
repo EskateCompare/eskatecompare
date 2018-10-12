@@ -8,6 +8,7 @@ router.use('/updateStats', require('./updateStats'));
 router.use('/images', require('./images'));
 router.use('/reviews', require('./reviews'));
 router.use('/data-io', require('./data-io'));
+router.use('/currencyConversionRatesDownload', require('./currencyConversionRatesDownload'));
 
 router.use(function(err, req, res, next) {  //4 args = error handler
   if (err.name === 'ValidationError'){

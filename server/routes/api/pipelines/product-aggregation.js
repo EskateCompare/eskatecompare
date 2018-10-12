@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Product = mongoose.model('Product')
 var _ = require('lodash');
+var currencyRates = require('../../common/currencyRates');
+var dottie = require('dottie');
 
 exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
   return new Promise(async function(resolve, reject) {
@@ -180,58 +182,12 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
         }
       )
 
-      //add field best price
-
-      pipeline.push(
-        {
-          $addFields: {
-            bestPrice: {
-              $min: { $concatArrays: ["$deals.salesPrice", ["$specs.msrp"]] }
-            }
-          }
-        }
-      )
-
-      //match price
-
-      var priceParamArray = [];
-
-      if (params.hasOwnProperty('price') && !_.includes(paramsSkipArray, 'price')) {
-
-
-
-        priceParamArray = params.price.split(',');
-
-        let priceMatch = {};
-
-        let priceMatchConditions = [];
-         priceParamArray.forEach(function(minMaxPair) {
-          minMaxPair = minMaxPair.split('-');
-          let matchObject = {};
-          if (minMaxPair.length > 1) {
-            matchObject['bestPrice'] = { $gte : Number(minMaxPair[0]), $lt : Number(minMaxPair[1]) }
-          } else {
-            matchObject['bestPrice'] = { $gte : Number(minMaxPair[0]) }
-          }
-          priceMatchConditions.push(matchObject)
-        })
-        priceMatch = { $or : priceMatchConditions  }
-
-        pipeline.push({
-          $match :  priceMatch
-        })
-      }
 
       //Add discount && popularity fields
 
       pipeline.push(
         {
           $addFields: {
-            discount: {
-              $subtract: [
-                "$specs.msrp", "$bestPrice"
-              ]
-            },
             popularity: {
               $sum: [
                 "$ratings.external.amount", "$ratings.internal.amount"
@@ -240,7 +196,7 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
           }
         }
       )
-
+      /*
       //Sort
 
       let sortKey = sortByDefault; //default
@@ -285,7 +241,7 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
       //limit
       pipeline.push({$limit: Number(perPage)})
 
-      } //end of skipLimit conditional
+    }*/ //end of skipLimit conditional
 
       //final lookups
       pipeline.push(
@@ -331,16 +287,178 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
 
       let products = await Product.aggregate(pipeline).cursor({}).exec();
 
+
       let returnProducts = [];
 
-      await products.eachAsync(function(prod) {   //iterates through cursor, and final formatting
+      await products.eachAsync(async function(prod) {   //iterates through cursor, and final formatting
+
         prod.brand = prod.brand[0];
         prod.image = prod.image[0];
         prod.thumbnail = prod.thumbnail[0];
+        if (prod.specs.msrpCurrency != "USD" && prod.specs.msrpCurrency != "") {
+          const oldMsrp = prod.specs.msrp;
+          const conversionRate = await currencyRates.getPairsRate(prod.specs.msrpCurrency, "USD");
+          prod['specs']['msrp'] = oldMsrp * conversionRate;
+        }
+        prod.deals.map(async function(deal) {
+          if (deal.currency != "USD" && deal.currency != "") {
+            const conversionRate = await currencyRates.getPairsRate(prod.specs.msrpCurrency, "USD");
+            deal.convertedPrice = deal.salesPrice * conversionRate;
+            deal.convertedCurrency = "USD";
+          } else {
+            deal.convertedPrice = deal.salesPrice;
+            deal.convertedCurrency = "USD";
+          }
+          return deal;
+        })
+
+        //custom filtering / transforming that requires custom functions
+
+      //add field best price
+      /*
+      pipeline.push(
+        {
+          $addFields: {
+            bestPrice: {
+              $min: { $concatArrays: ["$deals.salesPrice", ["$specs.msrp"]] }
+            }
+          }
+        }
+      )
+      */
+
+      if (prod.deals && prod.deals.length > 0) prod.bestPrice = prod.deals[0].convertedPrice;
+      else prod.bestPrice = prod.specs.msrp;
+
+      prod.deals.forEach(function(deal) {
+        if (deal.convertedPrice < prod.bestPrice) prod.bestPrice = deal.convertedPrice;
+      })
+      if (prod.specs.msrp < prod.bestPrice) prod.bestPrice = prod.specs.msrp;
+
+      console.log(prod.bestPrice);
+      //add discount field
+      /*$addFields: {
+        discount: {
+          $subtract: [
+            "$specs.msrp", "$bestPrice"
+          ]
+        },
+*/
+
+        prod.discount = prod.specs.msrp - prod.bestPrice;
+
         returnProducts.push(prod)
       })
 
-      resolve(returnProducts);
+      //match price
+
+      var priceParamArray = [];
+
+      let filteredProducts = [];
+
+      if (params.hasOwnProperty('price') && !_.includes(paramsSkipArray, 'price')) {
+
+        priceParamArray = params.price.split(',');
+
+        let priceMatch = {};
+
+        let priceMatchConditions = [];
+         priceParamArray.forEach(function(minMaxPair) {
+          minMaxPair = minMaxPair.split('-');
+          let matchObject = {};
+          if (minMaxPair.length > 1) {
+            //matchObject['bestPrice'] = { $gte : Number(minMaxPair[0]), $lt : Number(minMaxPair[1]) }
+            returnProducts.forEach(function(prod) {
+              if (prod.bestPrice >= Number(minMaxPair[0]) && prod.bestPrice <= Number(minMaxPair[1])) {
+                filteredProducts.push(prod);
+              }
+            })
+          } else {
+            //matchObject['bestPrice'] = { $gte : Number(minMaxPair[0]) }
+            returnProducts.forEach(function(prod) {
+              if (prod.bestPrice >= Number(minMaxPair[0])) {
+                filteredProducts.push(prod);
+              }
+            })
+          }
+          //priceMatchConditions.push(matchObject)
+        })
+        //priceMatch = { $or : priceMatchConditions  }
+        /*
+        pipeline.push({
+          $match :  priceMatch
+        })
+        */
+      } else {
+        filteredProducts = returnProducts;
+      }
+
+      //Sort
+
+      let sortKey = sortByDefault; //default
+
+      var sortParam = params.sortBy;
+
+      if (params.sortBy == 'popularity') sortKey = 'popularity';
+      if (params.sortBy == 'price') sortKey = 'bestPrice';
+      if (params.sortBy == 'rating') sortKey = 'ratings.compositeScore';
+      if (params.sortBy == 'discount') sortKey = 'discount';
+      if (params.sortBy == 'speed') sortKey = 'specs.speed';
+      if (params.sortBy == 'range') sortKey = 'specs.range';
+
+
+
+      var sortDir = params.sortDir;
+      var sortDirParam = sortDirDefault;
+      if (sortDir == 'asc') sortDirParam = 1;
+
+      //custom added
+      filteredProducts = filteredProducts.sort(function(a, b) {
+        if (sortDirParam == 1) {
+          return dottie.get(a, sortKey) - dottie.get(b, sortKey);
+        } else {
+          return dottie.get(b, sortKey) - dottie.get(a, sortKey);
+        }
+      })
+      /*
+      let sortObject = {};
+
+      sortObject[sortKey] = Number(sortDirParam);
+
+      pipeline.push( { $sort : sortObject } );
+      */
+      if (doSkipLimit) {
+
+      //Skip
+
+      var pageNum = pageNumDefault;
+      var perPage = perPageDefault;
+
+      if (params.hasOwnProperty('page')) {
+        pageNum = Number(params.page);
+      }
+      if (params.hasOwnProperty('perPage')) {
+        perPage = params.perPage;
+      }
+
+      var skip = (pageNum * Number(perPage)) - Number(perPage);
+
+      //added
+      var sliceEnd = skip + Number(perPage);
+
+      filteredProducts = filteredProducts.slice(skip, sliceEnd);
+
+      //end added
+      /*
+
+      pipeline.push({$skip: skip})
+
+      //limit
+      pipeline.push({$limit: Number(perPage)})
+      */
+    }
+
+      resolve(filteredProducts);
 
   })
 }

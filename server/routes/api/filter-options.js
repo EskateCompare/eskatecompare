@@ -242,8 +242,8 @@ function prepItemToAdd(counts, title, displayTitle, formType, logicType, attribu
      returnOption['count'] = counts[key];
      returnOption['checked'] = false;
      if (params.length > 0) {
-        console.log("HERE " + key);
-        console.log(params);
+        //console.log("HERE " + key);
+        //console.log(params);
        if (params.includes(key)) returnOption['checked'] = true;
      }
 
@@ -271,7 +271,7 @@ function prepItemToAdd(counts, title, displayTitle, formType, logicType, attribu
 
    })
 
-  console.log(optionsArray);
+  //console.log(optionsArray);
 
    let itemToAdd = {};
 

@@ -37,7 +37,9 @@
     "slug": "0.9.1",
     "underscore": "1.8.3",
     "fast-csv": "latest",
-    "dottie": "latest"
+    "dottie": "latest",
+    "money": "latest",
+    "axios": "latest"
   },
   "devDependencies": {
     "react-ga": "^2.5.3"

@@ -11,6 +11,7 @@ var DealSchema = new mongoose.Schema({
   url: String,
   originalPrice: Number,   //in currency of store
   salesPrice: Number, //in currency of store
+  currency: String,
   lastChecked: Date,
   availability: Boolean
 })
@@ -37,5 +38,5 @@ DealSchema.pre('remove', async function(doc, next) {
   console.log("HERE");
   console.log('doc',doc);
   //remove deal from associated product
-  
+
 })

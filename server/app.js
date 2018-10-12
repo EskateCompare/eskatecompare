@@ -55,6 +55,7 @@ require ('./models/Store');
 require ('./models/Deal');
 require ('./models/UpdateStats');
 require ('./models/Feedback');
+require('./models/CurrencyConversionRateDownload');
 
 
 app.use(require('./routes'));
