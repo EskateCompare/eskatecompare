@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
-
+var currencyRates = require('../common/currencyRates');
 var Product = mongoose.model('Product');
 
 router.get('/', function(req, res, next) {
@@ -14,32 +14,49 @@ router.get('/', function(req, res, next) {
       populate('deals').lean().exec().then(function(products) {
       let formattedSearchResults = [];
 
-
-      products.forEach(function(product) {
+      var searchItemBuildingPromises =
+      products.map(async function(product) {
+        return new Promise(async function(resolve, reject) {
           let formattedSearchItem = {};
-          console.log(product.name);
+          product.deals = product.deals.map(async function(deal) {
+            if (deal.currency != "USD" && deal.currency != "") {
+              deal.convertedPrice = await currencyRates.convertCurrency(deal.salesPrice, deal.currency, "USD");
+              return deal;
+            } else {
+              deal.convertedPrice = deal.salesPrice;
+              return deal;
+            }
+          })
+
+          if (product.specs.msrpCurrency != "USD" && product.specs.msrpCurrency != "") {
+            product.specs.msrp = await currencyRates.convertCurrency(Number(product.specs.msrp), product.specs.msrpCurrency, "USD")
+          }
+
           if (product.hasOwnProperty('deals') && product.deals.length > 0) {
             product.deals = product.deals.sort(function(a, b) {
-              return a.salesPrice - b.salesPrice;
+              return a.convertedPrice - b.convertedPrice;
             })
-            product.bestPrice = product.deals[0].salesPrice;
+            product.bestPrice = product.deals[0].convertedPrice;
           } else {
-
             product.bestPrice = product.hasOwnProperty('specs') ? product.specs.msrp : "??"
           }
+
 
           formattedSearchItem.title = product.name;
           formattedSearchItem.image = product.image.source;
           formattedSearchItem.price = product.bestPrice;
           formattedSearchItem.slug = product.slug;
 
+          //console.log(formattedSearchItem);
+
           formattedSearchResults.push(formattedSearchItem);
+          resolve();
+          })
       })
 
-
-
-
-      return res.json(formattedSearchResults);
+      Promise.all(searchItemBuildingPromises).then(function() {
+        return res.json(formattedSearchResults);
+      })
     })
 })
 

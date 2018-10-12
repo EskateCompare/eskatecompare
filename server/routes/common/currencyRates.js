@@ -48,6 +48,13 @@ const currencyFunctions = {
       return;
     })
   },
+  convertCurrency: async function(amount, from, to) {
+    let getPairsRate = this.getPairsRate.bind(this);
+    return new Promise(async function(resolve, reject) {
+      const conversionRate = await getPairsRate(from, to);
+      resolve(amount * conversionRate);
+    })
+  },
   getPairsRate : async function(from, to) {
   //  var self = this;
     let getUpdateCurrencyRates = this.getUpdateCurrencyRates.bind(this);

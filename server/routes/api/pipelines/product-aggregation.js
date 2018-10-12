@@ -335,7 +335,7 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
       })
       if (prod.specs.msrp < prod.bestPrice) prod.bestPrice = prod.specs.msrp;
 
-      console.log(prod.bestPrice);
+      //console.log(prod.bestPrice);
       //add discount field
       /*$addFields: {
         discount: {
