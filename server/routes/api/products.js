@@ -1,6 +1,7 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var pipeline = require('./pipelines/product-aggregation.js');
+var currencyRates = require('../common/currencyRates');
 
 var Product = mongoose.model('Product')
 let Impression = mongoose.model('Impression');
@@ -39,6 +40,28 @@ router.get('/:slug', async function(req, res, next) {
     style : styleRank,
     brand : brandRank
   }
+  let productDeals = [];
+
+  let productDealsPromises = product.deals.map(async function(deal) {
+    return new Promise(async function(resolve, reject) {
+    if (deal.currency != "USD" && deal.currency != "") {
+      deal.convertedSalesPrice = await currencyRates.convertCurrency(deal.salesPrice, deal.currency, "USD");
+      deal.convertedOriginalPrice = await currencyRates.convertCurrency(deal.originalPrice, deal.currency, "USD");
+      productDeals.push(deal);
+      resolve();
+    } else {
+      deal.convertedSalesPrice = deal.salesPrice;
+      deal.convertedOriginalPrice = deal.originalPrice;
+      productDeals.push(deal);
+      resolve();
+    }
+    })
+  })
+  await Promise.all(productDealsPromises);
+
+  product.deals = productDeals;
+
+  console.log(product.deals);
 
   product.deals = product.deals.sort(function(a, b) {
     return a.salesPrice - b.salesPrice;
@@ -51,6 +74,7 @@ router.get('/:slug', async function(req, res, next) {
 
   const frontEndMap = {
     "dbKey" :        ["year",        "terrain", "style",  "deckMaterials",     "drive",        "range",                  "speed",  "weight",       "maxWeight",    "batteryPower",               "hillGrade",                "speedModes",       "batteryCapacity",          "batteryWattHours",        "chargeTime",            "width",                       "length",                   "wheelDiameter",  "manufacturerWarranty",   "tags"],
+    "valueUnit" :    ["",               "",       "",            "",                "",         "miles",                   "mph",     "lbs",          "lbs",         "watts",                    "%",                            "",                   "mAh",                       "Wh",                    "minutes",          "inches",                       "inches",                    "mm",                    "months",        ""],
     "displayName" :  ["Year",        "Terrain", "Style",  "Deck Material",      "Motor",       "Range",                  "Speed",  "Weight",       "Max Load",      "Wattage",                   "Hill Grade",                "Speed Modes",      "Battery Capacity",         "Battery WattHours" ,      "Charge Time",          "Width",                       "Length",                    "Wheel Diameter",  "Manufacturer Warranty",  "Features"],
     "semanticIcon" : ["calendar check outline",   "road",    "adjust", "diamond", "power off", "map marker alternate", "dashboard", "balance scale", "weight",  "lightning",    "external square alternate",             "numbered list",    "battery three quarters",   "battery three quarters",       "time",                 "arrows alternate horizontal", "arrows alternate vertical", "dot circle",            "tty",                 "tags"]
   }
@@ -59,13 +83,14 @@ router.get('/:slug', async function(req, res, next) {
 
   for (var i = 0; i < frontEndMap.dbKey.length; i++) {
     var dbKey = frontEndMap.dbKey[i];
+    var valueUnit = frontEndMap.valueUnit[i];
     var displayName = frontEndMap.displayName[i];
     var semanticIcon = frontEndMap.semanticIcon[i];
 
     var displaySpecObject = {};
     displaySpecObject["displayName"] = displayName;
     displaySpecObject["icon"] = semanticIcon;
-    displaySpecObject["value"] = product.specs[dbKey];
+    displaySpecObject["value"] = product.specs[dbKey] ? product.specs[dbKey] + " " + valueUnit : "?";
 
     displaySpecs.push(displaySpecObject);
   }

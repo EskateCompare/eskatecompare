@@ -300,7 +300,7 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
           const conversionRate = await currencyRates.getPairsRate(prod.specs.msrpCurrency, "USD");
           prod['specs']['msrp'] = oldMsrp * conversionRate;
         }
-        prod.deals = [];
+        let productDeals = [];
         let productDealsPromises = prod.deals.map(async function(deal) {
           return new Promise(async function(resolve, reject) {
             if (deal.currency != "USD" && deal.currency != "") {
@@ -311,11 +311,12 @@ exports.aggregationFilter = function (params, doSkipLimit, paramsSkipArray) {
               deal.convertedPrice = deal.salesPrice;
               deal.convertedCurrency = "USD";
             }
-            prod.deals.push(deal);
+            productDeals.push(deal);
             resolve();
           })
         })
         await Promise.all(productDealsPromises);
+        prod.deals = productDeals;
         //custom filtering / transforming that requires custom functions
 
       //add field best price

@@ -34,7 +34,7 @@ export default class ListItem extends Component {
         <Table.Cell verticalAlign='middle'>{name}</Table.Cell>
         <Table.Cell verticalAlign='middle'>{speed} mph</Table.Cell>
         <Table.Cell verticalAlign='middle'>{range} m</Table.Cell>
-        <Table.Cell verticalAlign='middle'>{bestPrice != null ? '$' + bestPrice : "-"}</Table.Cell>
+        <Table.Cell verticalAlign='middle'>{bestPrice != null ? '$' + bestPrice.toFixed(2) : "-"}</Table.Cell>
         <Table.Cell verticalAlign='middle'>
 
         <Rating ratings={ratings} size='large' />

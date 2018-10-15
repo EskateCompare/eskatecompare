@@ -194,6 +194,12 @@ router.get('/', async function(req, res, next) {
 
     stats['totalMatching'] = products.length;
     stats['totalProducts'] = totalProducts;
+
+    let totalRecommendations = 0;
+
+    products.forEach(function(product) {
+      totalRecommendations += (product.ratings.recommendations.yes + product.ratings.recommendations.no + product.ratings.recommendations.maybe);
+    })
     /*
     stats['internalReviewsCount'] = internalReviewsCount;
     stats['externalReviewsCount'] = externalReviewsCount;
@@ -201,7 +207,7 @@ router.get('/', async function(req, res, next) {
     stats['internalReviewsAverage'] = internalReviewsAvg;
     stats['externalReviewsAverage'] = externalReviewsAvg;
     */
-    stats['internalReviewsCount'] = 0;
+    stats['internalReviewsCount'] = totalRecommendations;
     stats['externalReviewsCount'] = 0;
 
     stats['internalReviewsAverage'] = 0;

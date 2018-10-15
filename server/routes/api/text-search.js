@@ -18,21 +18,22 @@ router.get('/', function(req, res, next) {
       products.map(async function(product) {
         return new Promise(async function(resolve, reject) {
           let formattedSearchItem = {};
-          product.deals = [];
-          let productDeals = product.deals.map(async function(deal) {
+          let productDeals = [];
+          let productDealsPromises = product.deals.map(async function(deal) {
             return new Promise(async function(resolve, reject) {
             if (deal.currency != "USD" && deal.currency != "") {
               deal.convertedPrice = await currencyRates.convertCurrency(deal.salesPrice, deal.currency, "USD");
-              product.deals.push(deal);
+              productDeals.push(deal);
               resolve();
             } else {
               deal.convertedPrice = deal.salesPrice;
-              product.deals.push(deal);
+              productDeals.push(deal);
               resolve();
             }
             })
           })
-          await Promise.all(productDeals);
+          await Promise.all(productDealsPromises);
+          product.deals = productDeals;
           if (product.specs.msrpCurrency != "USD" && product.specs.msrpCurrency != "") {
             product.specs.msrp = await currencyRates.convertCurrency(Number(product.specs.msrp), product.specs.msrpCurrency, "USD")
           }
@@ -48,7 +49,7 @@ router.get('/', function(req, res, next) {
 
           formattedSearchItem.title = product.name;
           formattedSearchItem.image = product.image.source;
-          formattedSearchItem.price = product.bestPrice;
+          formattedSearchItem.price = product.bestPrice ? product.bestPrice.toFixed(2) : "??";
           formattedSearchItem.slug = product.slug;
 
           //console.log(formattedSearchItem);
