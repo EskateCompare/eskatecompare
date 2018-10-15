@@ -12,7 +12,7 @@ export default class DealList extends Component {
           <Table.Cell verticalAlign='middle'><Image centered src={store.logo} size='tiny' /></Table.Cell>
           <Table.Cell verticalAlign='middle'>${originalPrice}</Table.Cell>
           <Table.Cell verticalAlign='middle'><Label color='red' tag>${salesPrice}</Label></Table.Cell>
-          <Table.Cell verticalAlign='middle'><a href={url}><Button primary>See Deal</Button></a></Table.Cell>
+          <Table.Cell verticalAlign='middle'><a href={url} target="_blank"><Button primary>See Deal</Button></a></Table.Cell>
         </Table.Row>
         )
       }
@@ -32,5 +32,3 @@ export default class DealList extends Component {
     );
   }
 }
-
-  
