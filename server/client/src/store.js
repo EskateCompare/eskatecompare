@@ -20,9 +20,14 @@ const reducer = combineReducers({
   Product,
 })
 
+const enhancers = [];
 const middleware = applyMiddleware(thunkMiddleware, loggerMiddleware);
+enhancers.push(middleware);
+enhancers.push(autoRehydrate());
 
-const store = createStore(reducer, composeWithDevTools(middleware), autoRehydrate());
+const composedEnhancer = composeWithDevTools(...enhancers);
+
+const store = createStore(reducer, composedEnhancer);
 persistStore(store);
 
 export default store;
