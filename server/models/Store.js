@@ -7,6 +7,7 @@ var StoreSchema = new mongoose.Schema({
   name: { type: String, unique: true },
   logo: String,  //url
   homeUrl: String,
+  isManufacturer: Boolean,
   shipsTo: [String]  // 2 or 3 digit country code
 })
 

@@ -18,16 +18,21 @@ router.get('/', function(req, res, next) {
       products.map(async function(product) {
         return new Promise(async function(resolve, reject) {
           let formattedSearchItem = {};
-          product.deals = product.deals.map(async function(deal) {
+          product.deals = [];
+          let productDeals = product.deals.map(async function(deal) {
+            return new Promise(async function(resolve, reject) {
             if (deal.currency != "USD" && deal.currency != "") {
               deal.convertedPrice = await currencyRates.convertCurrency(deal.salesPrice, deal.currency, "USD");
-              return deal;
+              product.deals.push(deal);
+              resolve();
             } else {
               deal.convertedPrice = deal.salesPrice;
-              return deal;
+              product.deals.push(deal);
+              resolve();
             }
+            })
           })
-
+          await Promise.all(productDeals);
           if (product.specs.msrpCurrency != "USD" && product.specs.msrpCurrency != "") {
             product.specs.msrp = await currencyRates.convertCurrency(Number(product.specs.msrp), product.specs.msrpCurrency, "USD")
           }
@@ -36,11 +41,10 @@ router.get('/', function(req, res, next) {
             product.deals = product.deals.sort(function(a, b) {
               return a.convertedPrice - b.convertedPrice;
             })
-            product.bestPrice = product.deals[0].convertedPrice;
+            product['bestPrice'] = product.deals[0].convertedPrice;
           } else {
-            product.bestPrice = product.hasOwnProperty('specs') ? product.specs.msrp : "??"
+            product['bestPrice'] = product.hasOwnProperty('specs') ? product.specs.msrp : "??"
           }
-
 
           formattedSearchItem.title = product.name;
           formattedSearchItem.image = product.image.source;
