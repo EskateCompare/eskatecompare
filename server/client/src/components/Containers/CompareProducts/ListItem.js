@@ -30,7 +30,7 @@ export default class ListItem extends Component {
     return (
       <Table.Row onClick={this.handleRowClick}>
         <Table.Cell verticalAlign='middle'>#{rank}</Table.Cell>
-        <Table.Cell verticalAlign='middle'><Image centered src={thumbnail != undefined ? thumbnail.source : image.source} size='mini' /></Table.Cell>
+        <Table.Cell verticalAlign='middle'><Image centered src={thumbnail != undefined ? thumbnail.source : image.source} size='tiny' /></Table.Cell>
         <Table.Cell verticalAlign='middle'>{name}</Table.Cell>
         <Table.Cell verticalAlign='middle'>{speed} mph</Table.Cell>
         <Table.Cell verticalAlign='middle'>{range} m</Table.Cell>
