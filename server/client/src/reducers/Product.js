@@ -92,7 +92,7 @@ export default (state = defaultState, action) => {
         error: action.payload
     })
     case 'RECEIVE_POST_IMPRESSIONS':
-    console.log(action.payload, 'received')
+    // console.log(action.payload, 'received')
       for (let i in state.product.product.impressions) {
         if (state.product.product.impressions[i].impression.customId === action.payload.impression.customId) {
           state.product.product.impressions[i] = action.payload

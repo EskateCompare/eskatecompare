@@ -4,3 +4,10 @@ export function addUserRecommendation(payload) {
     payload
   }
 }
+
+export function addUserImpression(payload) {
+  return {
+    type: 'ADD_USER_IMPRESSION',
+    payload
+  }
+}

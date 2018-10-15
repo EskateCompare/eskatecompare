@@ -24,7 +24,7 @@ export default class Product extends React.Component {
   render() {
     const { product } = this.props.product;
     const { name, deals, reviews, brand, ratings, slug, impressions } = product;
-    const { fetchPostRecommend, addUserRecommendation, user, fetchPostImpressions } = this.props;
+    const { fetchPostRecommend, addUserRecommendation, addUserImpression, user, fetchPostImpressions } = this.props;
 
     if (this.props.fetching) {
       return (
@@ -85,6 +85,7 @@ export default class Product extends React.Component {
                 fetchPostImpressions={fetchPostImpressions}
                 slug={slug}
                 addUserRecommendation={addUserRecommendation}
+                addUserImpression={addUserImpression}
               />
             </Grid.Column>
           </Grid.Row>

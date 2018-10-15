@@ -17,9 +17,18 @@ export default class ReviewList extends Component {
       }
     }
 
+    // for (let impression of props.user.impressions){
+    //   if (impression.product === props.slug){
+    //     impression = impression.impression
+    //     didUserRecommend = true
+    //   }
+    // }
+
     this.state = {
       recommend: recommend,
       didUserRecommend: didUserRecommend,
+      // impressions: impressions,
+      // didUserImpression: didUserImpression,
       visible: true,
 
     }
@@ -62,9 +71,9 @@ export default class ReviewList extends Component {
   }
 
   handleImpression(event, target) {
-    const { fetchPostImpressions, slug } = this.props;
+    const { fetchPostImpressions, slug, addUserImpression } = this.props;
 
-    let requestObject =
+    const requestObject =
       {
         'product' : slug,
         'impression' : target.customId,
@@ -73,6 +82,12 @@ export default class ReviewList extends Component {
           'no' : target.value === 'no' ? 1 : 0,
         }
       }
+
+    addUserImpression({
+      product: slug,
+      impressionId: target.customId,
+      change: target.value,
+    });
 
     fetchPostImpressions(requestObject);
   }

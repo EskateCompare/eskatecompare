@@ -1,6 +1,7 @@
 const defaultState = {
   user: {
   	recommendations: [],
+    impressions: [],
   }
 };
 
@@ -20,10 +21,75 @@ export default (state = defaultState, action) => {
 
       return Object.assign({}, state, {
         user: {
+          ...state.user,
         	recommendations: recommendationsArr
+        }
+    })
+    case 'ADD_USER_IMPRESSION':
+    // console.log(action.payload, 'add-impression')
+    let impressionsArray = state.user.impressions
+    let productExists;
+
+    let product = {
+      name: '',
+      impressions: []
+    }
+
+    let impression = {
+      impressionId: '',
+      change: '',
+    }
+
+    if (state.user.impressions.length > 0) {
+      productExists = state.user.impressions.find((impression) => (impression.name === action.payload.product))       
+    }
+
+    product.name = action.payload.product
+    impression.impressionId = action.payload.impressionId
+    impression.change = action.payload.change
+
+    if (productExists) {
+      let impressionIdExists;
+      if (productExists.impressions.length > 0) {
+        impressionIdExists = productExists.impressions.find((impression) => (impression.impressionId === action.payload.impressionId))
+        console.log(impressionIdExists, ' imp id exists')
+        if (impressionIdExists) {
+          console.log('REPLACE IMPRESSION')
+          const index = productExists.impressions.findIndex((impression) => (impression.impressionId === action.payload.impressionId))
+          // console.log(index)
+          productExists.impressions[index] = impression
+          console.log(impressionIdExists, ' here')
+          // state.user.impressions[impressionIdExists] = impression
+          // console.log(state.user.impressions)
+          // console.log(state.user.impressions[impressionIdExists])
+        } else {
+          console.log('PUSH IMPRESSION')
+          productExists.impressions.push(impression)
+        }
+      }
+    
+  
+      // impressionsArray.push(productExists)
+    } else {
+      product.impressions.push(impression)
+      impressionsArray.push(product)
+    }
+
+      return Object.assign({}, state, {
+        user: {
+          ...state.user,
+          impressions: impressionsArray
         }
     })
     default:
       return state;
   }
 }
+
+
+      // product: [
+      //   product: action.payload.prodcut
+      //   impressions: 
+      //     impressionId: impressionId
+      //     change: change
+      // ]
