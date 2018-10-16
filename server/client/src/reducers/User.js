@@ -26,7 +26,6 @@ export default (state = defaultState, action) => {
         }
     })
     case 'ADD_USER_IMPRESSION':
-    // console.log(action.payload, 'add-impression')
     let impressionsArray = state.user.impressions
     let productExists;
 
@@ -52,24 +51,13 @@ export default (state = defaultState, action) => {
       let impressionIdExists;
       if (productExists.impressions.length > 0) {
         impressionIdExists = productExists.impressions.find((impression) => (impression.impressionId === action.payload.impressionId))
-        console.log(impressionIdExists, ' imp id exists')
         if (impressionIdExists) {
-          console.log('REPLACE IMPRESSION')
           const index = productExists.impressions.findIndex((impression) => (impression.impressionId === action.payload.impressionId))
-          // console.log(index)
           productExists.impressions[index] = impression
-          console.log(impressionIdExists, ' here')
-          // state.user.impressions[impressionIdExists] = impression
-          // console.log(state.user.impressions)
-          // console.log(state.user.impressions[impressionIdExists])
         } else {
-          console.log('PUSH IMPRESSION')
           productExists.impressions.push(impression)
         }
       }
-    
-  
-      // impressionsArray.push(productExists)
     } else {
       product.impressions.push(impression)
       impressionsArray.push(product)

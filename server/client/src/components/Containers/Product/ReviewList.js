@@ -17,18 +17,13 @@ export default class ReviewList extends Component {
       }
     }
 
-    // for (let impression of props.user.impressions){
-    //   if (impression.product === props.slug){
-    //     impression = impression.impression
-    //     didUserRecommend = true
-    //   }
-    // }
-
+    const didUserImpression = props.user.impressions.find((impression) => impression.name === props.slug)
+    console.log(didUserImpression, 'constructor')
     this.state = {
       recommend: recommend,
       didUserRecommend: didUserRecommend,
-      // impressions: impressions,
-      // didUserImpression: didUserImpression,
+      impressions: didUserImpression ? didUserImpression.impressions : undefined,
+      didUserImpression: didUserImpression ? true : false,
       visible: true,
 
     }
@@ -36,6 +31,16 @@ export default class ReviewList extends Component {
     this.handleRecommend = this.handleRecommend.bind(this);
     this.handleImpression = this.handleImpression.bind(this);
     this.toggleVisibility = this.toggleVisibility.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { user, slug } = this.props;
+
+    if (prevState.didUserImpression !== this.state.didUserImpression) {
+      const didUserImpression = user.impressions.find((impression) => impression.name === slug)
+      this.setState({impressions: didUserImpression.impressions})
+    }
+
   }
 
   toggleVisibility() {
@@ -71,6 +76,23 @@ export default class ReviewList extends Component {
   }
 
   handleImpression(event, target) {
+    const { impressions, didUserImpression } = this.state;
+
+    let eventObj = {
+      impressionId: target.customId,
+      change: target.value
+    }
+
+    let impressionExists;
+
+    if (didUserImpression) {
+       impressionExists = impressions.find((impression) => impression.impressionId == eventObj.impressionId)
+    }
+
+    if (impressionExists && impressionExists.change === eventObj.change) {
+      return
+    }
+
     const { fetchPostImpressions, slug, addUserImpression } = this.props;
 
     const requestObject =
@@ -90,6 +112,7 @@ export default class ReviewList extends Component {
     });
 
     fetchPostImpressions(requestObject);
+    this.setState({ didUserImpression: true })
   }
 
   renderImpressions() {
