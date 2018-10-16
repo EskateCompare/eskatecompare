@@ -9,6 +9,7 @@ export default class ReviewList extends Component {
 
     let recommend = '';
     let didUserRecommend = false;
+    let didUserImpression = false;
 
     for (let recommendation of props.user.recommendations){
       if (recommendation.product === props.slug){
@@ -17,8 +18,10 @@ export default class ReviewList extends Component {
       }
     }
 
-    const didUserImpression = props.user.impressions.find((impression) => impression.name === props.slug)
-    console.log(didUserImpression, 'constructor')
+    if (props.user.impressions) {
+      didUserImpression = props.user.impressions.find((impression) => impression.name === props.slug)
+    }
+
     this.state = {
       recommend: recommend,
       didUserRecommend: didUserRecommend,
